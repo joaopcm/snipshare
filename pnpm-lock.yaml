@@ -28,7 +28,6 @@ specifiers:
   tailwindcss: ^3.2.7
   typescript: ^4.9.3
   vite: ^4.1.0
-  vite-plugin-cross-origin-isolation: ^0.1.6
 
 dependencies:
   '@tiptap/core': 2.0.0-beta.218_@tiptap+pm@2.0.0-beta.218
@@ -60,7 +59,6 @@ devDependencies:
   tailwindcss: 3.2.7_postcss@8.4.21
   typescript: 4.9.5
   vite: 4.1.4
-  vite-plugin-cross-origin-isolation: 0.1.6
 
 packages:
 
@@ -4018,10 +4016,6 @@ packages:
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
     dev: false
-
-  /vite-plugin-cross-origin-isolation/0.1.6:
-    resolution: {integrity: sha512-OY0naW9nPUDrKTffYnY7FRYXOgZdHoNwMGpPxUmj/n32mGZi01fcq+J536jkmwGWX7DLT95XBQVHHbrAJzTvrw==}
-    dev: true
 
   /vite/4.1.4:
     resolution: {integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==}
