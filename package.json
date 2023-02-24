@@ -9,7 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tiptap/core": "2.0.0-beta.218",
+    "@tiptap/extension-document": "2.0.0-beta.218",
+    "@tiptap/extension-placeholder": "2.0.0-beta.218",
+    "@tiptap/pm": "2.0.0-beta.218",
+    "@tiptap/react": "2.0.0-beta.218",
+    "@tiptap/starter-kit": "2.0.0-beta.218",
+    "@uiw/codemirror-theme-aura": "^4.19.9",
+    "@uiw/codemirror-themes": "^4.19.9",
+    "@uiw/react-codemirror": "^4.19.9",
+    "@uiw/react-textarea-code-editor": "^2.1.1",
     "@vercel/analytics": "^0.1.10",
+    "@webcontainer/api": "^1.0.2",
+    "ansi-to-html": "^0.7.2",
+    "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
