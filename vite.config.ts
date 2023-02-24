@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     cors: true,
-    // headers: {
-    //   "Cross-Origin-Embedder-Policy": "require-corp",
-    //   "Cross-Origin-Opener-Policy": "same-origin",
-    //   "Cross-Origin-Resource-Policy": "cross-origin",
-    // },
+    headers: {
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Resource-Policy": "cross-origin",
+    },
   },
 });
