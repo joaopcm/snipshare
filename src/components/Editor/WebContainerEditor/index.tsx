@@ -4,12 +4,16 @@ import ANSIToHTML from "ansi-to-html";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { getWebContainerInstance } from "../../../lib/web-container";
 import { useState } from "react";
+import { extractDependencies } from "../../../lib/extract-dependencies";
 
 const initialCode = [
   `import 'isomorphic-fetch';`,
-  `import chalk from 'chalk';`,
   ``,
-  `console.log(chalk.green("Hello World"));`,
+  `fetch("https://api.github.com/users/joaopcm")`,
+  `  .then((response) => response.json())`,
+  `  .then((data) => {`,
+  `    console.log(data);`,
+  `  });`,
 ].join("\n");
 
 const ANSIConverter = new ANSIToHTML();
@@ -23,6 +27,7 @@ export function WebContainerEditor() {
     setIsRunning(true);
 
     const webContainer = await getWebContainerInstance();
+    const dependenciesToInstall = extractDependencies(code);
 
     await webContainer.mount({
       "index.js": {
@@ -37,8 +42,9 @@ export function WebContainerEditor() {
               "name": "example-app",
               "type": "module",
               "dependencies": {
-                "chalk": "latest",
-                "isomorphic-fetch": "latest"
+                ${dependenciesToInstall
+                  .map((dep) => `"${dep}": "latest"`)
+                  .join(",")}
               },
               "scripts": {
                 "start": "node index.js"
@@ -49,9 +55,19 @@ export function WebContainerEditor() {
       },
     });
 
+    setOutput(["🔍 Looking for dependencies to install..."]);
+    setOutput((state) => [
+      ...state,
+      `📦 Found ${dependenciesToInstall.length} dependencies to install!`,
+    ]);
+
     const install = await webContainer.spawn("pnpm", ["i"]);
 
-    setOutput(["🔥 Installing dependencies!"]);
+    setOutput((state) => [
+      ...state,
+      "---------",
+      "🚧 Installing dependencies...",
+    ]);
 
     install.output.pipeTo(
       new WritableStream({
@@ -105,9 +121,12 @@ export function WebContainerEditor() {
       >
         {output.length > 0 ? (
           <div className="font-monospace text-xs leading-loose">
-            {output.map((line) => {
+            {output.map((line, index) => {
               return (
-                <p key={line} dangerouslySetInnerHTML={{ __html: line }} />
+                <p
+                  key={`${line}-${index}`}
+                  dangerouslySetInnerHTML={{ __html: line }}
+                />
               );
             })}
           </div>
