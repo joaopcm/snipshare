@@ -1,11 +1,10 @@
-import { NodeViewWrapper } from '@tiptap/react'
-import { Lightning, Spinner } from 'phosphor-react'
-import ANSIToHTML from 'ansi-to-html'
-// import CodeEditor from '@uiw/react-textarea-code-editor'
-import { getWebContainerInstance } from '@/helpers//web-container'
-import { useState } from 'react'
-import { extractDependencies } from '@/helpers/extract-dependencies'
 import dynamic from 'next/dynamic'
+import { useState } from 'react'
+import ANSIToHTML from 'ansi-to-html'
+import { Lightning, Spinner } from 'phosphor-react'
+import { NodeViewWrapper } from '@tiptap/react'
+import { getWebContainerInstance } from '@/helpers/web-container'
+import { extractDependencies } from '@/helpers/extract-dependencies'
 
 const CodeEditor = dynamic(
   () => import('@uiw/react-textarea-code-editor').then((mod) => mod.default),
@@ -109,7 +108,7 @@ export function WebContainerEditor() {
       <CodeEditor
         value={code}
         language="js"
-        placeholder="Please enter JS code only."
+        placeholder="Please enter JS code."
         onChange={(event) => setCode(event.target.value)}
         minHeight={80}
         padding={20}
