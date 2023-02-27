@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-omni-dark text-slate-200;
+}
+
+.node-editorBlock {
+  margin: 2rem 0;
+}
