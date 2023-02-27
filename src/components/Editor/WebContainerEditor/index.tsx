@@ -1,9 +1,13 @@
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import ANSIToHTML from 'ansi-to-html'
 import { Lightning, Spinner } from 'phosphor-react'
 import { NodeViewWrapper } from '@tiptap/react'
-import { getWebContainerInstance } from '@/helpers/web-container'
+import {
+  getWebContainerInstance,
+  installDependencies,
+  printNodeJSVersion,
+  runCode,
+} from '@/helpers/web-container'
 import { extractDependencies } from '@/helpers/extract-dependencies'
 
 const CodeEditor = dynamic(
@@ -20,8 +24,6 @@ const initialCode = [
   `    console.log(data);`,
   `  });`,
 ].join('\n')
-
-const ANSIConverter = new ANSIToHTML()
 
 export function WebContainerEditor() {
   const [code, setCode] = useState(initialCode)
@@ -60,41 +62,9 @@ export function WebContainerEditor() {
       },
     })
 
-    setOutput(['🔍 Looking for dependencies to install...'])
-    setOutput((state) => [
-      ...state,
-      `📦 Found ${dependenciesToInstall.length} dependencies to install!`,
-    ])
-
-    const install = await webContainer.spawn('pnpm', ['i'])
-
-    setOutput((state) => [
-      ...state,
-      '---------',
-      '🚧 Installing dependencies...',
-    ])
-
-    install.output.pipeTo(
-      new WritableStream({
-        write(data) {
-          setOutput((state) => [...state, ANSIConverter.toHtml(data)])
-        },
-      }),
-    )
-
-    await install.exit
-
-    setOutput((state) => [...state, '---------', '🚀 Running the application!'])
-
-    const start = await webContainer.spawn('pnpm', ['start'])
-
-    start.output.pipeTo(
-      new WritableStream({
-        write(data) {
-          setOutput((state) => [...state, ANSIConverter.toHtml(data)])
-        },
-      }),
-    )
+    await printNodeJSVersion(setOutput)
+    await installDependencies(setOutput, dependenciesToInstall)
+    await runCode(setOutput)
 
     setIsRunning(false)
   }

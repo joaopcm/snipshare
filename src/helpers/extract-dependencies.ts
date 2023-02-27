@@ -1,4 +1,4 @@
-export function extractDependencies(jsCode: string) {
+export function extractDependencies(jsCode: string): string[] {
   const importStatements =
     jsCode.match(/import\s.*?(?:from\s)?['"](.*?)['"]/g) || []
   const requireStatements = jsCode.match(/require\s*\(['"](.*?)['"]\)/g) || []
@@ -9,17 +9,15 @@ export function extractDependencies(jsCode: string) {
     ...globalImportStatements,
   ]
 
-  const dependencies = allStatements.map((statement) => {
+  const dependencies = new Map()
+
+  allStatements.forEach((statement) => {
     const matches = statement.match(/['"](.*?)['"]/)
 
     if (matches && matches[1]) {
-      return matches[1]
+      dependencies.set(matches[1], true)
     }
-
-    return null
   })
 
-  const validDependencies = dependencies.filter((dep) => dep !== null)
-
-  return [...new Set(validDependencies)]
+  return Array.from(dependencies.keys())
 }
