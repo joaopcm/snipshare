@@ -74,5 +74,5 @@ export async function runCode(setOutput: Dispatch<SetStateAction<string[]>>) {
     setOutput((state) => [...state, `🌎 Server is running on ${url}`])
   })
 
-  // await startProcess.exit
+  return startProcess.exit
 }
