@@ -1,24 +1,22 @@
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
-import "./styles/placeholder.css";
+import Document from '@tiptap/extension-document'
+import Placeholder from '@tiptap/extension-placeholder'
 
-import Document from "@tiptap/extension-document";
-import Placeholder from "@tiptap/extension-placeholder";
-
-import { EditorBlock } from "./plugins/EditorBlock";
-import { TrailingNode } from "./plugins/TrailingNode";
+import { EditorBlock } from './plugins/EditorBlock'
+import { TrailingNode } from './plugins/TrailingNode'
 
 export function Editor() {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: "prose prose-invert focus:outline-none",
+        class: 'prose prose-invert focus:outline-none',
       },
     },
     extensions: [
       Document.extend({
-        content: "heading block*",
+        content: 'heading block*',
       }),
       StarterKit.configure({
         codeBlock: false,
@@ -26,22 +24,22 @@ export function Editor() {
       }),
       Placeholder.configure({
         placeholder: ({ node }) => {
-          if (node.type.name === "heading") {
-            return "Untitled";
+          if (node.type.name === 'heading') {
+            return 'Untitled'
           }
 
-          if (node.type.name === "editorBlock") {
-            return "";
+          if (node.type.name === 'editorBlock') {
+            return ''
           }
 
-          return "Build your notes using Markdown... Plus, have all the code blocks interactively run in the browser 🚀";
+          return 'Build your notes using Markdown... Plus, have all the code blocks interactively run in the browser 🚀'
         },
       }),
       EditorBlock,
       TrailingNode,
     ],
     content: ``,
-  });
+  })
 
-  return <EditorContent editor={editor} />;
+  return <EditorContent editor={editor} />
 }

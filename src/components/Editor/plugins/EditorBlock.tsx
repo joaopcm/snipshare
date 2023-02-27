@@ -1,26 +1,26 @@
-import { Node, textblockTypeInputRule } from "@tiptap/core";
-import { mergeAttributes, ReactNodeViewRenderer } from "@tiptap/react";
+import { Node, textblockTypeInputRule } from '@tiptap/core'
+import { mergeAttributes, ReactNodeViewRenderer } from '@tiptap/react'
 
-import { WebContainerEditor } from "../WebContainerEditor";
+import { WebContainerEditor } from '../WebContainerEditor'
 
-export const backtickInputRegex = /^```([a-z]+)?[\s\n]$/;
+export const backtickInputRegex = /^```([a-z]+)?[\s\n]$/
 
 export const EditorBlock = Node.create({
-  name: "editorBlock",
-  content: "text*",
-  marks: "",
-  group: "block",
+  name: 'editorBlock',
+  content: 'text*',
+  marks: '',
+  group: 'block',
   code: true,
   defining: true,
   isolating: true,
 
   addOptions() {
     return {
-      languageClassPrefix: "language-",
+      languageClassPrefix: 'language-',
       exitOnTripleEnter: true,
       exitOnArrowDown: true,
       HTMLAttributes: {},
-    };
+    }
   },
 
   addInputRules() {
@@ -29,26 +29,26 @@ export const EditorBlock = Node.create({
         find: backtickInputRegex,
         type: this.type,
       }),
-    ];
+    ]
   },
 
   addKeyboardShortcuts() {
     return {
       Enter: ({ editor }) => {
-        return false;
+        return false
       },
-    };
+    }
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(WebContainerEditor);
+    return ReactNodeViewRenderer(WebContainerEditor)
   },
 
   parseHTML() {
-    return [{ tag: "editor-block" }];
+    return [{ tag: 'editor-block' }]
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ["editor-block", mergeAttributes(HTMLAttributes)];
+    return ['editor-block', mergeAttributes(HTMLAttributes)]
   },
-});
+})

@@ -1,10 +1,15 @@
-import { NodeViewWrapper } from "@tiptap/react";
-import { Lightning, Spinner } from "phosphor-react";
-import ANSIToHTML from "ansi-to-html";
-import CodeEditor from "@uiw/react-textarea-code-editor";
-import { getWebContainerInstance } from "../../../lib/web-container";
-import { useState } from "react";
-import { extractDependencies } from "../../../lib/extract-dependencies";
+import dynamic from 'next/dynamic'
+import { useState } from 'react'
+import ANSIToHTML from 'ansi-to-html'
+import { Lightning, Spinner } from 'phosphor-react'
+import { NodeViewWrapper } from '@tiptap/react'
+import { getWebContainerInstance } from '@/helpers/web-container'
+import { extractDependencies } from '@/helpers/extract-dependencies'
+
+const CodeEditor = dynamic(
+  () => import('@uiw/react-textarea-code-editor').then((mod) => mod.default),
+  { ssr: false },
+)
 
 const initialCode = [
   `import 'isomorphic-fetch';`,
@@ -14,28 +19,28 @@ const initialCode = [
   `  .then((data) => {`,
   `    console.log(data);`,
   `  });`,
-].join("\n");
+].join('\n')
 
-const ANSIConverter = new ANSIToHTML();
+const ANSIConverter = new ANSIToHTML()
 
 export function WebContainerEditor() {
-  const [code, setCode] = useState(initialCode);
-  const [output, setOutput] = useState<string[]>([]);
-  const [isRunning, setIsRunning] = useState(false);
+  const [code, setCode] = useState(initialCode)
+  const [output, setOutput] = useState<string[]>([])
+  const [isRunning, setIsRunning] = useState(false)
 
   async function handleEvaluateCode() {
-    setIsRunning(true);
+    setIsRunning(true)
 
-    const webContainer = await getWebContainerInstance();
-    const dependenciesToInstall = extractDependencies(code);
+    const webContainer = await getWebContainerInstance()
+    const dependenciesToInstall = extractDependencies(code)
 
     await webContainer.mount({
-      "index.js": {
+      'index.js': {
         file: {
           contents: code,
         },
       },
-      "package.json": {
+      'package.json': {
         file: {
           contents: `
             {
@@ -44,7 +49,7 @@ export function WebContainerEditor() {
               "dependencies": {
                 ${dependenciesToInstall
                   .map((dep) => `"${dep}": "latest"`)
-                  .join(",")}
+                  .join(',')}
               },
               "scripts": {
                 "start": "node index.js"
@@ -53,53 +58,49 @@ export function WebContainerEditor() {
           `.trim(),
         },
       },
-    });
+    })
 
-    setOutput(["🔍 Looking for dependencies to install..."]);
+    setOutput(['🔍 Looking for dependencies to install...'])
     setOutput((state) => [
       ...state,
       `📦 Found ${dependenciesToInstall.length} dependencies to install!`,
-    ]);
+    ])
 
-    const install = await webContainer.spawn("pnpm", ["i"]);
+    const install = await webContainer.spawn('pnpm', ['i'])
 
     setOutput((state) => [
       ...state,
-      "---------",
-      "🚧 Installing dependencies...",
-    ]);
+      '---------',
+      '🚧 Installing dependencies...',
+    ])
 
     install.output.pipeTo(
       new WritableStream({
         write(data) {
-          setOutput((state) => [...state, ANSIConverter.toHtml(data)]);
+          setOutput((state) => [...state, ANSIConverter.toHtml(data)])
         },
-      })
-    );
+      }),
+    )
 
-    await install.exit;
+    await install.exit
 
-    setOutput((state) => [
-      ...state,
-      "---------",
-      "🚀 Running the application!",
-    ]);
+    setOutput((state) => [...state, '---------', '🚀 Running the application!'])
 
-    const start = await webContainer.spawn("pnpm", ["start"]);
+    const start = await webContainer.spawn('pnpm', ['start'])
 
     start.output.pipeTo(
       new WritableStream({
         write(data) {
-          setOutput((state) => [...state, ANSIConverter.toHtml(data)]);
+          setOutput((state) => [...state, ANSIConverter.toHtml(data)])
         },
-      })
-    );
+      }),
+    )
 
-    setIsRunning(false);
+    setIsRunning(false)
   }
 
   function handleStopEvaluation() {
-    setIsRunning(false);
+    setIsRunning(false)
   }
 
   return (
@@ -107,7 +108,7 @@ export function WebContainerEditor() {
       <CodeEditor
         value={code}
         language="js"
-        placeholder="Please enter JS code only."
+        placeholder="Please enter JS code."
         onChange={(event) => setCode(event.target.value)}
         minHeight={80}
         padding={20}
@@ -127,7 +128,7 @@ export function WebContainerEditor() {
                   key={`${line}-${index}`}
                   dangerouslySetInnerHTML={{ __html: line }}
                 />
-              );
+              )
             })}
           </div>
         ) : (
@@ -166,5 +167,5 @@ export function WebContainerEditor() {
         </div>
       </div>
     </NodeViewWrapper>
-  );
+  )
 }
