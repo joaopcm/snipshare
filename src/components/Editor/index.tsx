@@ -7,6 +7,8 @@ import Placeholder from '@tiptap/extension-placeholder'
 import { EditorBlock } from './plugins/EditorBlock'
 import { TrailingNode } from './plugins/TrailingNode'
 
+import { DEFAULT_DESCRIPTION } from '@/config/seo.config'
+
 export function Editor() {
   const editor = useEditor({
     editorProps: {
@@ -32,7 +34,7 @@ export function Editor() {
             return ''
           }
 
-          return 'Build your notes using Markdown... Plus, have all the code blocks interactively run in the browser 🚀'
+          return DEFAULT_DESCRIPTION
         },
       }),
       EditorBlock,
