@@ -1,10 +1,16 @@
 import { NodeViewWrapper } from '@tiptap/react'
 import { Lightning, Spinner } from 'phosphor-react'
 import ANSIToHTML from 'ansi-to-html'
-import CodeEditor from '@uiw/react-textarea-code-editor'
+// import CodeEditor from '@uiw/react-textarea-code-editor'
 import { getWebContainerInstance } from '@/helpers//web-container'
 import { useState } from 'react'
 import { extractDependencies } from '@/helpers/extract-dependencies'
+import dynamic from 'next/dynamic'
+
+const CodeEditor = dynamic(
+  () => import('@uiw/react-textarea-code-editor').then((mod) => mod.default),
+  { ssr: false },
+)
 
 const initialCode = [
   `import 'isomorphic-fetch';`,
