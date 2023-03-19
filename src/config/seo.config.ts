@@ -1,11 +1,11 @@
 import { DefaultSeoProps } from 'next-seo/lib'
 
-const DEFAULT_TITLE = 'NodePad'
+const DEFAULT_TITLE = 'Nodepad'
 export const DEFAULT_DESCRIPTION =
   'Build your notes using Markdown... Plus, have all the code blocks interactively run in the browser 🚀'
 
 export const SEOConfig: DefaultSeoProps = {
-  titleTemplate: 'NodePad | %s',
+  titleTemplate: 'Nodepad | %s',
   defaultTitle: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
   canonical: 'https://nodepad.jopcmelo.dev',
@@ -23,7 +23,7 @@ export const SEOConfig: DefaultSeoProps = {
     type: 'website',
     locale: 'en_US',
     url: 'https://nodepad.jopcmelo.dev',
-    siteName: 'NodePad',
+    siteName: 'Nodepad',
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     images: [
@@ -31,7 +31,7 @@ export const SEOConfig: DefaultSeoProps = {
         url: 'https://nodepad.jopcmelo.dev/logo.png',
         width: 1200,
         height: 630,
-        alt: 'NodePad logo',
+        alt: 'Nodepad logo',
       },
     ],
   },

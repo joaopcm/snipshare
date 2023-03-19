@@ -1,11 +1,17 @@
 import { Editor } from '@/components/Editor'
+import { Menu } from '@/components/Menu'
 
 export default function Home() {
   return (
-    <div className="h-screen bg-omni-dark flex">
-      <main className="flex-1 px-10 py-16 max-w-3xl mx-auto">
-        <Editor />
-      </main>
-    </div>
+    <>
+      <Menu />
+      <div className="h-screen bg-omni-dark flex max-w-3xl mx-auto">
+        <main className="flex-1">
+          <div className="px-10 py-16">
+            <Editor />
+          </div>
+        </main>
+      </div>
+    </>
   )
 }
