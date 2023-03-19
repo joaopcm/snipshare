@@ -43,5 +43,15 @@ export function Editor() {
     content: ``,
   })
 
+  editor?.on('update', ({ transaction, editor }) => {
+    if (transaction.docChanged) {
+      console.log(editor.getHTML())
+    }
+  })
+
+  // if (editor) {
+  //   console.log(editor.getHTML())
+  // }
+
   return <EditorContent editor={editor} />
 }
