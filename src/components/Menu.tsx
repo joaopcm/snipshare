@@ -1,14 +1,60 @@
 import Image from 'next/image'
-import { RocketLaunch } from 'phosphor-react'
+import { useRouter } from 'next/router'
+import { RocketLaunch, Plus } from 'phosphor-react'
 
 import nodepadLogo from '@/images/logo.webp'
 import { useEditor } from '@/contexts/EditorContext'
+import { save } from '@/services/api'
 
 export function Menu() {
-  const { editor } = useEditor()
+  const { editor, codeSnippet, resetCodeSnippet } = useEditor()
+  const router = useRouter()
 
-  const saveNote = () => {
-    console.log(editor?.getHTML())
+  const isEditing = router.pathname === '/[id]'
+
+  const newNote = () => {
+    editor?.commands.setContent('')
+    resetCodeSnippet()
+    router.push({ pathname: '/' })
+  }
+
+  const saveNote = async () => {
+    const html = editor?.getHTML()
+
+    if (!html) return
+
+    await save({
+      html,
+      codeSnippet,
+    })
+  }
+
+  const Button = () => {
+    if (isEditing) {
+      return (
+        <button
+          type="button"
+          onClick={() => newNote()}
+          contentEditable={false}
+          className="text-xs bg-emerald-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600"
+        >
+          <Plus weight="bold" color="#FFF" size={14} />
+          Create a new note
+        </button>
+      )
+    }
+
+    return (
+      <button
+        type="button"
+        onClick={() => saveNote()}
+        contentEditable={false}
+        className="text-xs bg-emerald-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600"
+      >
+        <RocketLaunch weight="bold" color="#FFF" size={14} />
+        Save this note
+      </button>
+    )
   }
 
   return (
@@ -27,15 +73,7 @@ export function Menu() {
           </div>
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <button
-                type="button"
-                onClick={() => saveNote()}
-                contentEditable={false}
-                className="text-xs bg-emerald-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600"
-              >
-                <RocketLaunch weight="bold" color="#FFF" size={14} />
-                Save this note
-              </button>
+              <Button />
             </div>
           </div>
         </div>

@@ -1,13 +1,17 @@
-export async function save() {
+export async function save(requestBody: { html: string; codeSnippet: string }) {
   const response = await fetch('/api/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      code: 'console.log("Hello World")',
-    }),
+    body: JSON.stringify(requestBody),
   }).then((res) => res.json())
 
-  console.log(response)
+  return response
+}
+
+export async function get(id: string) {
+  const response = await fetch(`/api/${id}`).then((res) => res.json())
+
+  return response
 }

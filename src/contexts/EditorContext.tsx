@@ -10,13 +10,32 @@ import { DEFAULT_DESCRIPTION } from '@/config/seo.config'
 
 interface EditorContextValue {
   editor: Editor | null
+  codeSnippet: string
+  setCodeSnippet: React.Dispatch<React.SetStateAction<string>>
+  resetCodeSnippet: () => void
 }
 
 const EditorContext = createContext<EditorContextValue>(
   {} as EditorContextValue,
 )
 
+const initialCode = [
+  `import 'isomorphic-fetch';`,
+  ``,
+  `fetch("https://api.github.com/users/joaopcm")`,
+  `  .then((response) => response.json())`,
+  `  .then((data) => {`,
+  `    console.log(data);`,
+  `  });`,
+].join('\n')
+
 export function EditorProvider({ children }: { children: React.ReactNode }) {
+  const [codeSnippet, setCodeSnippet] = React.useState<string>(initialCode)
+
+  const resetCodeSnippet = () => {
+    setCodeSnippet(initialCode)
+  }
+
   const editor = useEditorHook({
     editorProps: {
       attributes: {
@@ -51,14 +70,17 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
   })
 
   return (
-    <EditorContext.Provider value={{ editor }}>
+    <EditorContext.Provider
+      value={{ editor, codeSnippet, setCodeSnippet, resetCodeSnippet }}
+    >
       {children}
     </EditorContext.Provider>
   )
 }
 
 export function useEditor() {
-  const { editor } = useContext(EditorContext)
+  const { editor, codeSnippet, setCodeSnippet, resetCodeSnippet } =
+    useContext(EditorContext)
 
-  return { editor }
+  return { editor, codeSnippet, setCodeSnippet, resetCodeSnippet }
 }

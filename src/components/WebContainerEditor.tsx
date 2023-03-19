@@ -11,37 +11,28 @@ import {
 import '@uiw/react-textarea-code-editor/dist.css'
 
 import { extractDependencies } from '@/helpers/extract-dependencies'
+import { useEditor } from '@/contexts/EditorContext'
 
 const CodeEditor = dynamic(
   () => import('@uiw/react-textarea-code-editor').then((mod) => mod.default),
   { ssr: false },
 )
 
-const initialCode = [
-  `import 'isomorphic-fetch';`,
-  ``,
-  `fetch("https://api.github.com/users/joaopcm")`,
-  `  .then((response) => response.json())`,
-  `  .then((data) => {`,
-  `    console.log(data);`,
-  `  });`,
-].join('\n')
-
 export function WebContainerEditor() {
-  const [code, setCode] = useState(initialCode)
   const [output, setOutput] = useState<string[]>([])
   const [isRunning, setIsRunning] = useState(false)
+  const { codeSnippet, setCodeSnippet } = useEditor()
 
   async function handleEvaluateCode() {
     setIsRunning(true)
 
     const webContainer = await getWebContainerInstance()
-    const dependenciesToInstall = extractDependencies(code)
+    const dependenciesToInstall = extractDependencies(codeSnippet)
 
     await webContainer.mount({
       'index.js': {
         file: {
-          contents: code,
+          contents: codeSnippet,
         },
       },
       'package.json': {
@@ -79,10 +70,10 @@ export function WebContainerEditor() {
     <>
       <NodeViewWrapper className="not-prose">
         <CodeEditor
-          value={code}
+          value={codeSnippet}
           language="js"
           placeholder="Please enter JS code."
-          onChange={(event) => setCode(event.target.value)}
+          onChange={(event) => setCodeSnippet(event.target.value)}
           minHeight={80}
           padding={20}
           spellCheck={false}

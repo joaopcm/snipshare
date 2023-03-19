@@ -13,13 +13,13 @@ export default async function handler(
 
     const { db } = await connectToDatabase()
 
-    const newNote = await db.collection('notes').insertOne(JSON.parse(req.body))
+    const newNote = await db.collection('notes').insertOne(req.body)
 
     return res.status(200).json({
       id: newNote.insertedId,
     })
   } catch (error) {
-    return res.json({
+    return res.status(500).json({
       message: 'Something went wrong',
     })
   }
