@@ -1,16 +1,23 @@
-import { useEditor, EditorContent } from '@tiptap/react'
+import React, { createContext, useContext } from 'react'
+import { useEditor as useEditorHook, Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-
 import Document from '@tiptap/extension-document'
 import Placeholder from '@tiptap/extension-placeholder'
 
-import { EditorBlock } from './plugins/EditorBlock'
-import { TrailingNode } from './plugins/TrailingNode'
-
+import { EditorBlock } from '@/components/EditorBlock'
+import { TrailingNode } from '@/components/TrailingNode'
 import { DEFAULT_DESCRIPTION } from '@/config/seo.config'
 
-export function Editor() {
-  const editor = useEditor({
+interface EditorContextValue {
+  editor: Editor | null
+}
+
+const EditorContext = createContext<EditorContextValue>(
+  {} as EditorContextValue,
+)
+
+export function EditorProvider({ children }: { children: React.ReactNode }) {
+  const editor = useEditorHook({
     editorProps: {
       attributes: {
         class: 'prose prose-invert focus:outline-none',
@@ -29,11 +36,9 @@ export function Editor() {
           if (node.type.name === 'heading') {
             return 'Untitled'
           }
-
           if (node.type.name === 'editorBlock') {
             return ''
           }
-
           return DEFAULT_DESCRIPTION
         },
       }),
@@ -43,15 +48,23 @@ export function Editor() {
     content: ``,
   })
 
-  editor?.on('update', ({ transaction, editor }) => {
-    if (transaction.docChanged) {
-      console.log(editor.getHTML())
-    }
-  })
-
   // if (editor) {
-  //   console.log(editor.getHTML())
+  //   editor.on('update', ({ transaction, editor }) => {
+  //     if (transaction.docChanged) {
+  //       console.log(editor.getHTML())
+  //     }
+  //   })
   // }
 
-  return <EditorContent editor={editor} />
+  return (
+    <EditorContext.Provider value={{ editor }}>
+      {children}
+    </EditorContext.Provider>
+  )
+}
+
+export function useEditor() {
+  const { editor } = useContext(EditorContext)
+
+  return editor
 }

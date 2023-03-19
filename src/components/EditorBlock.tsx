@@ -1,7 +1,7 @@
 import { Node, textblockTypeInputRule } from '@tiptap/core'
 import { mergeAttributes, ReactNodeViewRenderer } from '@tiptap/react'
 
-import { WebContainerEditor } from '../WebContainerEditor'
+import { WebContainerEditor } from './WebContainerEditor'
 
 export const backtickInputRegex = /^```([a-z]+)?[\s\n]$/
 
@@ -34,7 +34,7 @@ export const EditorBlock = Node.create({
 
   addKeyboardShortcuts() {
     return {
-      Enter: ({ editor }) => {
+      Enter: () => {
         return false
       },
     }
