@@ -12,11 +12,3 @@ export async function save(requestBody: {
 
   return response
 }
-
-export async function get(
-  id: string,
-): Promise<{ html: string; codeSnippet: string }> {
-  const response = await fetch(`/api/${id}`).then((res) => res.json())
-
-  return response
-}

@@ -1,36 +1,56 @@
-import { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
 import { Editor } from '@/components/Editor'
 import { useEditor } from '@/contexts/EditorContext'
-import { Loading } from '@/components/Loading'
+import { getNoteById } from '@/services/getNoteById'
 
-export default function Note() {
+interface NodeProps {
+  html: string
+  codeSnippet: string
+}
+
+export default function Note({ html, codeSnippet }: NodeProps) {
   const { editor, setCodeSnippet } = useEditor()
-  const [isLoading, setIsLoading] = useState(true)
-  const router = useRouter()
 
-  const { id } = router.query
+  if (!editor) {
+    return null
+  }
 
-  useEffect(() => {
-    if (editor && id) {
-      fetch(`/api/${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          editor.commands.setContent(data.html)
-          setCodeSnippet(data.codeSnippet)
-        })
-        .finally(() => setTimeout(() => setIsLoading(false), 500))
-    }
-  }, [editor, id, setCodeSnippet])
+  editor.commands.setContent(html)
+  setCodeSnippet(codeSnippet)
 
   return (
     <>
-      <Loading isLoading={isLoading} />
       <NextSeo noindex />
 
       <Editor />
     </>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const id = context.params?.id as string
+
+  const data = await getNoteById(id)
+
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      ...data,
+    },
+    revalidate: 60 * 60 * 24 * 30, // 30 days, in seconds
+  }
 }
