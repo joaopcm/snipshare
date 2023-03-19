@@ -1,4 +1,7 @@
-export async function save(requestBody: { html: string; codeSnippet: string }) {
+export async function save(requestBody: {
+  html: string
+  codeSnippet: string
+}): Promise<{ id: string }> {
   const response = await fetch('/api/create', {
     method: 'POST',
     headers: {
@@ -10,7 +13,9 @@ export async function save(requestBody: { html: string; codeSnippet: string }) {
   return response
 }
 
-export async function get(id: string) {
+export async function get(
+  id: string,
+): Promise<{ html: string; codeSnippet: string }> {
   const response = await fetch(`/api/${id}`).then((res) => res.json())
 
   return response
