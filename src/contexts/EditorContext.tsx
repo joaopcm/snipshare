@@ -36,9 +36,11 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
           if (node.type.name === 'heading') {
             return 'Untitled'
           }
+
           if (node.type.name === 'editorBlock') {
             return ''
           }
+
           return DEFAULT_DESCRIPTION
         },
       }),
@@ -47,14 +49,6 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
     ],
     content: ``,
   })
-
-  // if (editor) {
-  //   editor.on('update', ({ transaction, editor }) => {
-  //     if (transaction.docChanged) {
-  //       console.log(editor.getHTML())
-  //     }
-  //   })
-  // }
 
   return (
     <EditorContext.Provider value={{ editor }}>
@@ -66,5 +60,5 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
 export function useEditor() {
   const { editor } = useContext(EditorContext)
 
-  return editor
+  return { editor }
 }

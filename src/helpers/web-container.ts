@@ -34,13 +34,11 @@ export async function installDependencies(
 ) {
   const container = await getWebContainerInstance()
 
-  setOutput(['🔍 Looking for dependencies to install...'])
-  setOutput((state) => [
-    ...state,
+  setOutput([
     `📦 Found ${dependenciesToInstall.length} dependencies to install!`,
   ])
 
-  setOutput((state) => [...state, '---------', '🚧 Installing dependencies...'])
+  setOutput((state) => [...state, '🚧 Installing dependencies...'])
 
   const installProcess = await container.spawn('pnpm', ['i'])
 
