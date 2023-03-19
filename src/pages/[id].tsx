@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
 import { Editor } from '@/components/Editor'
 import { useEditor } from '@/contexts/EditorContext'
-import { useRouter } from 'next/router'
 import { Loading } from '@/components/Loading'
 
 export default function Note() {
@@ -27,6 +28,8 @@ export default function Note() {
   return (
     <>
       <Loading isLoading={isLoading} />
+      <NextSeo noindex />
+
       <Editor />
     </>
   )

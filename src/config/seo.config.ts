@@ -2,14 +2,14 @@ import { DefaultSeoProps } from 'next-seo/lib'
 
 const DEFAULT_TITLE = 'Nodepad'
 export const DEFAULT_DESCRIPTION =
-  'Build your notes using Markdown... Plus, have all the code blocks interactively run in the browser 🚀'
+  'Revolutionize your coding experience with this all-in-one markdown-based platform for creating, executing, and sharing code snippets right in your browser. Elevate your development skill with Nodepad today!'
 
 export const SEOConfig: DefaultSeoProps = {
-  titleTemplate: 'Nodepad | %s',
+  titleTemplate: '%s | Nodepad',
   defaultTitle: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
-  canonical: 'https://nodepad.jopcmelo.dev',
-  themeColor: '#191622',
+  canonical: 'https://getnodepad.com',
+  themeColor: '#181621',
   robotsProps: {
     noarchive: false,
     nosnippet: false,
@@ -22,16 +22,16 @@ export const SEOConfig: DefaultSeoProps = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://nodepad.jopcmelo.dev',
+    url: 'https://getnodepad.com',
     siteName: 'Nodepad',
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     images: [
       {
-        url: 'https://nodepad.jopcmelo.dev/logo.png',
+        url: 'https://getnodepad.com/og.png',
         width: 1200,
         height: 630,
-        alt: 'Nodepad logo',
+        alt: 'Nodepad',
       },
     ],
   },

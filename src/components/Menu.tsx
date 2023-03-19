@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { RocketLaunch, Plus } from 'phosphor-react'
+import { RocketLaunch, Plus, GithubLogo } from 'phosphor-react'
 
 import nodepadLogo from '@/images/logo.webp'
 import { useEditor } from '@/contexts/EditorContext'
 import { save } from '@/services/api'
 import { CopyLinkModal } from './CopyLinkModal'
+import Link from 'next/link'
 
 export function Menu() {
   const [createdNoteLink, setCreatedNoteLink] = useState<string | null>(null)
@@ -34,10 +35,7 @@ export function Menu() {
       codeSnippet,
     })
 
-    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https'
-    setCreatedNoteLink(
-      `${protocol}://${process.env.NEXT_PUBLIC_VERCEL_URL}/${response.id}`,
-    )
+    setCreatedNoteLink(`${process.env.NEXT_PUBLIC_APP_URL}/${response.id}`)
 
     setIsLoading(false)
   }
@@ -96,10 +94,19 @@ export function Menu() {
                 />
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
               <div className="flex-shrink-0">
                 <Button />
               </div>
+
+              <Link href="https://github.com/joaopcm/nodepad" target="_blank">
+                <button
+                  type="button"
+                  className="rounded-full bg-omni-dark p-3 text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                >
+                  <GithubLogo className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </Link>
             </div>
           </div>
         </div>
