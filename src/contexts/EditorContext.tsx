@@ -6,20 +6,18 @@ import Placeholder from '@tiptap/extension-placeholder'
 
 import { EditorBlock } from '@/components/EditorBlock'
 import { TrailingNode } from '@/components/TrailingNode'
-import { DEFAULT_DESCRIPTION } from '@/config/seo.config'
 
 interface EditorContextValue {
   editor: Editor | null
   codeSnippet: string
   setCodeSnippet: React.Dispatch<React.SetStateAction<string>>
-  resetCodeSnippet: () => void
 }
 
 const EditorContext = createContext<EditorContextValue>(
   {} as EditorContextValue,
 )
 
-const initialCode = [
+export const initialCode = [
   `import 'isomorphic-fetch';`,
   ``,
   `fetch("https://api.github.com/users/joaopcm")`,
@@ -31,10 +29,6 @@ const initialCode = [
 
 export function EditorProvider({ children }: { children: React.ReactNode }) {
   const [codeSnippet, setCodeSnippet] = React.useState<string>(initialCode)
-
-  const resetCodeSnippet = () => {
-    setCodeSnippet(initialCode)
-  }
 
   const editor = useEditorHook({
     editorProps: {
@@ -60,7 +54,7 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
             return ''
           }
 
-          return DEFAULT_DESCRIPTION
+          return 'Start typing or press ⌘ + K to open the command palette...'
         },
       }),
       EditorBlock,
@@ -70,17 +64,14 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
   })
 
   return (
-    <EditorContext.Provider
-      value={{ editor, codeSnippet, setCodeSnippet, resetCodeSnippet }}
-    >
+    <EditorContext.Provider value={{ editor, codeSnippet, setCodeSnippet }}>
       {children}
     </EditorContext.Provider>
   )
 }
 
 export function useEditor() {
-  const { editor, codeSnippet, setCodeSnippet, resetCodeSnippet } =
-    useContext(EditorContext)
+  const { editor, codeSnippet, setCodeSnippet } = useContext(EditorContext)
 
-  return { editor, codeSnippet, setCodeSnippet, resetCodeSnippet }
+  return { editor, codeSnippet, setCodeSnippet }
 }

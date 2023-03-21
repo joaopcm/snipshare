@@ -2,24 +2,27 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { RocketLaunch, Plus, GithubLogo } from 'phosphor-react'
+import Link from 'next/link'
 
 import nodepadLogo from '@/images/logo.webp'
 import { useEditor } from '@/contexts/EditorContext'
 import { save } from '@/services/api'
 import { CopyLinkModal } from './CopyLinkModal'
-import Link from 'next/link'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 export function Menu() {
   const [createdNoteLink, setCreatedNoteLink] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { editor, codeSnippet, resetCodeSnippet } = useEditor()
+  const { editor, codeSnippet } = useEditor()
   const router = useRouter()
 
   const isEditing = router.pathname === '/[id]'
+  const { id } = router.query
+
+  useHotkeys('shift+n', () => newNote())
+  useHotkeys('shift+s', () => saveNote())
 
   const newNote = () => {
-    editor?.commands.setContent('')
-    resetCodeSnippet()
     router.push({ pathname: '/' })
   }
 
@@ -61,6 +64,10 @@ export function Menu() {
         >
           <Plus weight="bold" color="#FFF" size={14} />
           Create a new note
+          <span className="ml-1 flex-none text-xs font-semibold text-white bg-emerald-600 px-2 py-1 rounded-md">
+            <kbd className="font-sans">⇧ + </kbd>
+            <kbd className="font-sans">N</kbd>
+          </span>
         </button>
       )
     }
@@ -75,6 +82,10 @@ export function Menu() {
       >
         <RocketLaunch weight="bold" color="#FFF" size={14} />
         Save this note
+        <span className="ml-1 flex-none text-xs font-semibold text-white bg-emerald-600 px-2 py-1 rounded-md">
+          <kbd className="font-sans">⇧ + </kbd>
+          <kbd className="font-sans">S</kbd>
+        </span>
       </button>
     )
   }
@@ -92,6 +103,14 @@ export function Menu() {
                   src={nodepadLogo}
                   alt="Nodepad"
                 />
+                {isEditing && (
+                  <div className="hidden sm:block">
+                    <span className="mr-2 text-gray-400">/</span>
+                    <span className="inline-flex items-center rounded-full bg-omni-dark px-2.5 py-0.5 text-xs font-medium text-gray-400">
+                      {id}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex items-center gap-4">
