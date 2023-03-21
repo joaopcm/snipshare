@@ -29,8 +29,8 @@ export const SEOConfig: DefaultSeoProps = {
     images: [
       {
         url: 'https://getnodepad.com/og.png',
-        width: 1200,
-        height: 630,
+        width: 1280,
+        height: 720,
         alt: 'Nodepad',
       },
     ],
