@@ -1,7 +1,7 @@
 import { DefaultSeoProps } from 'next-seo/lib'
 
 const DEFAULT_TITLE = 'Nodepad'
-export const DEFAULT_DESCRIPTION =
+const DEFAULT_DESCRIPTION =
   'Revolutionize your coding experience with this all-in-one markdown-based platform for creating, executing, and sharing code snippets right in your browser. Elevate your development skill with Nodepad today!'
 
 export const SEOConfig: DefaultSeoProps = {
