@@ -46,7 +46,6 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
         document: false,
       }),
       Link.configure({
-        protocols: ['https', 'http', 'mailto', 'tel'],
         HTMLAttributes: {
           class: 'text-emerald-500 hover:text-emerald-600 hover:cursor-pointer',
         },
