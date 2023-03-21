@@ -34,29 +34,33 @@ export async function installDependencies(
 ) {
   const container = await getWebContainerInstance()
 
-  setOutput([
-    `📦 Found ${dependenciesToInstall.length} dependencies to install!`,
-  ])
+  if (dependenciesToInstall.length > 0) {
+    setOutput([
+      `📦 Found ${dependenciesToInstall.length} dependencies to install...`,
+    ])
 
-  setOutput((state) => [...state, '🚧 Installing dependencies...'])
+    setOutput((state) => [...state, '🚧 Installing dependencies...'])
 
-  const installProcess = await container.spawn('pnpm', ['i'])
+    const installProcess = await container.spawn('pnpm', ['i'])
 
-  installProcess.output.pipeTo(
-    new WritableStream({
-      write(data) {
-        setOutput((state) => [...state, ANSIConverter.toHtml(data)])
-      },
-    }),
-  )
+    installProcess.output.pipeTo(
+      new WritableStream({
+        write(data) {
+          setOutput((state) => [...state, ANSIConverter.toHtml(data)])
+        },
+      }),
+    )
 
-  return installProcess.exit
+    await installProcess.exit
+
+    setOutput((state) => [...state, '---------'])
+  }
 }
 
 export async function runCode(setOutput: Dispatch<SetStateAction<string[]>>) {
   const container = await getWebContainerInstance()
 
-  setOutput((state) => [...state, '---------', '🚀 Running the application!'])
+  setOutput((state) => [...state, '🚀 Running the application...'])
 
   const startProcess = await container.spawn('pnpm', ['start'])
 
