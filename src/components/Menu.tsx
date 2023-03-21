@@ -16,6 +16,7 @@ export function Menu() {
   const router = useRouter()
 
   const isEditing = router.pathname === '/[id]'
+  const { id } = router.query
 
   const newNote = () => {
     editor?.commands.setContent('')
@@ -92,6 +93,14 @@ export function Menu() {
                   src={nodepadLogo}
                   alt="Nodepad"
                 />
+                {isEditing && (
+                  <>
+                    <span className="mr-2 text-gray-400">/</span>
+                    <span className="inline-flex items-center rounded-full bg-omni-dark px-2.5 py-0.5 text-xs font-medium text-gray-400">
+                      {id}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
             <div className="flex items-center gap-4">
