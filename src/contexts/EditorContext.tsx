@@ -3,6 +3,7 @@ import { useEditor as useEditorHook, Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Document from '@tiptap/extension-document'
 import Placeholder from '@tiptap/extension-placeholder'
+import Link from '@tiptap/extension-link'
 
 import { EditorBlock } from '@/components/EditorBlock'
 import { TrailingNode } from '@/components/TrailingNode'
@@ -43,6 +44,12 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
       StarterKit.configure({
         codeBlock: false,
         document: false,
+      }),
+      Link.configure({
+        protocols: ['https', 'http', 'mailto', 'tel'],
+        HTMLAttributes: {
+          class: 'text-emerald-500 hover:text-emerald-600 hover:cursor-pointer',
+        },
       }),
       Placeholder.configure({
         placeholder: ({ node }) => {
