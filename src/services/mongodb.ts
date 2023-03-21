@@ -11,26 +11,18 @@ if (!MONGODB_DB == null) {
   throw new Error('Define the MONGODB_DB environmental variable')
 }
 
-let cachedClient: MongoClient
 let cachedDb: Db
 
 export async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return {
-      client: cachedClient,
-      db: cachedDb,
-    }
+  if (cachedDb) {
+    return cachedDb
   }
 
   const client = new MongoClient(MONGODB_URI!)
   await client.connect()
   const db = client.db(MONGODB_DB)
 
-  cachedClient = client
   cachedDb = db
 
-  return {
-    client: cachedClient,
-    db: cachedDb,
-  }
+  return db
 }

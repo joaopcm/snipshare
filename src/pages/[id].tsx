@@ -21,7 +21,7 @@ export default function Note() {
           editor.commands.setContent(data.html)
           setCodeSnippet(data.codeSnippet)
         })
-        .finally(() => setTimeout(() => setIsLoading(false), 500))
+        .finally(() => setIsLoading(false))
     }
   }, [editor, id, setCodeSnippet])
 
