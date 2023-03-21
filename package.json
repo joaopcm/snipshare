@@ -10,6 +10,11 @@
     "pre-commit": "lint-staged",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "./**/*.{js,jsx,ts,tsx}": [
+      "pnpm run lint"
+    ]
+  },
   "dependencies": {
     "@headlessui/react": "1.7.13",
     "@tailwindcss/forms": "0.5.3",
