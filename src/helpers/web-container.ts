@@ -87,8 +87,11 @@ export async function runCode(setOutput: Dispatch<SetStateAction<string[]>>) {
     }),
   )
 
-  container.on('server-ready', (port, url) => {
-    setOutput((state) => [...state, `🌎 Server is running on ${url}`])
+  container.on('server-ready', (_, url) => {
+    setOutput((state) => [
+      ...state,
+      `🌎 We have detected a server running. Please use this URL to access it: ${url}`,
+    ])
   })
 
   return startProcess.exit
