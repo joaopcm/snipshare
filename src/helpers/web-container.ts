@@ -36,7 +36,7 @@ export async function installDevDependencies(
   const container = await getWebContainerInstance()
   const installProcess = await container.spawn('pnpm', ['i', '--only=dev'])
 
-  await installProcess.exit
+  return installProcess.exit
 }
 
 export async function installDependencies(
