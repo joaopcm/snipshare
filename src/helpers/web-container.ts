@@ -28,6 +28,17 @@ export async function printNodeJSVersion(
   )
 }
 
+export async function installDevDependencies(
+  setOutput: Dispatch<SetStateAction<string[]>>,
+) {
+  setOutput((state) => [...state, '🚧 Installing required dependencies...'])
+
+  const container = await getWebContainerInstance()
+  const installProcess = await container.spawn('pnpm', ['i', '--only=dev'])
+
+  return installProcess.exit
+}
+
 export async function installDependencies(
   setOutput: Dispatch<SetStateAction<string[]>>,
   dependenciesToInstall: string[],
@@ -35,11 +46,12 @@ export async function installDependencies(
   const container = await getWebContainerInstance()
 
   if (dependenciesToInstall.length > 0) {
-    setOutput([
-      `📦 Found ${dependenciesToInstall.length} dependencies to install...`,
+    setOutput((state) => [
+      ...state,
+      `📦 Found ${dependenciesToInstall.length} dependencies to install`,
     ])
 
-    setOutput((state) => [...state, '🚧 Installing dependencies...'])
+    setOutput((state) => [...state, '🚧 Installing found dependencies...'])
 
     const installProcess = await container.spawn('pnpm', ['i'])
 
@@ -62,6 +74,9 @@ export async function runCode(setOutput: Dispatch<SetStateAction<string[]>>) {
 
   setOutput((state) => [...state, '🚀 Running the application...'])
 
+  const buildProcess = await container.spawn('pnpm', ['build'])
+  await buildProcess.exit
+
   const startProcess = await container.spawn('pnpm', ['start'])
 
   startProcess.output.pipeTo(
@@ -72,8 +87,11 @@ export async function runCode(setOutput: Dispatch<SetStateAction<string[]>>) {
     }),
   )
 
-  container.on('server-ready', (port, url) => {
-    setOutput((state) => [...state, `🌎 Server is running on ${url}`])
+  container.on('server-ready', (_, url) => {
+    setOutput((state) => [
+      ...state,
+      `🌎 We have detected a server running. Please use this URL to access it: ${url}`,
+    ])
   })
 
   return startProcess.exit

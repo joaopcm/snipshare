@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Lightning, Spinner } from 'phosphor-react'
 import { NodeViewWrapper } from '@tiptap/react'
 import {
   getWebContainerInstance,
   installDependencies,
+  installDevDependencies,
   printNodeJSVersion,
   runCode,
 } from '@/helpers/web-container'
@@ -23,16 +24,52 @@ export function WebContainerEditor() {
   const [isRunning, setIsRunning] = useState(false)
   const { codeSnippet, setCodeSnippet } = useEditor()
 
+  useEffect(() => {
+    return () => {
+      setOutput([])
+    }
+  }, [])
+
   async function handleEvaluateCode() {
     setIsRunning(true)
+    setOutput([])
 
     const webContainer = await getWebContainerInstance()
     const dependenciesToInstall = extractDependencies(codeSnippet)
 
     await webContainer.mount({
-      'index.js': {
+      'index.ts': {
         file: {
           contents: codeSnippet,
+        },
+      },
+      'tsconfig.json': {
+        file: {
+          contents: `
+          {
+            "compilerOptions": {
+              "target": "es2017",
+              "module": "commonjs",
+              "lib": ["es2017", "dom"],
+              "esModuleInterop": true,
+              "moduleResolution": "node",
+              "resolveJsonModule": true,
+              "skipLibCheck": true,
+              "strict": false,
+              "noImplicitAny": false,
+              "noImplicitThis": false,
+              "alwaysStrict": false,
+              "strictNullChecks": false,
+              "strictFunctionTypes": false,
+              "strictPropertyInitialization": false,
+              "strictBindCallApply": false,
+              "forceConsistentCasingInFileNames": true,
+              "sourceMap": true,
+              "outDir": "./dist"
+            },
+            "include": ["index.ts"],
+            "exclude": ["node_modules"]
+          }`.trim(),
         },
       },
       'package.json': {
@@ -40,14 +77,17 @@ export function WebContainerEditor() {
           contents: `
             {
               "name": "example-app",
-              "type": "module",
+              "devDependencies": {
+                "typescript": "latest"
+              },
               "dependencies": {
                 ${dependenciesToInstall
                   .map((dep) => `"${dep}": "latest"`)
                   .join(',')}
               },
               "scripts": {
-                "start": "node index.js"
+                "build": "tsc",
+                "start": "node dist/index.js"
               }
             }
           `.trim(),
@@ -56,6 +96,7 @@ export function WebContainerEditor() {
     })
 
     await printNodeJSVersion(setOutput)
+    await installDevDependencies(setOutput)
     await installDependencies(setOutput, dependenciesToInstall)
     await runCode(setOutput)
 
@@ -71,8 +112,8 @@ export function WebContainerEditor() {
       <NodeViewWrapper className="not-prose">
         <CodeEditor
           value={codeSnippet}
-          language="js"
-          placeholder="Please enter JS code."
+          language="ts"
+          placeholder="Please enter TS or JS code."
           onChange={(event) => setCodeSnippet(event.target.value)}
           minHeight={80}
           padding={20}
