@@ -9,6 +9,7 @@ import { SEOConfig } from '@/config/seo.config'
 import { EditorProvider } from '@/contexts/EditorContext'
 import { Menu } from '@/components/Menu'
 import CommandPalette from '@/components/CommandPalette'
+import { CounterProvider } from '@/contexts/CounterContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,16 +18,18 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <HotkeysProvider>
         <EditorProvider>
-          <Menu />
-          <CommandPalette />
+          <CounterProvider>
+            <Menu />
+            <CommandPalette />
 
-          <div className="h-screen bg-omni-dark flex max-w-3xl mx-auto">
-            <main className="flex-1">
-              <div className="px-10 py-16">
-                <Component {...pageProps} />
-              </div>
-            </main>
-          </div>
+            <div className="h-screen bg-omni-dark flex max-w-3xl mx-auto">
+              <main className="flex-1">
+                <div className="px-10 py-16">
+                  <Component {...pageProps} />
+                </div>
+              </main>
+            </div>
+          </CounterProvider>
         </EditorProvider>
       </HotkeysProvider>
 
