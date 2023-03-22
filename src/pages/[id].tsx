@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
+import { GetServerSideProps } from 'next'
 
 import { Editor } from '@/components/Editor'
 import { useEditor } from '@/contexts/EditorContext'
 import { Loading } from '@/components/Loading'
+import { connectToCacheDatabase } from '@/services/upstash'
+import { useCounter } from '@/contexts/CounterContext'
 
-export default function Note() {
+interface NoteProps {
+  id: string
+  count: number
+}
+
+export default function Note({ id, count }: NoteProps) {
   const { editor, setCodeSnippet } = useEditor()
+  const { setCounter } = useCounter()
   const [isLoading, setIsLoading] = useState(true)
-  const router = useRouter()
 
-  const { id } = router.query
+  setCounter(count)
 
   useEffect(() => {
     if (editor && id) {
@@ -33,4 +40,18 @@ export default function Note() {
       <Editor />
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.query
+  const redis = await connectToCacheDatabase()
+
+  const count = await redis.incr(`counter:${id}`)
+
+  return {
+    props: {
+      count,
+      id,
+    },
+  }
 }

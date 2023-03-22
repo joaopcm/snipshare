@@ -3,17 +3,19 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { RocketLaunch, Plus, GithubLogo } from 'phosphor-react'
 import Link from 'next/link'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 import nodepadLogo from '@/images/logo.webp'
 import { useEditor } from '@/contexts/EditorContext'
 import { save } from '@/services/api'
+import { useCounter } from '@/contexts/CounterContext'
 import { CopyLinkModal } from './CopyLinkModal'
-import { useHotkeys } from 'react-hotkeys-hook'
 
 export function Menu() {
   const [createdNoteLink, setCreatedNoteLink] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const { editor, codeSnippet } = useEditor()
+  const { counter } = useCounter()
   const router = useRouter()
 
   const isEditing = router.pathname === '/[id]'
@@ -114,6 +116,12 @@ export function Menu() {
               </div>
             </div>
             <div className="flex items-center gap-4">
+              {counter > 0 && (
+                <span className="inline-flex items-center rounded-full bg-omni-dark px-2.5 py-0.5 text-xs font-medium text-gray-400">
+                  {counter} views
+                </span>
+              )}
+
               <div className="flex-shrink-0">
                 <Button />
               </div>
