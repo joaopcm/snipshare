@@ -118,7 +118,7 @@ export function Menu() {
             <div className="flex items-center gap-4">
               {counter > 0 && (
                 <span className="inline-flex items-center rounded-full bg-omni-dark px-2.5 py-0.5 text-xs font-medium text-gray-400">
-                  {counter} views
+                  {counter} {counter === 1 ? 'view' : 'views'}
                 </span>
               )}
 
