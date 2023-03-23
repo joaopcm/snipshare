@@ -11,7 +11,7 @@ if (!REDIS_TOKEN) {
   throw new Error('Define the REDIS_TOKEN environment variable')
 }
 
-export const CACHE_DURATION = 60 * 60 * 24 // 1 day
+export const CACHE_DURATION = 60 * 60 * 24 * 7 // 7 days
 
 let cachedDb: Redis
 
