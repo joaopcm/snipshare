@@ -1,7 +1,10 @@
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
-import { Lightning, Spinner } from 'phosphor-react'
+import { useRouter } from 'next/router'
+import { Fragment, useEffect, useState } from 'react'
+import { Lightning, Spinner, Robot } from 'phosphor-react'
 import { NodeViewWrapper } from '@tiptap/react'
+import '@uiw/react-textarea-code-editor/dist.css'
+
 import {
   getWebContainerInstance,
   installDependencies,
@@ -9,10 +12,10 @@ import {
   printNodeJSVersion,
   runCode,
 } from '@/helpers/web-container'
-import '@uiw/react-textarea-code-editor/dist.css'
-
 import { extractDependencies } from '@/helpers/extract-dependencies'
 import { useEditor } from '@/contexts/EditorContext'
+import { getAIExplanation } from '@/services/api'
+import { Transition } from '@headlessui/react'
 
 const CodeEditor = dynamic(
   () => import('@uiw/react-textarea-code-editor').then((mod) => mod.default),
@@ -22,7 +25,13 @@ const CodeEditor = dynamic(
 export function WebContainerEditor() {
   const [output, setOutput] = useState<string[]>([])
   const [isRunning, setIsRunning] = useState(false)
+  const [aiExplanation, setAIExplanation] = useState<string>()
+  const [askingAI, setAskinAI] = useState(false)
   const { codeSnippet, setCodeSnippet } = useEditor()
+  const router = useRouter()
+
+  const id = router.query.id as string
+  const isSavedNotePage = typeof id === 'string'
 
   useEffect(() => {
     return () => {
@@ -103,13 +112,97 @@ export function WebContainerEditor() {
     setIsRunning(false)
   }
 
+  async function handleAskAI() {
+    if (!id) return null
+
+    setAskinAI(true)
+
+    const { answer } = await getAIExplanation({
+      id,
+      codeSnippet,
+    })
+
+    setAIExplanation(answer)
+    setAskinAI(false)
+  }
+
   function handleStopEvaluation() {
     setIsRunning(false)
+  }
+
+  const DisabledAskAIButton = () => (
+    <button
+      type="button"
+      contentEditable={false}
+      disabled
+      className="text-xs bg-gray-300 rounded px-3 py-2 flex items-center gap-1 text-omni-dark font-semibold ml-auto top-12 right-4 relative z-10 opacity-25 hover:cursor-not-allowed"
+    >
+      <Robot weight="bold" color="#181621" size={14} />
+      Save this note to ask AI
+    </button>
+  )
+
+  const AskAIButton = () => {
+    return askingAI ? (
+      <button
+        type="button"
+        disabled
+        contentEditable={false}
+        className="text-xs bg-omni-dark rounded px-3 py-2 flex items-center gap-1 text-white font-semibol ml-auto top-12 right-4 relative z-10 opacity-50 hover:opacity-100 hover:cursor-progress"
+      >
+        <Spinner
+          weight="bold"
+          color="#FFF"
+          size={14}
+          className="animate-spin"
+        />
+        Asking AI...
+      </button>
+    ) : (
+      <button
+        type="button"
+        onClick={handleAskAI}
+        contentEditable={false}
+        className="text-xs bg-emerald-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600 ml-auto top-12 right-4 relative z-10 opacity-50 hover:opacity-100"
+      >
+        <Robot weight="bold" color="#FFF" size={14} />
+        Ask AI
+      </button>
+    )
   }
 
   return (
     <>
       <NodeViewWrapper className="not-prose">
+        <Transition.Root
+          show={!!aiExplanation}
+          as={Fragment}
+          afterLeave={() => setAIExplanation(undefined)}
+          appear
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition ease-out duration-300"
+            enterFrom="opacity-0 translate-y-1"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-1"
+          >
+            <div className="bg-omni-light p-5 rounded mb-2 text-sm relative ring-1 ring-emerald-500">
+              <p
+                className="font-monospace text-xs leading-loose"
+                contentEditable={false}
+              >
+                <span className="text-emerald-500 font-semibold">AI:</span>{' '}
+                {aiExplanation}
+              </p>
+            </div>
+          </Transition.Child>
+        </Transition.Root>
+
+        {isSavedNotePage ? <AskAIButton /> : <DisabledAskAIButton />}
+
         <CodeEditor
           value={codeSnippet}
           language="ts"
