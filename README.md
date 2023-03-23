@@ -78,7 +78,7 @@ To run this project, you will need to add the following environment variables to
 - [ ] Dynamic SEO meta tags
 - [ ] Templates marketplace
 - [x] AI to explain code snippets
-- [ ] Changelog
+- [x] Changelog
 - [ ] User authentication so that users can create only private notes
 - [ ] Groups, where users can add other users to collaborate on notes privately
 - [x] Examples library
