@@ -36,8 +36,9 @@ export function WebContainerEditor() {
   useEffect(() => {
     return () => {
       setOutput([])
+      setAIExplanation(undefined)
     }
-  }, [])
+  }, [router.asPath])
 
   async function handleEvaluateCode() {
     setIsRunning(true)
