@@ -7,7 +7,7 @@ if (MONGODB_URI == null) {
   throw new Error('Define the MONGODB_URI environmental variable')
 }
 
-if (!MONGODB_DB == null) {
+if (MONGODB_DB == null) {
   throw new Error('Define the MONGODB_DB environmental variable')
 }
 

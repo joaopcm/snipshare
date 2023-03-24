@@ -64,6 +64,8 @@ To run this project, you will need to add the following environment variables to
 `REDIS_URL` - We use Upstash for the Redis database
 
 `REDIS_TOKEN` - Provided by Upstash
+
+`OPENAI_API_KEY` - We use OpenAI for the AI to explain code snippets
 ## Authors
 
 - [@joaopcm](https://www.github.com/joaopcm)
@@ -71,12 +73,12 @@ To run this project, you will need to add the following environment variables to
 
 ## Roadmap
 
-- [ ] Add a welcome modal explaining the app when the user first visits
+- [x] Add a welcome modal explaining the app when the user first visits (added a cool landing page)
 - [ ] Support multiple code snippets per note
 - [ ] Dynamic SEO meta tags
 - [ ] Templates marketplace
-- [ ] AI to explain code snippets
-- [ ] Changelog
+- [x] AI to explain code snippets
+- [x] Changelog
 - [ ] User authentication so that users can create only private notes
 - [ ] Groups, where users can add other users to collaborate on notes privately
 - [x] Examples library
@@ -84,3 +86,11 @@ To run this project, you will need to add the following environment variables to
 - [x] Command palette
 - [x] Keyboard shortcuts
 - [x] Move this app to its own domain (getnodepad.com)
+
+## Technical Debts
+
+- [ ] Add tests
+- [x] Render "view" instead of "views" when the counter is 1 (string, not number)
+- [ ] [Move this logic to an util or a hook](https://github.com/joaopcm/nodepad/pull/18#discussion_r1146363295)
+- [ ] Add Zod for API routes validation
+- [ ] Add error handlers in the client side

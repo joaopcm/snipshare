@@ -12,6 +12,18 @@ export default async function handler(
       return res.status(405).end()
     }
 
+    if (!req.body.codeSnippet) {
+      return res.status(400).json({
+        message: 'Missing code snippet',
+      })
+    }
+
+    if (!req.body.html) {
+      return res.status(400).json({
+        message: 'Missing HTML',
+      })
+    }
+
     const db = await connectToDatabase()
     const cache = await connectToCacheDatabase()
 

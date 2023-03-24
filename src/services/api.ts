@@ -20,3 +20,18 @@ export async function get(
 
   return response
 }
+
+export async function getAIExplanation(requestBody: {
+  id: string
+  codeSnippet: string
+}): Promise<{ answer: string }> {
+  const response = await fetch('/api/ask-ai', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+  }).then((res) => res.json())
+
+  return response
+}
