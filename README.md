@@ -91,3 +91,6 @@ To run this project, you will need to add the following environment variables to
 
 - [ ] Add tests
 - [x] Render "view" instead of "views" when the counter is 1 (string, not number)
+- [ ] [Move this logic to an util or a hook](https://github.com/joaopcm/nodepad/pull/18#discussion_r1146363295)
+- [ ] Add Zod for API routes validation
+- [ ] Add error handlers in the client side
