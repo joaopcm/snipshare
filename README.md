@@ -30,6 +30,8 @@ At the heart of Nodepad is the belief that programming should be accessible to e
 
 - **Real-time feedback**: As users write and execute code, Nodepad provides real-time feedback and results, making it easy to test and debug code. This feature allows users to quickly iterate and improve their code.
 
+- **AI-powered code explanations**: Nodepad now offers an AI-powered feature that provides explanations for code snippets. Users can simply hover over a code block to see a detailed explanation of the code's functionality, making it easier to understand and learn from code written by others.
+
 Overall, Nodepad is a powerful and convenient platform for creating and sharing Node.js code snippets, with features designed to streamline the coding process and make it accessible to users of all levels.
 
 
@@ -66,9 +68,11 @@ To run this project, you will need to add the following environment variables to
 `REDIS_TOKEN` - Provided by Upstash
 
 `OPENAI_API_KEY` - We use OpenAI for the AI to explain code snippets
+
 ## Authors
 
 - [@joaopcm](https://www.github.com/joaopcm)
+- [@NicolasLopes7](https://www.github.com/NicolasLopes7)
 
 
 ## Roadmap
@@ -94,3 +98,7 @@ To run this project, you will need to add the following environment variables to
 - [ ] [Move this logic to an util or a hook](https://github.com/joaopcm/nodepad/pull/18#discussion_r1146363295)
 - [ ] Add Zod for API routes validation
 - [ ] Add error handlers in the client side
+
+## Changelog
+
+Discover the evolution of our product in our [dynamic CHANGELOG.md](https://github.com/joaopcm/nodepad/blob/main/CHANGELOG.md)!
