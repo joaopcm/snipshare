@@ -32,6 +32,8 @@ At the heart of Nodepad is the belief that programming should be accessible to e
 
 - **AI-powered code explanations**: Nodepad now offers an AI-powered feature that provides explanations for code snippets. Users can simply hover over a code block to see a detailed explanation of the code's functionality, making it easier to understand and learn from code written by others.
 
+- **Visits counter**: Nodepad now features a visits counter, which allows users to track the number of visits to their shared code snippets and notes. This feature provides valuable insights into the popularity and impact of users' work, allowing them to gauge the success of their coding projects.
+
 Overall, Nodepad is a powerful and convenient platform for creating and sharing Node.js code snippets, with features designed to streamline the coding process and make it accessible to users of all levels.
 
 
