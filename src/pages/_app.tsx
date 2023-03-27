@@ -12,6 +12,16 @@ import CommandPalette from '@/components/CommandPalette'
 import { CounterProvider } from '@/contexts/CounterContext'
 
 export default function App({ Component, pageProps }: AppProps) {
+  const isEmbed = Component.name === 'Embed'
+
+  if (isEmbed) {
+    return (
+      <EditorProvider>
+        <Component {...pageProps} />
+      </EditorProvider>
+    )
+  }
+
   return (
     <>
       <DefaultSeo {...SEOConfig} />
@@ -22,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <Menu />
             <CommandPalette />
 
-            <div className="h-screen bg-omni-dark flex max-w-3xl mx-auto">
+            <div className="h-screen flex max-w-3xl mx-auto">
               <main className="flex-1">
                 <div className="px-10 py-16">
                   <Component {...pageProps} />

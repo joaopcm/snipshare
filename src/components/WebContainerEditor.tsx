@@ -32,6 +32,7 @@ export function WebContainerEditor() {
 
   const id = router.query.id as string
   const isSavedNotePage = typeof id === 'string'
+  const isEmbedPage = router.pathname === '/embed'
 
   useEffect(() => {
     return () => {
@@ -202,7 +203,11 @@ export function WebContainerEditor() {
           </Transition.Child>
         </Transition.Root>
 
-        {isSavedNotePage ? <AskAIButton /> : <DisabledAskAIButton />}
+        {isEmbedPage ? null : isSavedNotePage ? (
+          <AskAIButton />
+        ) : (
+          <DisabledAskAIButton />
+        )}
 
         <CodeEditor
           value={codeSnippet}
@@ -222,7 +227,7 @@ export function WebContainerEditor() {
           data-color-mode="dark"
         />
         <div
-          className="bg-black p-5 min-h-[64px] rounded mt-2 text-sm relative"
+          className="bg-black p-5 min-h-[64px] rounded mt-2 text-sm relative text-slate-200"
           contentEditable={false}
           spellCheck={false}
         >

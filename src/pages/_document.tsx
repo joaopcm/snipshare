@@ -24,7 +24,7 @@ export default function Document() {
         <link rel="manifest" href="/site.webmanifest"></link>
         <meta charSet="utf-8" />
       </Head>
-      <body>
+      <body className="bg-omni-dark text-slate-200">
         <Main />
         <NextScript />
       </body>
