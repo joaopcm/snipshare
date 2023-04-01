@@ -3,6 +3,7 @@ import { Combobox, Dialog, Transition } from '@headlessui/react'
 import { MagnifyingGlass, FilePlus, FloppyDisk, Folder } from 'phosphor-react'
 import { useRouter } from 'next/router'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { hotkeysConfig } from '@/config/hotkeys'
 
 const projects = [
   {
@@ -71,7 +72,7 @@ export default function CommandPalette() {
   const [open, setOpen] = useState(false)
   const router = useRouter()
 
-  useHotkeys('meta+k,ctrl+k', () => setOpen(true))
+  useHotkeys(['ctrl+k', 'meta+k'], () => setOpen(true), hotkeysConfig)
 
   const filteredProjects =
     query === ''

@@ -10,6 +10,7 @@ import { useEditor } from '@/contexts/EditorContext'
 import { save } from '@/services/api'
 import { useCounter } from '@/contexts/CounterContext'
 import { CopyLinkModal } from './CopyLinkModal'
+import { hotkeysConfig } from '@/config/hotkeys'
 
 export function Menu() {
   const [createdNoteLink, setCreatedNoteLink] = useState<string | null>(null)
@@ -21,8 +22,8 @@ export function Menu() {
   const isEditing = router.pathname === '/[id]'
   const { id } = router.query
 
-  useHotkeys('shift+n', () => newNote())
-  useHotkeys('shift+s', () => saveNote())
+  useHotkeys('ctrl+n', () => newNote(), hotkeysConfig)
+  useHotkeys('ctrl+s', () => saveNote(), hotkeysConfig)
 
   const newNote = () => {
     router.push({ pathname: '/' })
