@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/joaopcm/nodepad/compare/v1.8.0...v1.8.1) (2023-04-01)
+
+
+### Bug Fixes
+
+* listen for shortcuts even when focused on form elements ([58c33b7](https://github.com/joaopcm/nodepad/commit/58c33b70e1938d53dbf9814a39749d630bd5aa01))
+
 # [1.8.0](https://github.com/joaopcm/nodepad/compare/v1.7.1...v1.8.0) (2023-03-24)
 
 
