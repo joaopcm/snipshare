@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { RocketLaunch, Plus, GithubLogo } from 'phosphor-react'
+import { GithubLogo } from 'phosphor-react'
 import Link from 'next/link'
 import { useHotkeys } from 'react-hotkeys-hook'
 
@@ -11,6 +11,7 @@ import { save } from '@/services/api'
 import { useCounter } from '@/contexts/CounterContext'
 import { CopyLinkModal } from './CopyLinkModal'
 import { hotkeysConfig } from '@/config/hotkeys'
+import { usePlatform } from '@/hooks/usePlatform'
 
 export function Menu() {
   const [createdNoteLink, setCreatedNoteLink] = useState<string | null>(null)
@@ -18,12 +19,14 @@ export function Menu() {
   const { editor, codeSnippet } = useEditor()
   const { counter } = useCounter()
   const router = useRouter()
+  const { isApple } = usePlatform()
 
   const isEditing = router.pathname === '/[id]'
   const { id } = router.query
+  const primaryKeyboardKey = isApple ? '⌘' : 'Ctrl'
 
-  useHotkeys('ctrl+n', () => newNote(), hotkeysConfig)
-  useHotkeys('ctrl+s', () => saveNote(), hotkeysConfig)
+  useHotkeys('control+d,meta+d', () => newNote(), hotkeysConfig)
+  useHotkeys('control+s,meta+s', () => saveNote(), hotkeysConfig)
 
   const newNote = () => {
     router.push({ pathname: '/' })
@@ -62,14 +65,11 @@ export function Menu() {
         <button
           type="button"
           onClick={() => newNote()}
-          contentEditable={false}
-          className="text-xs bg-emerald-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600"
+          className="text-xs bg-emerald-500 rounded px-2 py-2.5 md:py-1.5 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600"
         >
-          <Plus weight="bold" color="#FFF" size={14} />
           Create a new note
-          <span className="ml-1 flex-none text-xs font-semibold text-white bg-emerald-600 px-2 py-1 rounded-md">
-            <kbd className="font-sans">⇧ + </kbd>
-            <kbd className="font-sans">N</kbd>
+          <span className="ml-1 flex-none font-semibold text-white bg-emerald-600 px-2 py-1 rounded-md hidden md:flex">
+            <kbd className="font-sans">{primaryKeyboardKey} + D</kbd>
           </span>
         </button>
       )
@@ -79,15 +79,12 @@ export function Menu() {
       <button
         type="button"
         onClick={() => saveNote()}
-        contentEditable={false}
         disabled={isLoading}
-        className="text-xs bg-emerald-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600 disabled:opacity-50 disabled:hover:bg-emerald-500 disabled:hover:cursor-wait"
+        className="text-xs bg-emerald-500 rounded px-2 py-2.5 md:py-1.5 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600 disabled:opacity-50 disabled:hover:bg-emerald-500 disabled:hover:cursor-wait"
       >
-        <RocketLaunch weight="bold" color="#FFF" size={14} />
         Save this note
-        <span className="ml-1 flex-none text-xs font-semibold text-white bg-emerald-600 px-2 py-1 rounded-md">
-          <kbd className="font-sans">⇧ + </kbd>
-          <kbd className="font-sans">S</kbd>
+        <span className="ml-1 flex-none text-xs font-semibold text-white bg-emerald-600 px-2 py-1 rounded-md hidden md:flex">
+          <kbd className="font-sans">{primaryKeyboardKey} + S</kbd>
         </span>
       </button>
     )

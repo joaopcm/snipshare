@@ -4,6 +4,7 @@ import { MagnifyingGlass, FilePlus, FloppyDisk, Folder } from 'phosphor-react'
 import { useRouter } from 'next/router'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { hotkeysConfig } from '@/config/hotkeys'
+import { usePlatform } from '@/hooks/usePlatform'
 
 const projects = [
   {
@@ -52,12 +53,12 @@ const projects = [
     url: '/6417bbdbe70df47ed9cc7b4d',
   },
 ]
-const recommended = projects.splice(0, 3)
+const recommended = projects.splice(0, 4)
 const quickActions = [
   {
     name: 'Create new note...',
     icon: FilePlus,
-    shortcut: 'N',
+    shortcut: 'D',
     url: '/',
   },
   { name: 'Save this note...', icon: FloppyDisk, shortcut: 'S', url: '/' },
@@ -71,8 +72,10 @@ export default function CommandPalette() {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const router = useRouter()
+  const { isApple } = usePlatform()
 
   useHotkeys(['ctrl+k', 'meta+k'], () => setOpen(true), hotkeysConfig)
+  const primaryKeyboardKey = isApple ? '⌘' : 'Ctrl'
 
   const filteredProjects =
     query === ''
@@ -208,9 +211,8 @@ export default function CommandPalette() {
                                     {action.name}
                                   </span>
                                   <span className="ml-3 flex-none text-xs font-semibold text-gray-400">
-                                    <kbd className="font-sans">⌘ + </kbd>
                                     <kbd className="font-sans">
-                                      {action.shortcut}
+                                      {primaryKeyboardKey} + {action.shortcut}
                                     </kbd>
                                   </span>
                                 </>
