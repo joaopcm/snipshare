@@ -1,3 +1,16 @@
+# [1.9.0](https://github.com/joaopcm/nodepad/compare/v1.8.1...v1.9.0) (2023-08-31)
+
+
+### Bug Fixes
+
+* small adjustments ([5edead5](https://github.com/joaopcm/nodepad/commit/5edead5818879660c93b6cc6be859f6a1a902c7e))
+
+
+### Features
+
+* add support for primary keyboard key based on user's platform ([cf2b619](https://github.com/joaopcm/nodepad/commit/cf2b619205337eec52f5d5227dba44d1a28c0cbf))
+* check for existing npm deps ([9125e8e](https://github.com/joaopcm/nodepad/commit/9125e8ec4afdd031b4b5e512cbacb865d3c41d4b))
+
 ## [1.8.1](https://github.com/joaopcm/nodepad/compare/v1.8.0...v1.8.1) (2023-04-01)
 
 
