@@ -26,7 +26,7 @@ export function WebContainerEditor() {
   const [output, setOutput] = useState<string[]>([])
   const [isRunning, setIsRunning] = useState(false)
   const [aiExplanation, setAIExplanation] = useState<string>()
-  const [askingAI, setAskinAI] = useState(false)
+  const [askingAI, setAskingAI] = useState(false)
   const { codeSnippet, setCodeSnippet } = useEditor()
   const router = useRouter()
 
@@ -45,7 +45,7 @@ export function WebContainerEditor() {
     setOutput([])
 
     const webContainer = await getWebContainerInstance()
-    const dependenciesToInstall = extractDependencies(codeSnippet)
+    const dependenciesToInstall = await extractDependencies(codeSnippet)
 
     await webContainer.mount({
       'index.ts': {
@@ -116,7 +116,7 @@ export function WebContainerEditor() {
   async function handleAskAI() {
     if (!id) return null
 
-    setAskinAI(true)
+    setAskingAI(true)
 
     const { answer } = await getAIExplanation({
       id,
@@ -124,7 +124,7 @@ export function WebContainerEditor() {
     })
 
     setAIExplanation(answer)
-    setAskinAI(false)
+    setAskingAI(false)
   }
 
   function handleStopEvaluation() {
