@@ -1,11 +1,8 @@
-
 ![Logo](https://getnodepad.com/og.png)
-
 
 # Nodepad
 
 Revolutionize your coding experience with Nodepad - the all-in-one platform for creating, executing, and sharing Node.js code snippets! Join the coding revolution today at www.getnodepad.com 🚀🌟
-
 
 ## Motivation
 
@@ -16,7 +13,6 @@ With Nodepad, programming students can benefit from a suite of features designed
 But Nodepad is more than just a tool for individual students. As an open-source project, it is a community-driven effort to make coding more accessible and enjoyable for all. By contributing to Nodepad or using it in their studies, students can join a vibrant community of developers, students, and educators who share a passion for programming and a commitment to innovation and excellence.
 
 At the heart of Nodepad is the belief that programming should be accessible to everyone, regardless of background or experience level. We hope that by providing a powerful, convenient, and community-driven platform for programming students, we can help inspire the next generation of great coders and contribute to a more inclusive and dynamic programming community.
-
 
 ## Features
 
@@ -36,13 +32,11 @@ At the heart of Nodepad is the belief that programming should be accessible to e
 
 Overall, Nodepad is a powerful and convenient platform for creating and sharing Node.js code snippets, with features designed to streamline the coding process and make it accessible to users of all levels.
 
-
 ## Tech Stack
 
 **Client:** React.js, Next.js, TailwindCSS, TipTap, and WebContainers
 
 **Server:** Node.js, MongoDB, and Redis
-
 
 ## Installation
 
@@ -51,7 +45,7 @@ Clone and run this project
 ```bash
   git clone git@github.com:joaopcm/nodepad.git
   cd ./nodepad
-  pnpm install
+  TIPTAP_PRO_TOKEN=YOUR_TIPTAP_PRO_TOKEN_HERE pnpm install
   pnpm run dev
 ```
 
@@ -74,19 +68,17 @@ To run this project, you will need to add the following environment variables to
 ## Authors
 
 - [@joaopcm](https://www.github.com/joaopcm)
-- [@NicolasLopes7](https://www.github.com/NicolasLopes7)
-
 
 ## Roadmap
 
-- [x] Add a welcome modal explaining the app when the user first visits (added a cool landing page)
-- [ ] Support multiple code snippets per note
 - [ ] Dynamic SEO meta tags
 - [ ] Templates marketplace
-- [x] AI to explain code snippets
-- [x] Changelog
 - [ ] User authentication so that users can create only private notes
 - [ ] Groups, where users can add other users to collaborate on notes privately
+- [x] Add a welcome modal explaining the app when the user first visits (added a cool landing page)
+- [x] Support multiple code snippets per note
+- [x] AI to explain code snippets
+- [x] Changelog
 - [x] Examples library
 - [x] Keyboard shortcuts
 - [x] Command palette
@@ -96,11 +88,11 @@ To run this project, you will need to add the following environment variables to
 ## Technical Debts
 
 - [ ] Add tests
-- [x] Render "view" instead of "views" when the counter is 1 (string, not number)
 - [ ] [Move this logic to an util or a hook](https://github.com/joaopcm/nodepad/pull/18#discussion_r1146363295)
 - [ ] Add Zod for API routes validation
 - [ ] Add error handlers in the client side
+- [x] Render "view" instead of "views" when the counter is 1 (string, not number)
 
 ## Changelog
 
-Discover the evolution of our product in our [dynamic CHANGELOG.md](https://github.com/joaopcm/nodepad/blob/main/CHANGELOG.md)!
+Discover the evolution of our product in our [CHANGELOG.md](https://github.com/joaopcm/nodepad/blob/main/CHANGELOG.md)!

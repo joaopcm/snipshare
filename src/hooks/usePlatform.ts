@@ -1,5 +1,13 @@
+import { useEffect, useState } from 'react'
+
 export const usePlatform = () => {
-  const platform = window.navigator.platform
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const platform = isClient ? window.navigator.platform : ''
 
   const isApple =
     platform.toUpperCase().indexOf('MAC') >= 0 ||

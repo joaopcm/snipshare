@@ -74,7 +74,7 @@ export default function CommandPalette() {
   const router = useRouter()
   const { isApple } = usePlatform()
 
-  useHotkeys(['ctrl+k', 'meta+k'], () => setOpen(true), hotkeysConfig)
+  useHotkeys('ctrl+k,meta+k', () => setOpen(true), hotkeysConfig)
   const primaryKeyboardKey = isApple ? '⌘' : 'Ctrl'
 
   const filteredProjects =
