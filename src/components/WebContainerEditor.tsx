@@ -8,7 +8,6 @@ import '@uiw/react-textarea-code-editor/dist.css'
 import {
   getWebContainerInstance,
   installDependencies,
-  installDevDependencies,
   printNodeJSVersion,
   runCode,
 } from '@/helpers/web-container'
@@ -106,7 +105,6 @@ export function WebContainerEditor() {
     })
 
     await printNodeJSVersion(setOutput)
-    await installDevDependencies(setOutput)
     await installDependencies(setOutput, dependenciesToInstall)
     await runCode(setOutput)
 

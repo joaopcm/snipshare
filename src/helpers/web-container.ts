@@ -28,17 +28,6 @@ export async function printNodeJSVersion(
   )
 }
 
-export async function installDevDependencies(
-  setOutput: Dispatch<SetStateAction<string[]>>,
-) {
-  setOutput((state) => [...state, '🚧 Installing required dependencies...'])
-
-  const container = await getWebContainerInstance()
-  const installProcess = await container.spawn('pnpm', ['i', '--only=dev'])
-
-  return installProcess.exit
-}
-
 export async function installDependencies(
   setOutput: Dispatch<SetStateAction<string[]>>,
   dependenciesToInstall: string[],
@@ -74,10 +63,10 @@ export async function runCode(setOutput: Dispatch<SetStateAction<string[]>>) {
 
   setOutput((state) => [...state, '🚀 Running the application...'])
 
-  const buildProcess = await container.spawn('pnpm', ['build'])
+  const buildProcess = await container.spawn('bun', ['build'])
   await buildProcess.exit
 
-  const startProcess = await container.spawn('pnpm', ['start'])
+  const startProcess = await container.spawn('bun', ['start'])
 
   startProcess.output.pipeTo(
     new WritableStream({

@@ -45,8 +45,8 @@ Clone and run this project
 ```bash
   git clone git@github.com:joaopcm/nodepad.git
   cd ./nodepad
-  TIPTAP_PRO_TOKEN=YOUR_TIPTAP_PRO_TOKEN_HERE pnpm install
-  pnpm run dev
+  bun install
+  bun run dev
 ```
 
 ## Environment Variables
