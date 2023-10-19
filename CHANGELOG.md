@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/joaopcm/nodepad/compare/v1.11.0...v1.11.1) (2023-10-19)
+
+
+### Bug Fixes
+
+* fix broken dependencies and update the readme file ([c44f23a](https://github.com/joaopcm/nodepad/commit/c44f23ad18a123b888a91a7717ee74de742a4096))
+
 # [1.11.0](https://github.com/joaopcm/nodepad/compare/v1.10.0...v1.11.0) (2023-10-19)
 
 
