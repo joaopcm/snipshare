@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/joaopcm/nodepad/compare/v1.10.0...v1.11.0) (2023-10-19)
+
+
+### Features
+
+* use langchain and langsmith to deal with ai ([08d0b0f](https://github.com/joaopcm/nodepad/commit/08d0b0fc26b8831a28df91bd74c877af51ab7dfb))
+
 # [1.10.0](https://github.com/joaopcm/nodepad/compare/v1.9.0...v1.10.0) (2023-10-19)
 
 
