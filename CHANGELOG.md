@@ -1,3 +1,15 @@
+# [1.12.0](https://github.com/joaopcm/nodepad/compare/v1.11.1...v1.12.0) (2023-10-19)
+
+
+### Bug Fixes
+
+* try to fix the build ([f20537a](https://github.com/joaopcm/nodepad/commit/f20537a43d2137cc504d70582d4789f1b3af2204))
+
+
+### Features
+
+* add ssr ([a3d3348](https://github.com/joaopcm/nodepad/commit/a3d33480ccd4fd61db1988399f1e30851125641e))
+
 ## [1.11.1](https://github.com/joaopcm/nodepad/compare/v1.11.0...v1.11.1) (2023-10-19)
 
 
