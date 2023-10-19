@@ -1,13 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import {
-  Lightning,
-  Spinner,
-  Robot,
-  ImageSquare,
-  ShootingStar,
-} from '@phosphor-icons/react'
+import { Lightning, Spinner, Robot, ImageSquare, Sparkle } from 'phosphor-react'
 import { NodeViewWrapper } from '@tiptap/react'
 import { encodeURI } from 'js-base64'
 import '@uiw/react-textarea-code-editor/dist.css'
@@ -179,7 +173,7 @@ export function WebContainerEditor() {
         contentEditable={false}
         className="text-xs bg-zinc-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-zinc-600"
       >
-        <ShootingStar weight="bold" color="#FFF" size={14} />
+        <Sparkle weight="fill" color="#FFF" size={14} />
         Ask AI
       </button>
     )

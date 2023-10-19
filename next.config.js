@@ -6,10 +6,6 @@ const nextConfig = {
   experimental: {
     esmExternals: true,
   },
-}
-
-module.exports = removeImports({
-  ...nextConfig,
   async headers() {
     return [
       {
@@ -27,4 +23,6 @@ module.exports = removeImports({
       },
     ]
   },
-})
+}
+
+module.exports = removeImports(nextConfig)

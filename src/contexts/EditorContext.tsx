@@ -6,7 +6,6 @@ import Placeholder from '@tiptap/extension-placeholder'
 import Link from '@tiptap/extension-link'
 
 import { EditorBlock } from '@/components/EditorBlock'
-import { TrailingNode } from '@/components/TrailingNode'
 
 interface EditorContextValue {
   editor: Editor | null
@@ -64,9 +63,8 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
         },
       }),
       EditorBlock,
-      TrailingNode,
     ],
-    content: ``,
+    content: '',
   })
 
   return (
@@ -77,7 +75,5 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useEditor() {
-  const { editor, codeSnippet, setCodeSnippet } = useContext(EditorContext)
-
-  return { editor, codeSnippet, setCodeSnippet }
+  return useContext(EditorContext)
 }
