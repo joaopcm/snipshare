@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { Copy } from 'phosphor-react'
+import { Copy } from '@phosphor-icons/react'
 
 interface CopyLinkModalProps {
   link: string | null

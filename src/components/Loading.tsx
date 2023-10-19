@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { Lightning } from 'phosphor-react'
+import { Lightning } from '@phosphor-icons/react'
 
 interface LoadingProps {
   isLoading: boolean

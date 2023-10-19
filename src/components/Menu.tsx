@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { GithubLogo } from 'phosphor-react'
+import { GithubLogo } from '@phosphor-icons/react'
 import Link from 'next/link'
 import { useHotkeys } from 'react-hotkeys-hook'
 

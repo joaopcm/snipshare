@@ -1,6 +1,11 @@
 import { Fragment, useState } from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
-import { MagnifyingGlass, FilePlus, FloppyDisk, Folder } from 'phosphor-react'
+import {
+  MagnifyingGlass,
+  FilePlus,
+  FloppyDisk,
+  Folder,
+} from '@phosphor-icons/react'
 import { useRouter } from 'next/router'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { hotkeysConfig } from '@/config/hotkeys'
