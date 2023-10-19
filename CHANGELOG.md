@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/joaopcm/nodepad/compare/v1.9.0...v1.10.0) (2023-10-19)
+
+
+### Features
+
+* use ray.so to generate images for code snippets ([73f6bd7](https://github.com/joaopcm/nodepad/commit/73f6bd7c07093389d57f6c152e5d7ddee2ef8a9c))
+
 # [1.9.0](https://github.com/joaopcm/nodepad/compare/v1.8.1...v1.9.0) (2023-08-31)
 
 
