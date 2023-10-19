@@ -1,8 +1,15 @@
+import { Fragment, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { Fragment, useEffect, useState } from 'react'
-import { Lightning, Spinner, Robot } from 'phosphor-react'
+import {
+  Lightning,
+  Spinner,
+  Robot,
+  ImageSquare,
+  ShootingStar,
+} from '@phosphor-icons/react'
 import { NodeViewWrapper } from '@tiptap/react'
+import { encodeURI } from 'js-base64'
 import '@uiw/react-textarea-code-editor/dist.css'
 
 import {
@@ -127,6 +134,12 @@ export function WebContainerEditor() {
     setAskingAI(false)
   }
 
+  async function handleGenerateImage() {
+    const base64Text = encodeURI(codeSnippet)
+    const url = `https://ray.so/#theme=meadow&background=true&darkMode=true&padding=64&code=${base64Text}`
+    window.open(url, '_blank')
+  }
+
   function handleStopEvaluation() {
     setIsRunning(false)
   }
@@ -136,7 +149,7 @@ export function WebContainerEditor() {
       type="button"
       contentEditable={false}
       disabled
-      className="text-xs bg-gray-300 rounded px-3 py-2 flex items-center gap-1 text-omni-dark font-semibold ml-auto top-12 right-4 relative z-10 opacity-25 hover:cursor-not-allowed"
+      className="text-xs bg-gray-300 rounded px-3 py-2 flex items-center gap-1 text-omni-dark font-semibold opacity-25 hover:cursor-not-allowed"
     >
       <Robot weight="bold" color="#181621" size={14} />
       Save this note to ask AI
@@ -149,7 +162,7 @@ export function WebContainerEditor() {
         type="button"
         disabled
         contentEditable={false}
-        className="text-xs bg-omni-dark rounded px-3 py-2 flex items-center gap-1 text-white font-semibol ml-auto top-12 right-4 relative z-10 opacity-50 hover:opacity-100 hover:cursor-progress"
+        className="text-xs bg-omni-dark rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:cursor-progress"
       >
         <Spinner
           weight="bold"
@@ -164,10 +177,24 @@ export function WebContainerEditor() {
         type="button"
         onClick={handleAskAI}
         contentEditable={false}
-        className="text-xs bg-emerald-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-emerald-600 ml-auto top-12 right-4 relative z-10 opacity-50 hover:opacity-100"
+        className="text-xs bg-zinc-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-zinc-600"
       >
-        <Robot weight="bold" color="#FFF" size={14} />
+        <ShootingStar weight="bold" color="#FFF" size={14} />
         Ask AI
+      </button>
+    )
+  }
+
+  const GenerateImage = () => {
+    return (
+      <button
+        type="button"
+        onClick={handleGenerateImage}
+        contentEditable={false}
+        className="text-xs bg-zinc-500 rounded px-3 py-2 flex items-center gap-1 text-white font-semibold hover:bg-zinc-600"
+      >
+        <ImageSquare weight="bold" color="#FFF" size={14} />
+        Generate image
       </button>
     )
   }
@@ -175,34 +202,10 @@ export function WebContainerEditor() {
   return (
     <>
       <NodeViewWrapper className="not-prose">
-        <Transition.Root
-          show={!!aiExplanation}
-          as={Fragment}
-          afterLeave={() => setAIExplanation(undefined)}
-          appear
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="transition ease-out duration-300"
-            enterFrom="opacity-0 translate-y-1"
-            enterTo="opacity-100 translate-y-0"
-            leave="transition ease-in duration-200"
-            leaveFrom="opacity-100 translate-y-0"
-            leaveTo="opacity-0 translate-y-1"
-          >
-            <div className="bg-omni-light p-5 rounded mb-2 text-sm relative ring-1 ring-emerald-500">
-              <p
-                className="font-monospace text-xs leading-loose"
-                contentEditable={false}
-              >
-                <span className="text-emerald-500 font-semibold">AI:</span>{' '}
-                {aiExplanation}
-              </p>
-            </div>
-          </Transition.Child>
-        </Transition.Root>
-
-        {isSavedNotePage ? <AskAIButton /> : <DisabledAskAIButton />}
+        <div className="mb-2 flex justify-end space-x-2">
+          <GenerateImage />
+          {isSavedNotePage ? <AskAIButton /> : <DisabledAskAIButton />}
+        </div>
 
         <CodeEditor
           value={codeSnippet}
@@ -221,6 +224,34 @@ export function WebContainerEditor() {
           }}
           data-color-mode="dark"
         />
+
+        <Transition.Root
+          show={!!aiExplanation}
+          as={Fragment}
+          afterLeave={() => setAIExplanation(undefined)}
+          appear
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition ease-out duration-300"
+            enterFrom="opacity-0 translate-y-1"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-1"
+          >
+            <div className="bg-omni-light p-5 rounded my-2 text-sm relative ring-1 ring-emerald-500">
+              <p
+                className="font-monospace text-xs leading-loose"
+                contentEditable={false}
+              >
+                <span className="text-emerald-500 font-semibold">AI:</span>{' '}
+                {aiExplanation}
+              </p>
+            </div>
+          </Transition.Child>
+        </Transition.Root>
+
         <div
           className="bg-black p-5 min-h-[64px] rounded mt-2 text-sm relative"
           contentEditable={false}
