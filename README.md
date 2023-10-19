@@ -45,8 +45,8 @@ Clone and run this project
 ```bash
   git clone git@github.com:joaopcm/nodepad.git
   cd ./nodepad
-  TIPTAP_PRO_TOKEN=YOUR_TIPTAP_PRO_TOKEN_HERE pnpm install
-  pnpm run dev
+  pnpm i
+  pnpm dev
 ```
 
 ## Environment Variables
@@ -75,15 +75,6 @@ To run this project, you will need to add the following environment variables to
 - [ ] Templates marketplace
 - [ ] User authentication so that users can create only private notes
 - [ ] Groups, where users can add other users to collaborate on notes privately
-- [x] Add a welcome modal explaining the app when the user first visits (added a cool landing page)
-- [x] Support multiple code snippets per note
-- [x] AI to explain code snippets
-- [x] Changelog
-- [x] Examples library
-- [x] Keyboard shortcuts
-- [x] Command palette
-- [x] Keyboard shortcuts
-- [x] Move this app to its own domain (getnodepad.com)
 
 ## Technical Debts
 
@@ -91,7 +82,6 @@ To run this project, you will need to add the following environment variables to
 - [ ] [Move this logic to an util or a hook](https://github.com/joaopcm/nodepad/pull/18#discussion_r1146363295)
 - [ ] Add Zod for API routes validation
 - [ ] Add error handlers in the client side
-- [x] Render "view" instead of "views" when the counter is 1 (string, not number)
 
 ## Changelog
 
