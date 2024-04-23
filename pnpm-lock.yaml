@@ -38,6 +38,18 @@ importers:
 
   config/typescript-config: {}
 
+  packages/auth:
+    devDependencies:
+      '@nodepad/eslint-config':
+        specifier: workspace:*
+        version: link:../../config/eslint-config
+      '@nodepad/prettier-config':
+        specifier: workspace:*
+        version: link:../../config/prettier-config
+      '@nodepad/typescript-config':
+        specifier: workspace:*
+        version: link:../../config/typescript-config
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
