@@ -5,8 +5,8 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "devDependencies": {
-    "@nodepad/prettier-config": "workspace:*",
     "@nodepad/eslint-config": "workspace:*",
+    "@nodepad/prettier-config": "workspace:*",
     "@nodepad/typescript-config": "workspace:*"
   },
   "eslintConfig": {
@@ -14,5 +14,8 @@
       "@nodepad/eslint-config/library"
     ]
   },
-  "prettier": "@nodepad/prettier-config"
+  "prettier": "@nodepad/prettier-config",
+  "dependencies": {
+    "@casl/ability": "6.7.1"
+  }
 }

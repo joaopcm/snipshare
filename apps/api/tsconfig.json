@@ -1,0 +1,4 @@
+{
+  "extends": "@nodepad/typescript-config/node.json",
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@nodepad/api",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@nodepad/auth": "workspace:*"
+  },
+  "devDependencies": {
+    "@nodepad/eslint-config": "workspace:*",
+    "@nodepad/prettier-config": "workspace:*",
+    "@nodepad/typescript-config": "workspace:*",
+    "@types/node": "^20.12.7",
+    "tsx": "^4.7.2"
+  },
+  "prettier": "@nodepad/prettier-config",
+  "eslintConfig": {
+    "extends": [
+      "@nodepad/eslint-config/node"
+    ]
+  }
+}
