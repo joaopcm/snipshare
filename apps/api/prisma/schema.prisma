@@ -117,6 +117,7 @@ model Organization {
   memberships Membership[]
   projects    Project[]
 
+  @@index([slug])
   @@map("organizations")
 }
 
