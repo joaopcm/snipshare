@@ -136,5 +136,6 @@ model Project {
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String @map("owner_id")
 
+  @@index([slug])
   @@map("projects")
 }
