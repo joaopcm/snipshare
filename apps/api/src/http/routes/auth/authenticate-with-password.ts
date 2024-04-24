@@ -5,6 +5,8 @@ import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
+import { BadRequestError } from '../_errors/bad-request-error'
+
 export async function authenticateWithPassword(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/sessions/password',
@@ -17,9 +19,6 @@ export async function authenticateWithPassword(app: FastifyInstance) {
           password: z.string().min(6),
         }),
         response: {
-          400: z.object({
-            message: z.string(),
-          }),
           201: z.object({
             token: z.string(),
           }),
@@ -36,13 +35,13 @@ export async function authenticateWithPassword(app: FastifyInstance) {
       })
 
       if (!userFromEmail) {
-        return reply.status(400).send({ message: 'Invalid credentials.' })
+        throw new BadRequestError('Invalid credentials.')
       }
 
       if (userFromEmail.passwordHash === null) {
-        return reply.status(400).send({
-          message: 'User does not have password. Use social authentication.',
-        })
+        throw new BadRequestError(
+          'User does not have password. Use social authentication.',
+        )
       }
 
       const isPasswordValid = await compare(
@@ -50,7 +49,7 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         userFromEmail.passwordHash,
       )
       if (!isPasswordValid) {
-        return reply.status(400).send({ message: 'Invalid credentials.' })
+        throw new BadRequestError('Invalid credentials.')
       }
 
       const token = await reply.jwtSign(
