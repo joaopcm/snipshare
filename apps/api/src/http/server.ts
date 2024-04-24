@@ -18,6 +18,7 @@ import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
+import { createInvite } from './routes/invites/create-invite'
 import { deleteMembership } from './routes/memberships/delete-membership'
 import { getMemberships } from './routes/memberships/get-memberships'
 import { updateMembership } from './routes/memberships/update-membership'
@@ -89,6 +90,7 @@ app.register(updateProject)
 app.register(getMemberships)
 app.register(updateMembership)
 app.register(deleteMembership)
+app.register(createInvite)
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log('HTTP server running!')

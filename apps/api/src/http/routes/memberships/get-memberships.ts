@@ -1,4 +1,4 @@
-import { Role } from '@prisma/client'
+import { roleSchema } from '@nodepad/auth'
 import type { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -29,7 +29,7 @@ export async function getMemberships(app: FastifyInstance) {
                 z.object({
                   id: z.string().uuid(),
                   userId: z.string().uuid(),
-                  role: z.nativeEnum(Role),
+                  role: roleSchema,
                   name: z.string().nullable(),
                   email: z.string().email(),
                   avatarUrl: z.string().url().nullable(),
