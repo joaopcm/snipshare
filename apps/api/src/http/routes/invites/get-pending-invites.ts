@@ -19,29 +19,27 @@ export async function getPendingInvites(app: FastifyInstance) {
           tags: ['invites'],
           summary: 'Get all user pending invites',
           response: {
-            response: {
-              200: z.object({
-                invites: z.array(
-                  z.object({
-                    id: z.string().uuid(),
-                    email: z.string().email(),
-                    role: roleSchema,
-                    createdAt: z.date(),
-                    author: z
-                      .object({
-                        id: z.string().uuid(),
-                        name: z.string().nullable(),
-                        avatarUrl: z.string().url().nullable(),
-                      })
-                      .nullable(),
-                    organization: z.object({
+            200: z.object({
+              invites: z.array(
+                z.object({
+                  id: z.string().uuid(),
+                  email: z.string().email(),
+                  role: roleSchema,
+                  createdAt: z.date(),
+                  author: z
+                    .object({
                       id: z.string().uuid(),
-                      name: z.string(),
-                    }),
+                      name: z.string().nullable(),
+                      avatarUrl: z.string().url().nullable(),
+                    })
+                    .nullable(),
+                  organization: z.object({
+                    id: z.string().uuid(),
+                    name: z.string(),
                   }),
-                ),
-              }),
-            },
+                }),
+              ),
+            }),
           },
         },
       },
