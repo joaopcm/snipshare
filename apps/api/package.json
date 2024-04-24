@@ -2,17 +2,21 @@
   "name": "@nodepad/api",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/http/server.ts"
   },
   "dependencies": {
-    "@nodepad/auth": "workspace:*"
+    "@fastify/cors": "9.0.1",
+    "@nodepad/auth": "workspace:*",
+    "fastify": "4.26.2",
+    "fastify-type-provider-zod": "1.1.9",
+    "zod": "3.23.4"
   },
   "devDependencies": {
     "@nodepad/eslint-config": "workspace:*",
     "@nodepad/prettier-config": "workspace:*",
     "@nodepad/typescript-config": "workspace:*",
-    "@types/node": "^20.12.7",
-    "tsx": "^4.7.2"
+    "@types/node": "20.12.7",
+    "tsx": "4.7.2"
   },
   "prettier": "@nodepad/prettier-config",
   "eslintConfig": {
