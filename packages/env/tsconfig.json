@@ -1,0 +1,4 @@
+{
+  "extends": "@nodepad/typescript-config/library.json",
+  "include": ["index.ts"]
+}

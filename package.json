@@ -1,59 +1,19 @@
 {
   "name": "nodepad",
-  "version": "1.12.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint --fix",
-    "pre-commit": "lint-staged",
-    "prepare": "husky install"
-  },
-  "dependencies": {
-    "@headlessui/react": "1.7.13",
-    "@tiptap/core": "2.0.0-beta.218",
-    "@tiptap/extension-document": "2.0.0-beta.218",
-    "@tiptap/extension-link": "2.0.0-beta.220",
-    "@tiptap/extension-placeholder": "2.0.0-beta.218",
-    "@tiptap/pm": "2.0.0-beta.218",
-    "@tiptap/react": "2.0.0-beta.218",
-    "@tiptap/starter-kit": "2.0.0-beta.218",
-    "@types/node": "18.14.2",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
-    "@uiw/react-textarea-code-editor": "2.1.1",
-    "@upstash/redis": "1.20.1",
-    "@vercel/analytics": "0.1.10",
-    "@webcontainer/api": "1.0.2",
-    "ansi-to-html": "0.7.2",
-    "eslint": "8.35.0",
-    "eslint-config-next": "13.2.1",
-    "js-base64": "^3.7.5",
-    "langchain": "^0.0.169",
-    "mongodb": "5.1.0",
-    "next": "13.2.1",
-    "next-remove-imports": "1.0.10",
-    "next-seo": "5.15.0",
-    "phosphor-react": "1.4.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hotkeys-hook": "4.3.8",
-    "typescript": "4.9.5"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.4.2",
-    "@commitlint/config-conventional": "17.4.2",
-    "@rocketseat/eslint-config": "1.2.0",
-    "@tailwindcss/typography": "0.5.9",
-    "autoprefixer": "10.4.13",
-    "cssnano": "^6.0.1",
-    "husky": "8.0.3",
-    "lint-staged": "13.2.0",
-    "postcss": "8.4.21",
-    "postcss-import": "^15.1.0",
-    "postcss-nesting": "^12.0.1",
-    "tailwindcss": "3.2.7",
-    "@tailwindcss/forms": "0.5.3"
-  }
+    "turbo": "latest"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "workspaces": [
+    "config/*"
+  ]
 }

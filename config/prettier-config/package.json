@@ -1,0 +1,11 @@
+{
+  "name": "@nodepad/prettier-config",
+  "version": "0.0.0",
+  "main": "index.mjs",
+  "private": true,
+  "devDependencies": {
+    "prettier": "3.2.5",
+    "prettier-plugin-tailwindcss": "0.5.14",
+    "@nodepad/prettier-config": "workspace:*"
+  }
+}
