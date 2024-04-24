@@ -6,10 +6,10 @@ This project contains all the necessary boilerplate to setup a multi-tenant SaaS
 
 ### Authentication
 
-- [ ] It should be able to authenticate using e-mail & password;
+- [ ] It should be able to authenticate using email & password;
 - [ ] It should be able to authenticate using Github account;
-- [ ] It should be able to recover password using e-mail;
-- [ ] It should be able to create an account (e-mail, name and password);
+- [ ] It should be able to recover password using email;
+- [x] It should be able to create an account (email, name and password);
 
 ### Organizations
 
@@ -21,7 +21,7 @@ This project contains all the necessary boilerplate to setup a multi-tenant SaaS
 
 ### Invites
 
-- [ ] It should be able to invite a new member (e-mail, role);
+- [ ] It should be able to invite a new member (email, role);
 - [ ] It should be able to accept an invite;
 - [ ] It should be able to revoke a pending invite;
 
