@@ -29,6 +29,9 @@ importers:
       '@nodepad/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@nodepad/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       '@prisma/client':
         specifier: 5.13.0
         version: 5.13.0(prisma@5.13.0)
@@ -66,6 +69,9 @@ importers:
       '@types/node':
         specifier: 20.12.7
         version: 20.12.7
+      dotenv-cli:
+        specifier: 7.4.1
+        version: 7.4.1
       prisma:
         specifier: 5.13.0
         version: 5.13.0
@@ -117,6 +123,28 @@ importers:
       '@nodepad/typescript-config':
         specifier: workspace:*
         version: link:../../config/typescript-config
+
+  packages/env:
+    dependencies:
+      '@t3-oss/env-nextjs':
+        specifier: 0.10.1
+        version: 0.10.1(zod@3.23.4)
+      zod:
+        specifier: 3.23.4
+        version: 3.23.4
+    devDependencies:
+      '@nodepad/eslint-config':
+        specifier: workspace:*
+        version: link:../../config/eslint-config
+      '@nodepad/prettier-config':
+        specifier: workspace:*
+        version: link:../../config/prettier-config
+      '@nodepad/typescript-config':
+        specifier: workspace:*
+        version: link:../../config/typescript-config
+      '@types/node':
+        specifier: 20.12.7
+        version: 20.12.7
 
 packages:
 
@@ -615,6 +643,31 @@ packages:
       - eslint-import-resolver-webpack
       - supports-color
     dev: true
+
+  /@t3-oss/env-core@0.10.1(zod@3.23.4):
+    resolution: {integrity: sha512-GcKZiCfWks5CTxhezn9k5zWX3sMDIYf6Kaxy2Gx9YEQftFcz8hDRN56hcbylyAO3t4jQnQ5ifLawINsNgCDpOg==}
+    peerDependencies:
+      typescript: '>=5.0.0'
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      zod: 3.23.4
+    dev: false
+
+  /@t3-oss/env-nextjs@0.10.1(zod@3.23.4):
+    resolution: {integrity: sha512-iy2qqJLnFh1RjEWno2ZeyTu0ufomkXruUsOZludzDIroUabVvHsrSjtkHqwHp1/pgPUzN3yBRHMILW162X7x2Q==}
+    peerDependencies:
+      typescript: '>=5.0.0'
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@t3-oss/env-core': 0.10.1(zod@3.23.4)
+      zod: 3.23.4
+    dev: false
 
   /@types/bcryptjs@2.4.6:
     resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
@@ -1259,6 +1312,26 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+    dev: true
+
+  /dotenv-cli@7.4.1:
+    resolution: {integrity: sha512-fE1aywjRrWGxV3miaiUr3d2zC/VAiuzEGghi+QzgIA9fEf/M5hLMaRSXb4IxbUAwGmaLi0IozdZddnVU96acag==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.4.5
+      dotenv-expand: 10.0.0
+      minimist: 1.2.8
+    dev: true
+
+  /dotenv-expand@10.0.0:
+    resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
+    engines: {node: '>=12'}
+    dev: true
+
+  /dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
     dev: true
 
   /eastasianwidth@0.2.0:

@@ -10,3 +10,9 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=nodepad
+    volumes:
+      - nodepad-postgresql:/var/lib/postgresql/data
+
+volumes:
+  nodepad-postgresql:
+    driver: local

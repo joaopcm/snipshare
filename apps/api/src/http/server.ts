@@ -2,6 +2,7 @@ import fastifyCors from '@fastify/cors'
 import fastifyJWT from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import { env } from '@nodepad/env'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
@@ -32,7 +33,15 @@ app.register(fastifySwagger, {
         'Revolutionize your coding experience with Nodepad - the all-in-one platform for creating, executing, and sharing Node.js code snippets.',
       version: '1.0.0',
     },
-    servers: [],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   transform: jsonSchemaTransform,
 })
@@ -40,7 +49,7 @@ app.register(fastifySwaggerUI, {
   routePrefix: '/docs',
 })
 app.register(fastifyJWT, {
-  secret: 'my-jwt-secret',
+  secret: env.JWT_SECRET,
 })
 app.register(fastifyCors)
 
@@ -51,6 +60,6 @@ app.register(requestPasswordRecover)
 app.register(resetPassword)
 app.register(authenticateWithGitHub)
 
-app.listen({ port: 3333 }).then(() => {
+app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log('HTTP server running!')
 })

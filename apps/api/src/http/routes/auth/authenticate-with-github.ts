@@ -1,3 +1,4 @@
+import { env } from '@nodepad/env'
 import { AccountProvider } from '@prisma/client'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
@@ -31,11 +32,14 @@ export async function authenticateWithGitHub(app: FastifyInstance) {
         'https://github.com/login/oauth/access_token',
       )
 
-      githubOAuthURL.searchParams.set('client_id', 'client-id')
-      githubOAuthURL.searchParams.set('client_secret', 'client-secret')
+      githubOAuthURL.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID)
+      githubOAuthURL.searchParams.set(
+        'client_secret',
+        env.GITHUB_OAUTH_CLIENT_SECRET,
+      )
       githubOAuthURL.searchParams.set(
         'redirect_uri',
-        'http://localhost:3000/api/auth/callback',
+        env.GITHUB_OAUTH_REDIRECT_URI,
       )
       githubOAuthURL.searchParams.set('code', code)
       githubOAuthURL.searchParams.set('scope', 'user:email')
