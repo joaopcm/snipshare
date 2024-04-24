@@ -9,15 +9,15 @@ import { getUserPermissions } from '@/utils/get-user-permissions'
 
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
-export async function getMembers(app: FastifyInstance) {
+export async function getMemberships(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
     .get(
-      '/organizations/:slug/members',
+      '/organizations/:slug/memberships',
       {
         schema: {
-          tags: ['members'],
+          tags: ['memberships'],
           summary: 'Get all organization members',
           security: [{ bearerAuth: [] }],
           params: z.object({
