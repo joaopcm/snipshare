@@ -1,4 +1,4 @@
-import { defineAbilityFor, type Role, userSchema } from '@nodepad/auth'
+import { defineAbilityFor, type Role, userSchema } from '@snipshare/auth'
 
 export function getUserPermissions(userId: string, role: Role) {
   const authUser = userSchema.parse({

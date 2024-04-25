@@ -1,5 +1,5 @@
 {
-  "name": "@nodepad/api",
+  "name": "@snipshare/api",
   "version": "1.0.0",
   "scripts": {
     "env:load": "dotenv -e ../../.env --",
@@ -13,20 +13,23 @@
     "@fastify/jwt": "8.0.0",
     "@fastify/swagger": "8.14.0",
     "@fastify/swagger-ui": "3.0.0",
-    "@nodepad/auth": "workspace:*",
-    "@nodepad/env": "workspace:*",
+    "@snipshare/auth": "workspace:*",
+    "@snipshare/env": "workspace:*",
     "@prisma/client": "5.13.0",
     "bcryptjs": "2.4.3",
     "fastify": "4.26.2",
     "fastify-plugin": "4.5.1",
     "fastify-type-provider-zod": "1.1.9",
+    "resend": "3.2.0",
     "zod": "3.23.4"
   },
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
-    "@nodepad/eslint-config": "workspace:*",
-    "@nodepad/prettier-config": "workspace:*",
-    "@nodepad/typescript-config": "workspace:*",
+    "@snipshare/eslint-config": "workspace:*",
+    "@snipshare/prettier-config": "workspace:*",
+    "@snipshare/typescript-config": "workspace:*",
+    "@snipshare/transactional": "workspace:*",
+    "@snipshare/constants": "workspace:*",
     "@types/bcryptjs": "2.4.6",
     "@types/node": "20.12.7",
     "dotenv-cli": "7.4.1",
@@ -36,10 +39,10 @@
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
-  "prettier": "@nodepad/prettier-config",
+  "prettier": "@snipshare/prettier-config",
   "eslintConfig": {
     "extends": [
-      "@nodepad/eslint-config/node"
+      "@snipshare/eslint-config/node"
     ]
   }
 }

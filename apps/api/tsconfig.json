@@ -1,5 +1,5 @@
 {
-  "extends": "@nodepad/typescript-config/node.json",
+  "extends": "@snipshare/typescript-config/node.json",
   "include": ["src/**/*", "@types/*.d.ts"],
   "compilerOptions": {
     "baseUrl": ".",

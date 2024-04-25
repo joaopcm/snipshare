@@ -1,5 +1,5 @@
 {
-  "name": "@nodepad/eslint-config",
+  "name": "@snipshare/eslint-config",
   "version": "0.0.0",
   "private": true,
   "files": [
@@ -10,9 +10,9 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "2.2.2",
     "eslint-plugin-simple-import-sort": "12.1.0",
-    "@nodepad/prettier-config": "workspace:*"
+    "@snipshare/prettier-config": "workspace:*"
   },
-  "prettier": "@nodepad/prettier-config",
+  "prettier": "@snipshare/prettier-config",
   "eslintConfig": {
     "extends": [
       "./library.js"

@@ -1,4 +1,4 @@
-import { env } from '@nodepad/env'
+import { env } from '@snipshare/env'
 import { AccountProvider } from '@prisma/client'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'

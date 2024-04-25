@@ -1,5 +1,5 @@
 {
-  "name": "@nodepad/prettier-config",
+  "name": "@snipshare/prettier-config",
   "version": "0.0.0",
   "main": "index.mjs",
   "private": true,

@@ -1,4 +1,4 @@
 {
-  "extends": "@nodepad/typescript-config/library.json",
+  "extends": "@snipshare/typescript-config/library.json",
   "include": ["src/**/*"]
 }
