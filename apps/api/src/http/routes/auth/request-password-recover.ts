@@ -1,9 +1,13 @@
 import { TokenType } from '@prisma/client'
+import { EMAILS } from '@snipshare/constants'
+import { env } from '@snipshare/env'
+import { PasswordRecoverEmail } from '@snipshare/transactional'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
+import { resend } from '@/lib/resend'
 
 export async function requestPasswordRecover(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -41,8 +45,20 @@ export async function requestPasswordRecover(app: FastifyInstance) {
         },
       })
 
-      // TODO: Send email with password recover link
-      console.log(`Password recover link: ${id}`)
+      const { error } = await resend.emails.send({
+        from: `SnipShare <${EMAILS.support}>`,
+        reply_to: EMAILS.support,
+        to: [email],
+        subject: 'Reset your SnipShare password',
+        react: PasswordRecoverEmail({
+          name: userFromEmail.name,
+          link: `${env.CLIENT_URL}/password/recover/${id}`,
+        }),
+      })
+
+      if (error) {
+        console.error(error)
+      }
 
       return reply.status(201).send()
     },

@@ -15,6 +15,7 @@ import {
   Text,
 } from '@react-email/components'
 import { Tailwind } from '@react-email/tailwind'
+import { env } from '@snipshare/env'
 import * as React from 'react'
 
 interface InviteEmailProps {
@@ -49,8 +50,7 @@ export const InviteEmail = ({
           <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                // TODO: Add proper logo URL
-                src="https://loremflickr.com/150/150"
+                src={`${env.CLIENT_URL}/logo.png`}
                 width="40"
                 height="40"
                 alt="SnipShare logo"

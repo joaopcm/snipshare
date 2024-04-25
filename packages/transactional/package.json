@@ -4,14 +4,17 @@
   "private": true,
   "main": "emails/index.ts",
   "scripts": {
-    "dev": "email dev -p 3001"
+    "env:load": "dotenv -e ../../.env --",
+    "dev": "pnpm env:load email dev -p 3001"
   },
   "devDependencies": {
+    "@snipshare/env": "workspace:*",
     "@snipshare/eslint-config": "workspace:*",
     "@snipshare/prettier-config": "workspace:*",
     "@snipshare/typescript-config": "workspace:*",
     "@types/react": "18.2.79",
-    "@types/react-dom": "18.2.25"
+    "@types/react-dom": "18.2.25",
+    "dotenv-cli": "7.4.1"
   },
   "dependencies": {
     "@react-email/components": "0.0.16",
