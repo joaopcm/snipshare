@@ -133,6 +133,31 @@ importers:
         specifier: workspace:*
         version: link:../../config/typescript-config
 
+  packages/code-block:
+    dependencies:
+      react:
+        specifier: 18.3.0
+        version: 18.3.0
+      react-dom:
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
+    devDependencies:
+      '@snipshare/eslint-config':
+        specifier: workspace:*
+        version: link:../../config/eslint-config
+      '@snipshare/prettier-config':
+        specifier: workspace:*
+        version: link:../../config/prettier-config
+      '@snipshare/typescript-config':
+        specifier: workspace:*
+        version: link:../../config/typescript-config
+      '@types/react':
+        specifier: 18.2.79
+        version: 18.2.79
+      '@types/react-dom':
+        specifier: 18.2.25
+        version: 18.2.25
+
   packages/constants:
     devDependencies:
       '@snipshare/eslint-config':

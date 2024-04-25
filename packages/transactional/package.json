@@ -25,7 +25,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "@snipshare/eslint-config/node"
+      "@snipshare/eslint-config/next"
     ]
   },
   "prettier": "@snipshare/prettier-config"

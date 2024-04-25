@@ -1,0 +1,23 @@
+{
+  "name": "@snipshare/code-block",
+  "version": "0.0.1",
+  "private": false,
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@snipshare/eslint-config": "workspace:*",
+    "@snipshare/prettier-config": "workspace:*",
+    "@snipshare/typescript-config": "workspace:*",
+    "@types/react": "18.2.79",
+    "@types/react-dom": "18.2.25"
+  },
+  "dependencies": {
+    "react": "18.3.0",
+    "react-dom": "18.3.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@snipshare/eslint-config/node"
+    ]
+  },
+  "prettier": "@snipshare/prettier-config"
+}
