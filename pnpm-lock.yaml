@@ -93,9 +93,6 @@ importers:
 
   config/prettier-config:
     devDependencies:
-      '@nodepad/prettier-config':
-        specifier: workspace:*
-        version: 'link:'
       prettier:
         specifier: 3.2.5
         version: 3.2.5

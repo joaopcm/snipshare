@@ -5,7 +5,6 @@
   "private": true,
   "devDependencies": {
     "prettier": "3.2.5",
-    "prettier-plugin-tailwindcss": "0.5.14",
-    "@nodepad/prettier-config": "workspace:*"
+    "prettier-plugin-tailwindcss": "0.5.14"
   }
 }
