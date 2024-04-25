@@ -8,12 +8,12 @@ async function seed() {
   await prisma.organization.deleteMany()
   await prisma.user.deleteMany()
 
-  const passwordHash = await hash('123456', 1)
+  const passwordHash = await hash('123456', 6)
 
   const user1 = await prisma.user.create({
     data: {
       name: 'John Doe',
-      email: 'john@getnodepad.com',
+      email: 'john@snipshare.co',
       avatarUrl: 'https://github.com/joaopcm.png',
       passwordHash,
     },
@@ -39,9 +39,9 @@ async function seed() {
 
   await prisma.organization.create({
     data: {
-      name: 'Nodepad Inc (Admin)',
-      domain: 'getnodepad.com',
-      slug: 'nodepad-admin',
+      name: 'SnipShare Inc (Admin)',
+      domain: 'snipshare.co',
+      slug: 'snipshare-admin',
       avatarUrl: faker.image.avatarGitHub(),
       shouldAttachUsersByDomain: true,
       ownerId: user1.id,
@@ -107,8 +107,8 @@ async function seed() {
 
   await prisma.organization.create({
     data: {
-      name: 'Nodepad Inc (Member)',
-      slug: 'nodepad-member',
+      name: 'SnipShare Inc (Member)',
+      slug: 'snipshare-member',
       avatarUrl: faker.image.avatarGitHub(),
       ownerId: user1.id,
       projects: {
@@ -173,8 +173,8 @@ async function seed() {
 
   await prisma.organization.create({
     data: {
-      name: 'Nodepad Inc (Billing)',
-      slug: 'nodepad-billing',
+      name: 'SnipShare Inc (Billing)',
+      slug: 'snipshare-billing',
       avatarUrl: faker.image.avatarGitHub(),
       ownerId: user1.id,
       projects: {

@@ -2,7 +2,7 @@ import fastifyCors from '@fastify/cors'
 import fastifyJWT from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
-import { env } from '@nodepad/env'
+import { env } from '@snipshare/env'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
@@ -51,9 +51,9 @@ app.setErrorHandler(errorHandler)
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'Nodepad API',
+      title: 'SnipShare API',
       description:
-        'Revolutionize your coding experience with Nodepad - the all-in-one platform for creating, executing, and sharing Node.js code snippets.',
+        'Revolutionize your coding experience with SnipShare - the all-in-one platform for creating, executing, and sharing Node.js code snippets.',
       version: '1.0.0',
     },
     components: {

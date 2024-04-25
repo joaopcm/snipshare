@@ -1,0 +1,32 @@
+{
+  "name": "@snipshare/transactional",
+  "version": "0.0.0",
+  "private": true,
+  "main": "emails/index.ts",
+  "scripts": {
+    "env:load": "dotenv -e ../../.env --",
+    "dev": "pnpm env:load email dev -p 3001"
+  },
+  "devDependencies": {
+    "@snipshare/env": "workspace:*",
+    "@snipshare/eslint-config": "workspace:*",
+    "@snipshare/prettier-config": "workspace:*",
+    "@snipshare/typescript-config": "workspace:*",
+    "@types/react": "18.2.79",
+    "@types/react-dom": "18.2.25",
+    "dotenv-cli": "7.4.1"
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.16",
+    "@react-email/tailwind": "0.0.15",
+    "react": "18.3.0",
+    "react-dom": "18.3.0",
+    "react-email": "2.1.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@snipshare/eslint-config/node"
+    ]
+  },
+  "prettier": "@snipshare/prettier-config"
+}

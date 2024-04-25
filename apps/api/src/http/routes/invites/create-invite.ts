@@ -1,10 +1,14 @@
-import { roleSchema } from '@nodepad/auth'
+import { roleSchema } from '@snipshare/auth'
+import { EMAILS } from '@snipshare/constants'
+import { env } from '@snipshare/env'
+import { InviteEmail } from '@snipshare/transactional'
 import type { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
+import { resend } from '@/lib/resend'
 import { getUserPermissions } from '@/utils/get-user-permissions'
 
 import { BadRequestError } from '../_errors/bad-request-error'
@@ -78,6 +82,20 @@ export async function createInvite(app: FastifyInstance) {
           )
         }
 
+        const author = await prisma.user.findUnique({
+          where: {
+            id: userId,
+          },
+        })
+        if (!author) {
+          throw new Error('Author user not found.')
+        }
+        if (!author.name) {
+          throw new Error(
+            "Author doesn't have a name to display in the invitation email.",
+          )
+        }
+
         const invite = await prisma.invite.create({
           data: {
             organizationId: organization.id,
@@ -86,7 +104,34 @@ export async function createInvite(app: FastifyInstance) {
             authorId: userId,
           },
         })
-        // TODO: Send email
+
+        const { error } = await resend.emails.send({
+          from: `SnipShare <${EMAILS.support}>`,
+          reply_to: EMAILS.support,
+          to: [email],
+          subject:
+            'You just got an invite to join an organization on SnipShare!',
+          react: InviteEmail({
+            invitee: {
+              email,
+            },
+            author: {
+              name: author.name,
+              email: author.email,
+            },
+            organization: {
+              name: organization.name,
+              avatarUrl: organization.avatarUrl,
+            },
+            invite: {
+              link: `${env.CLIENT_URL}/invites/${invite.id}`,
+            },
+          }),
+        })
+
+        if (error) {
+          console.error(error)
+        }
 
         return reply.status(201).send({
           inviteId: invite.id,

@@ -1,5 +1,5 @@
 {
-  "name": "nodepad",
+  "name": "snipshare",
   "private": true,
   "scripts": {
     "build": "turbo build",
