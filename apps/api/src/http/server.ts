@@ -2,6 +2,7 @@ import fastifyCors from '@fastify/cors'
 import fastifyJWT from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import * as Sentry from '@sentry/node'
 import { env } from '@snipshare/env'
 import { fastify } from 'fastify'
 import {
@@ -42,7 +43,12 @@ import { getProject } from './routes/projects/get-project'
 import { getProjects } from './routes/projects/get-projects'
 import { updateProject } from './routes/projects/update-project'
 
+Sentry.init({
+  dsn: 'https://3eb9c06d9dbe01bde2147de8bf9dd3ff@o4507148608471040.ingest.us.sentry.io/4507148610437120',
+  tracesSampleRate: 1.0,
+})
 const app = fastify().withTypeProvider<ZodTypeProvider>()
+Sentry.setupFastifyErrorHandler(app)
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
