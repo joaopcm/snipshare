@@ -1,9 +1,4 @@
 {
   "extends": "@snipshare/typescript-config/react.json",
-  "include": ["emails/**/*"],
-  "exclude": [
-    "dist",
-    "build",
-    "node_modules"
-  ]
+  "include": ["src"]
 }
