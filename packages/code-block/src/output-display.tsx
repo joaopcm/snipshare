@@ -3,7 +3,7 @@ import React from 'react'
 import { useCodeEditor } from './contexts/code-editor'
 
 export interface OutputDisplayProps
-  extends React.ButtonHTMLAttributes<HTMLDivElement> {}
+  extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const OutputDisplay: React.FC<OutputDisplayProps> = (props) => {
   const { output } = useCodeEditor()

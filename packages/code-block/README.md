@@ -219,7 +219,24 @@ Once the API is updated and fixes this issue, you'll be able to open the generat
 
 This is the code editor instance. This component uses the `useCodeEditor` hook to manage the code snippet internally.
 
-See its props [here](https://github.com/uiwjs/react-textarea-code-editor/blob/main/core/src/Editor.tsx#L10).
+### Props
+
+```ts
+import type { TextareaCodeEditorProps } from '@uiw/react-textarea-code-editor'
+
+type LimitedTextareaCodeEditorProps = Omit<
+  TextareaCodeEditorProps,
+  'lang' | 'language' | 'value' | 'onChange' | 'spellCheck' | 'disabled'
+>
+
+export interface CodeEditorProps extends LimitedTextareaCodeEditorProps {
+  // Whether the code editor is read-only.
+  readOnly?: boolean
+
+  // The initial code to be executed. If not provided, the code will be empty by default.
+  initialCode?: string
+}
+```
 
 ### `CodeBlock.ControlButton`
 
@@ -230,6 +247,13 @@ It uses the `useCodeEditor` hook to control different states internally, like wh
 Also, it's using the `useWebContainer` hook to get access to the web container instance and be able to destroy it whenever you interrupt the code execution.
 
 It's a simple, native HTML button. You can use it in any way you want.
+
+### Props
+
+```ts
+export interface ControlButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+```
 
 ### `CodeBlock.OutputDisplay`
 
@@ -243,6 +267,13 @@ This component will print out all the messages from the code execution, includin
 - and more.
 
 It's a simple, native HTML div element. It loops through all the output messages and renders them as HTML elements.
+
+### Props
+
+```ts
+export interface OutputDisplayProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
+```
 
 ## Caveats
 <details>
