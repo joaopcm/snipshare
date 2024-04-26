@@ -14,7 +14,7 @@ export async function buildPackageFile(code: string) {
           },
           devDependencies: { typescript: '5.2.2' },
           dependencies: dependenciesToInstall.reduce(
-            (acc, dep) => ({ ...acc, [dep]: 'latest' }), // TODO: Add version, if possible
+            (acc, dep) => ({ ...acc, [dep.packageName]: dep.version }),
             {},
           ),
         },
