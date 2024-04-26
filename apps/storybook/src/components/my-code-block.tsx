@@ -1,6 +1,10 @@
 import '../globals.css'
 
-import { CodeBlock, useCodeEditor } from '@snipshare/code-block'
+import {
+  CodeBlock,
+  CodeEditorProps,
+  useCodeEditor,
+} from '@snipshare/code-block'
 import { Loader2, RocketIcon } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -8,11 +12,15 @@ import { cn } from '@/lib/utils'
 
 import { buttonVariants } from './ui/button'
 
-interface MyCodeBlockProps {
+interface MyCodeBlockProps extends CodeEditorProps {
   styled?: boolean
 }
 
-export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({ styled = false }) => {
+export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({
+  styled = false,
+  readOnly,
+  initialCode,
+}) => {
   const { isRunning, output, code } = useCodeEditor()
   const editorColumnRef = useRef<HTMLDivElement>(null)
   const [terminalHeight, setTerminalHeight] = useState<string>('auto')
@@ -25,7 +33,7 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({ styled = false }) => {
   if (!styled) {
     return (
       <div>
-        <CodeBlock.Editor />
+        <CodeBlock.Editor readOnly={readOnly} initialCode={initialCode} />
         <CodeBlock.ControlButton>
           {isRunning ? 'Stop running' : 'Run code'}
         </CodeBlock.ControlButton>
@@ -38,7 +46,11 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({ styled = false }) => {
     <div className="flex min-h-[600px] flex-1 gap-4">
       <div className="flex flex-1 flex-col gap-4" ref={editorColumnRef}>
         <div className="flex flex-1 overflow-y-scroll rounded-3xl border border-zinc-700 bg-primary p-8 shadow-inner">
-          <CodeBlock.Editor className="flex-1 bg-primary text-base font-medium tracking-wide text-zinc-100" />
+          <CodeBlock.Editor
+            className="flex-1 bg-primary text-base font-medium tracking-wide text-zinc-100"
+            readOnly={readOnly}
+            initialCode={initialCode}
+          />
         </div>
 
         <CodeBlock.ControlButton

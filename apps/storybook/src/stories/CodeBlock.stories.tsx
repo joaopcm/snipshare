@@ -29,5 +29,7 @@ type Story = StoryObj<typeof MyCodeBlock>
 export const Default: Story = {
   args: {
     styled: true,
+    readOnly: false,
+    initialCode: 'console.log("Hello, world!")',
   },
 }
