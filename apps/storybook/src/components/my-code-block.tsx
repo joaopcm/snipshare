@@ -35,15 +35,12 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({ styled = false }) => {
   }
 
   return (
-    <div className="flex h-full max-h-[600px] flex-1 gap-4">
+    <div className="flex min-h-[600px] flex-1 gap-4">
       <div className="flex flex-1 flex-col gap-4" ref={editorColumnRef}>
-        <CodeBlock.Editor
-          padding={styled ? 32 : undefined}
-          style={{
-            overflowY: 'scroll',
-          }}
-          className="min-w-96 flex-1 overflow-y-scroll whitespace-pre rounded-3xl border border-zinc-700 bg-primary text-base font-medium tracking-wide text-zinc-100 shadow-inner"
-        />
+        <div className="flex flex-1 overflow-y-scroll rounded-3xl border border-zinc-700 bg-primary p-8 shadow-inner">
+          <CodeBlock.Editor className="flex-1 bg-primary text-base font-medium tracking-wide text-zinc-100" />
+        </div>
+
         <CodeBlock.ControlButton
           className={cn(
             buttonVariants({
@@ -64,7 +61,7 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({ styled = false }) => {
       </div>
 
       <div
-        className="flex w-96 flex-col overflow-auto whitespace-pre rounded-3xl bg-black p-4 text-sm text-zinc-400"
+        className="flex w-1/3 flex-col overflow-auto whitespace-pre rounded-3xl bg-black p-4 font-mono text-xs text-zinc-400"
         style={{
           maxHeight: terminalHeight,
           overflow: 'auto',
