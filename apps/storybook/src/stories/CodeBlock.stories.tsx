@@ -1,51 +1,33 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import {
-  WebContainerProvider,
-  CodeEditorProvider,
-  CodeBlock,
-  useCodeEditor,
-} from "@snipshare/code-block";
+import { CodeEditorProvider, WebContainerProvider } from '@snipshare/code-block'
+import type { Meta, StoryObj } from '@storybook/react'
 
-const MyCodeBlock = () => {
-  const { isRunning } = useCodeEditor();
-
-  return (
-    <div>
-      <h1>My Code Block</h1>
-      <CodeBlock.Editor />
-      <CodeBlock.ControlButton>
-        {isRunning ? "Stop" : "Run"}
-      </CodeBlock.ControlButton>
-      <CodeBlock.OutputDisplay />
-    </div>
-  );
-};
+import { MyCodeBlock } from '@/components/my-code-block'
 
 const meta = {
-  title: "SnipShare/CodeBlock",
+  title: 'SnipShare/CodeBlock',
   component: MyCodeBlock,
   parameters: {
-    layout: "centered",
+    layout: 'fullscreen',
   },
-  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <WebContainerProvider>
         <CodeEditorProvider>
-          <Story />
+          <div className="flex h-screen items-center justify-center bg-[#27272A] p-10">
+            <Story />
+          </div>
         </CodeEditorProvider>
       </WebContainerProvider>
     ),
   ],
-} satisfies Meta;
+} satisfies Meta<typeof MyCodeBlock>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
 
-export const Unstyled: Story = {
-  args: {},
-};
+type Story = StoryObj<typeof MyCodeBlock>
 
-export const Styled: Story = {
-  args: {},
-};
+export const Default: Story = {
+  args: {
+    styled: true,
+  },
+}

@@ -9,10 +9,7 @@ export const OutputDisplay: React.FC<OutputDisplayProps> = (props) => {
   const { output } = useCodeEditor()
 
   return (
-    <div
-      style={{ fontFamily: 'monospace', fontSize: '0.9em', color: 'green' }}
-      {...props}
-    >
+    <div style={{ fontFamily: 'monospace', fontSize: '0.9em' }} {...props}>
       {output.map((line, index) => (
         <div
           key={`${line}-${index}`}
