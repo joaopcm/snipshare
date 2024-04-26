@@ -1,7 +1,27 @@
 {
   "name": "@snipshare/code-block",
-  "version": "0.0.1",
-  "main": "src/index.ts",
+  "version": "0.0.4",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "João Melo <jopcmelo@gmail.com>",
+  "description": "Code block React component capable of executing Node.js code directly in the browser.",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/joaopcm/snipshare/issues"
+  },
+  "keywords": [
+    "react",
+    "code",
+    "block",
+    "node",
+    "webcontainer"
+  ],
   "peerDependencies": {
     "react": "^16.8 || ^17.0 || ^18.0",
     "react-dom": "^16.8 || ^17.0 || ^18.0"

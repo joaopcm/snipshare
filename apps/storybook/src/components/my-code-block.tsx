@@ -74,7 +74,6 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({ styled = false }) => {
             className="block"
           />
         ))}
-        <div className="flex flex-col bg-white text-sm text-zinc-400"></div>
       </div>
     </div>
   )
