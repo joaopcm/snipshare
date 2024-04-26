@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react";
+import { withWebContainer } from "./decorators";
 
 const preview: Preview = {
   parameters: {

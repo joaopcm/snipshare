@@ -3,6 +3,16 @@ async function existsInNPM(dep: string): Promise<boolean> {
   return response.status === 200
 }
 
+/**
+ * TODO: It'd be great to allow users to leave a comment right after the import
+ * statement including the dependency version.
+ *
+ * E.g. import { foo } from 'foo'; // 1.2.2
+ *
+ * The this function would try to install the exact version of the dependency,
+ * if it exists in the npm registry.
+ */
+
 export async function extractDependencies(jsCode: string): Promise<string[]> {
   const importStatements =
     jsCode.match(/import\s.*?(?:from\s)?['"](.*?)['"]/g) || []
