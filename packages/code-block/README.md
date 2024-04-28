@@ -215,6 +215,15 @@ Once the API is updated and fixes this issue, you'll be able to open the generat
 
 ## API Reference
 
+> 🟡 **Warning!**
+> 
+> In order to use this component, you need to configure COOP/COEP headers in your web app. See how to configure them
+> [here](https://webcontainers.io/guides/configuring-headers#configuring-headers).
+>
+> If you're using Next.js, you can easily configure these headers in your `next.config.ts` file. Check it out [here](https://gist.github.com/joaopcm/1233ea2f1e6821252ff159d4fec123f2).
+
+### Using this component in a Next.js app
+
 ### `CodeBlock.Editor`
 
 This is the code editor instance. This component uses the `useCodeEditor` hook to manage the code snippet internally.

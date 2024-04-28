@@ -12,13 +12,21 @@ import { cn } from '@/lib/utils'
 
 import { buttonVariants } from './ui/button'
 
+export const editorTheme = {
+  base: 'vs-dark',
+  inherit: true,
+  rules: [],
+  colors: {
+    'editor.background': '#18181B',
+  },
+}
+
 interface MyCodeBlockProps extends CodeEditorProps {
   styled?: boolean
 }
 
 export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({
   styled = false,
-  readOnly,
   initialCode,
 }) => {
   const { isRunning, output, code } = useCodeEditor()
@@ -33,7 +41,7 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({
   if (!styled) {
     return (
       <div>
-        <CodeBlock.Editor readOnly={readOnly} initialCode={initialCode} />
+        <CodeBlock.Editor initialCode={initialCode} />
         <CodeBlock.ControlButton>
           {isRunning ? 'Stop running' : 'Run code'}
         </CodeBlock.ControlButton>
@@ -45,11 +53,24 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({
   return (
     <div className="flex min-h-[600px] flex-1 gap-4">
       <div className="flex flex-1 flex-col gap-4" ref={editorColumnRef}>
-        <div className="flex flex-1 overflow-y-scroll rounded-3xl border border-zinc-700 bg-primary p-8 shadow-inner">
+        <div className="flex flex-1 overflow-y-scroll rounded-3xl border border-zinc-700 bg-primary px-8 shadow-inner">
           <CodeBlock.Editor
-            className="flex-1 bg-primary text-base font-medium tracking-wide text-zinc-100"
-            readOnly={readOnly}
             initialCode={initialCode}
+            options={{
+              cursorSmoothCaretAnimation: 'on',
+              lineDecorationsWidth: 0,
+              lineNumbers: 'off',
+              fontSize: 16,
+              padding: {
+                top: 32,
+                bottom: 32,
+              },
+              scrollbar: {
+                vertical: 'hidden',
+              },
+              cursorBlinking: 'smooth',
+            }}
+            theme={editorTheme}
           />
         </div>
 

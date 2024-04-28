@@ -141,6 +141,7 @@ export const CodeEditorProvider: React.FC<CodeEditorProviderProps> = ({
     installDevDependencies,
     installDependencies,
     printNodeJSVersion,
+    executeCode,
   ])
 
   return (

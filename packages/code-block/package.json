@@ -1,18 +1,10 @@
 {
   "name": "@snipshare/code-block",
-  "version": "0.0.7",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "version": "0.0.16",
   "author": "João Melo <jopcmelo@gmail.com>",
   "description": "Code block React component capable of executing Node.js code directly in the browser.",
   "homepage": "https://github.com/joaopcm/snipshare",
   "license": "MIT",
-  "scripts": {
-    "build": "tsc"
-  },
   "bugs": {
     "url": "https://github.com/joaopcm/snipshare/issues"
   },
@@ -23,6 +15,34 @@
     "node",
     "webcontainer"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaopcm/snipshare.git",
+    "directory": "packages/code-block"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "module": "./dist/index.mjs",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
+    },
+    "./README.md": "./README.md",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup --dts --minify"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@snipshare/eslint-config/library"
+    ]
+  },
+  "prettier": "@snipshare/prettier-config",
   "peerDependencies": {
     "react": "^16.8 || ^17.0 || ^18.0",
     "react-dom": "^16.8 || ^17.0 || ^18.0"
@@ -31,17 +51,12 @@
     "@snipshare/eslint-config": "workspace:*",
     "@snipshare/prettier-config": "workspace:*",
     "@snipshare/typescript-config": "workspace:*",
-    "@types/react": "^17.0.0 || ^18.0.0",
-    "@types/react-dom": "^17.0.0 || ^18.0.0"
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "tsup": "8.0.2"
   },
-  "eslintConfig": {
-    "extends": [
-      "@snipshare/eslint-config/next"
-    ]
-  },
-  "prettier": "@snipshare/prettier-config",
   "dependencies": {
-    "@uiw/react-textarea-code-editor": "3.0.2",
+    "@monaco-editor/react": "4.6.0",
     "@webcontainer/api": "1.1.9",
     "ansi-to-html": "0.7.2"
   }
