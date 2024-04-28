@@ -2,7 +2,7 @@
 
 ### Interactive code block component for React 💻 by [@jopcmelo](https://twitter.com/jopcmelo)
 
-https://github.com/joaopcm/nodepad/assets/58827242/f0bd2b7d-3b3f-4dbf-86a8-9739108e93b7
+https://github.com/joaopcm/snipshare/assets/58827242/882d85d4-7deb-45ae-89bb-33a6e2245f44
 
 ## Usage
 
@@ -24,7 +24,7 @@ function MyComponent() {
 +      // If you want to have multiple code blocks in your web app, each instance has its own CodeEditorProvider
 +      <CodeEditorProvider>
         <div>
-+          <CodeBlock.Editor />
++          <CodeBlock.Editor height={300} width={600} />
 +          <CodeBlock.ControlButton>
 +            {isRunning ? "Stop running" : "Run code"}
 +          </CodeBlock.ControlButton>
@@ -44,42 +44,65 @@ The example below uses [TailwindCSS](https://tailwindcss.com/docs/installation) 
 ```tsx
 import { CodeBlock, useCodeEditor } from '@snipshare/code-block'
 import { Loader2, RocketIcon } from 'lucide-react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
 import { buttonVariants } from './ui/button'
 
+export const editorTheme = {
+  base: 'vs-dark',
+  inherit: true,
+  rules: [],
+  colors: {
+    'editor.background': '#18181B',
+  },
+}
+
 export const MyCodeBlock: React.FC = () => {
-  const { isRunning, output, code } = useCodeEditor()
-  const editorColumnRef = useRef<HTMLDivElement>(null)
-  const [terminalHeight, setTerminalHeight] = useState<string>('auto')
+  const { isRunning, output } = useCodeEditor()
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!editorColumnRef.current) return
-    setTerminalHeight(`${editorColumnRef.current.clientHeight}px`)
-  }, [editorColumnRef, code])
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    }
+  }, [output])
 
   return (
-    <div className="flex min-h-[600px] flex-1 gap-4">
-      <div className="flex flex-1 flex-col gap-4" ref={editorColumnRef}>
-        <div className="bg-primary flex flex-1 overflow-y-scroll rounded-3xl border border-zinc-700 p-8 shadow-inner">
-          <CodeBlock.Editor className="bg-primary flex-1 text-base font-medium tracking-wide text-zinc-100" />
-        </div>
+    <div className="flex h-[700px] max-w-screen-xl flex-1 gap-4">
+      <div className="bg-primary w-2/3 flex-1 rounded-3xl border border-zinc-700 px-4 shadow-inner">
+        <CodeBlock.Editor
+          options={{
+            cursorSmoothCaretAnimation: 'on',
+            lineDecorationsWidth: 0,
+            lineNumbers: 'off',
+            fontSize: 16,
+            padding: {
+              top: 32,
+              bottom: 32,
+            },
+            scrollbar: {
+              vertical: 'hidden',
+            },
+            cursorBlinking: 'smooth',
+            renderLineHighlight: 'none',
+          }}
+          theme={editorTheme}
+        />
 
         <CodeBlock.ControlButton
           className={cn(
             buttonVariants({
               variant: isRunning ? 'destructive' : 'default',
-              size: 'lg',
             }),
-            'rounded-3xl'
+            'relative -top-16 right-2 float-end rounded-2xl'
           )}
         >
           {isRunning ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-3 h-4 w-4 animate-spin" />
           ) : (
-            <RocketIcon className="mr-2 h-4 w-4" />
+            <RocketIcon className="mr-3 h-4 w-4" />
           )}
 
           {isRunning ? 'Stop running' : 'Run code'}
@@ -87,11 +110,8 @@ export const MyCodeBlock: React.FC = () => {
       </div>
 
       <div
+        ref={scrollRef}
         className="flex w-1/3 flex-col overflow-auto whitespace-pre rounded-3xl bg-black p-4 font-mono text-xs text-zinc-400"
-        style={{
-          maxHeight: terminalHeight,
-          overflow: 'auto',
-        }}
       >
         {output.map((line, index) => (
           <span
@@ -141,6 +161,7 @@ And it'll install that exact version.
 If no version is specified, it'll install the latest version by default.
 
 If the package doesn't exist, it'll throw an error when you run the code snippet.
+
 </details>
 
 <details>
@@ -178,30 +199,25 @@ As this component uses the Web Containers API under the hood, you can run Node.j
 It means that if you try out to run the following code, you'll instantiate a new API:
 
 ```ts
-import Fastify from 'fastify';
+import Fastify from 'fastify'
 
-const fastify = Fastify({ logger: true });
+const fastify = Fastify({ logger: true })
 
 fastify.get('/', async (request, reply) => {
-  return { greeting: 'Hello World' };
-});
+  return { greeting: 'Hello World' }
+})
 
 const start = async () => {
   try {
-    await fastify.listen({ port: 3000 });
-    console.log(`server listening on ${
-      fastify
-        .server
-        .address()
-        .port
-    }`);
+    await fastify.listen({ port: 3000 })
+    console.log(`server listening on ${fastify.server.address().port}`)
   } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
+    fastify.log.error(err)
+    process.exit(1)
   }
 }
 
-start();
+start()
 ```
 
 And you'll see in the terminal that the component has identified an API being running on port 3000,
@@ -211,12 +227,13 @@ Unfortunately, the Web Containers API doesn't allow you to access the generated 
 you want to head over there, you'll need to insert the generated URL into a `iframe` element, as it's recommended [here](https://webcontainers.io/guides/quickstart#_4-preview).
 
 Once the API is updated and fixes this issue, you'll be able to open the generated URL and see the API in action.
+
 </details>
 
 ## API Reference
 
 > 🟡 **Warning!**
-> 
+>
 > In order to use this component, you need to configure COOP/COEP headers in your web app. See how to configure them
 > [here](https://webcontainers.io/guides/configuring-headers#configuring-headers).
 >
@@ -231,19 +248,17 @@ This is the code editor instance. This component uses the `useCodeEditor` hook t
 ### Props
 
 ```ts
-import type { TextareaCodeEditorProps } from '@uiw/react-textarea-code-editor'
+import type { EditorProps as MonacoEditorProps } from '@monaco-editor/react'
 
-type LimitedTextareaCodeEditorProps = Omit<
-  TextareaCodeEditorProps,
-  'lang' | 'language' | 'value' | 'onChange' | 'spellCheck' | 'disabled'
->
+export interface CodeEditorProps
+  extends Omit<MonacoEditorProps, 'language' | 'defaultLanguage' | 'theme'> {
 
-export interface CodeEditorProps extends LimitedTextareaCodeEditorProps {
-  // Whether the code editor is read-only.
-  readOnly?: boolean
-
-  // The initial code to be executed. If not provided, the code will be empty by default.
+  // If you want to instantiate the code editor with an initial code.
   initialCode?: string
+  
+  // It uses the same data structure as the internal VS Code engine.
+  // See some examples here: https://github.com/Microsoft/vscode/blob/main/src/vs/editor/standalone/common/themes.ts#L13
+  theme?: Record<string, any>
 }
 ```
 
@@ -269,6 +284,7 @@ export interface ControlButtonProps
 This is the output display of the code execution. It uses the `useCodeEditor` hook to manage the output internally.
 
 This component will print out all the messages from the code execution, including:
+
 - Dependencies installation messages;
 - Error messages;
 - Output messages;
@@ -285,12 +301,14 @@ export interface OutputDisplayProps
 ```
 
 ## Caveats
+
 <details>
 <summary>It's locked to the Node.js 18.18.0</summary>
 
 If you need to run some code that relies on newer Node.js versions, you will not be able to use this component, unfortunately.
 
 The Web Containers API is well-maintained and has been receiving some great updates in the past few years. It means that at some point, the Node.js version in the API might be updated.
+
 </details>
 
 <details>
@@ -299,4 +317,5 @@ The Web Containers API is well-maintained and has been receiving some great upda
 Unfortunately, the Web Containers API does not allow you to run multiple code snippets at the same time. You will need to run each code snippet one at a time, or else your web container will be destroyed and booted again for each code snippet.
 
 Note that it doesn't mean you cannot instantiate multiple code snippets at the same time. It just means that the code snippets should be executed one after the other.
+
 </details>
