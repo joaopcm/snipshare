@@ -44,8 +44,8 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({
   }
 
   return (
-    <div className="flex h-[600px] flex-1 gap-4">
-      <div className="flex-1 rounded-3xl border border-zinc-700 bg-primary px-8 shadow-inner">
+    <div className="flex h-[700px] max-w-screen-xl flex-1 gap-4">
+      <div className="w-2/3 flex-1 rounded-3xl border border-zinc-700 bg-primary px-4 shadow-inner">
         <CodeBlock.Editor
           initialCode={initialCode}
           options={{
@@ -71,7 +71,7 @@ export const MyCodeBlock: React.FC<MyCodeBlockProps> = ({
             buttonVariants({
               variant: isRunning ? 'destructive' : 'default',
             }),
-            'relative -right-2 -top-16 float-end rounded-2xl',
+            'relative -top-16 right-2 float-end rounded-2xl',
           )}
         >
           {isRunning ? (
