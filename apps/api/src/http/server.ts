@@ -60,10 +60,10 @@ Sentry.setupFastifyErrorHandler(app)
 
 const gracefulServer = GracefulServer(app.server)
 gracefulServer.on(GracefulServer.READY, () => {
-  app.log.info('Server is ready')
+  console.log('Server is ready')
 })
 gracefulServer.on(GracefulServer.SHUTTING_DOWN, () => {
-  app.log.warn('Server is shutting down...')
+  console.warn('Server is shutting down...')
 })
 gracefulServer.on(GracefulServer.SHUTDOWN, (error) => {
   console.warn('Server is down because of', error.message)
