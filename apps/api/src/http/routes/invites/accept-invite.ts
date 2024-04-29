@@ -4,6 +4,7 @@ import { z } from 'zod'
 
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
+import { newId } from '@/utils/new-id'
 
 import { BadRequestError } from '../_errors/bad-request-error'
 import { NotFoundError } from '../_errors/not-found-error'
@@ -19,7 +20,7 @@ export async function acceptInvite(app: FastifyInstance) {
           tags: ['invites'],
           summary: 'Accept an invite',
           params: z.object({
-            inviteId: z.string().uuid(),
+            inviteId: z.string(),
           }),
           response: {
             204: z.null(),
@@ -55,6 +56,7 @@ export async function acceptInvite(app: FastifyInstance) {
         await prisma.$transaction([
           prisma.membership.create({
             data: {
+              id: newId('membership'),
               userId,
               organizationId: invite.organizationId,
               role: invite.role,

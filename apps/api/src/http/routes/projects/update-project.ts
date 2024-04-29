@@ -23,7 +23,7 @@ export async function updateProject(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           params: z.object({
             slug: z.string(),
-            projectId: z.string().uuid(),
+            projectId: z.string(),
           }),
           body: z.object({
             name: z.string(),

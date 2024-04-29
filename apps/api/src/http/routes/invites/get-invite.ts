@@ -15,24 +15,24 @@ export async function getInvite(app: FastifyInstance) {
         tags: ['invites'],
         summary: 'Get an invite',
         params: z.object({
-          inviteId: z.string().uuid(),
+          inviteId: z.string(),
         }),
         response: {
           200: z.object({
             invite: z.object({
-              id: z.string().uuid(),
+              id: z.string(),
               email: z.string().email(),
               role: roleSchema,
               createdAt: z.date(),
               author: z
                 .object({
-                  id: z.string().uuid(),
+                  id: z.string(),
                   name: z.string().nullable(),
                   avatarUrl: z.string().url().nullable(),
                 })
                 .nullable(),
               organization: z.object({
-                id: z.string().uuid(),
+                id: z.string(),
                 name: z.string(),
               }),
             }),

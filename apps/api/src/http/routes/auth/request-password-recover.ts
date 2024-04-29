@@ -8,6 +8,7 @@ import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
 import { resend } from '@/lib/resend'
+import { newId } from '@/utils/new-id'
 
 export async function requestPasswordRecover(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -40,6 +41,7 @@ export async function requestPasswordRecover(app: FastifyInstance) {
 
       const { id } = await prisma.token.create({
         data: {
+          id: newId('token'),
           type: TokenType.PASSWORD_RECOVER,
           userId: userFromEmail.id,
         },
@@ -57,7 +59,7 @@ export async function requestPasswordRecover(app: FastifyInstance) {
       })
 
       if (error) {
-        console.error(error)
+        app.log.error(error)
       }
 
       return reply.status(201).send()

@@ -22,7 +22,7 @@ export async function updateMembership(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           params: z.object({
             slug: z.string(),
-            membershipId: z.string().uuid(),
+            membershipId: z.string(),
           }),
           body: z.object({
             role: roleSchema,

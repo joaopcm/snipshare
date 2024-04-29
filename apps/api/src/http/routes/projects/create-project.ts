@@ -6,6 +6,7 @@ import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 import { createSlug } from '@/utils/create-slug'
 import { getUserPermissions } from '@/utils/get-user-permissions'
+import { newId } from '@/utils/new-id'
 
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
@@ -29,7 +30,7 @@ export async function createProject(app: FastifyInstance) {
           }),
           response: {
             201: z.object({
-              projectId: z.string().uuid(),
+              projectId: z.string(),
             }),
           },
         },
@@ -50,6 +51,7 @@ export async function createProject(app: FastifyInstance) {
         const { name, description } = request.body
         const project = await prisma.project.create({
           data: {
+            id: newId('project'),
             name,
             slug: createSlug(name),
             description,

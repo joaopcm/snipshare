@@ -4,6 +4,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 import { prisma } from '@/lib/prisma'
+import { newId } from '@/utils/new-id'
 
 import { BadRequestError } from '../_errors/bad-request-error'
 
@@ -48,6 +49,7 @@ export async function createAccount(app: FastifyInstance) {
       const passwordHash = await hash(password, 6)
       await prisma.user.create({
         data: {
+          id: newId('user'),
           name,
           email,
           passwordHash,

@@ -22,7 +22,7 @@ export async function revokeInvite(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           params: z.object({
             slug: z.string(),
-            inviteId: z.string().uuid(),
+            inviteId: z.string(),
           }),
           response: {
             204: z.null(),

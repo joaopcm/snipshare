@@ -2,6 +2,8 @@ import { faker } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
+import { newId } from '../src/utils/new-id'
+
 const prisma = new PrismaClient()
 
 async function seed() {
@@ -12,6 +14,7 @@ async function seed() {
 
   const user1 = await prisma.user.create({
     data: {
+      id: newId('user'),
       name: 'John Doe',
       email: 'john@snipshare.co',
       avatarUrl: 'https://github.com/joaopcm.png',
@@ -21,6 +24,7 @@ async function seed() {
 
   const user2 = await prisma.user.create({
     data: {
+      id: newId('user'),
       name: faker.person.fullName(),
       email: faker.internet.email(),
       avatarUrl: faker.image.avatarGitHub(),
@@ -30,6 +34,7 @@ async function seed() {
 
   const user3 = await prisma.user.create({
     data: {
+      id: newId('user'),
       name: faker.person.fullName(),
       email: faker.internet.email(),
       avatarUrl: faker.image.avatarGitHub(),
@@ -39,6 +44,7 @@ async function seed() {
 
   await prisma.organization.create({
     data: {
+      id: newId('organization'),
       name: 'SnipShare Inc (Admin)',
       domain: 'snipshare.co',
       slug: 'snipshare-admin',
@@ -49,6 +55,7 @@ async function seed() {
         createMany: {
           data: [
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -60,6 +67,7 @@ async function seed() {
               ]),
             },
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -71,6 +79,7 @@ async function seed() {
               ]),
             },
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -88,14 +97,17 @@ async function seed() {
         createMany: {
           data: [
             {
+              id: newId('membership'),
               userId: user1.id,
               role: 'ADMIN',
             },
             {
+              id: newId('membership'),
               userId: user2.id,
               role: 'MEMBER',
             },
             {
+              id: newId('membership'),
               userId: user3.id,
               role: 'MEMBER',
             },
@@ -107,6 +119,7 @@ async function seed() {
 
   await prisma.organization.create({
     data: {
+      id: newId('organization'),
       name: 'SnipShare Inc (Member)',
       slug: 'snipshare-member',
       avatarUrl: faker.image.avatarGitHub(),
@@ -115,6 +128,7 @@ async function seed() {
         createMany: {
           data: [
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -126,6 +140,7 @@ async function seed() {
               ]),
             },
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -137,6 +152,7 @@ async function seed() {
               ]),
             },
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -154,14 +170,17 @@ async function seed() {
         createMany: {
           data: [
             {
+              id: newId('membership'),
               userId: user1.id,
               role: 'MEMBER',
             },
             {
+              id: newId('membership'),
               userId: user2.id,
               role: 'ADMIN',
             },
             {
+              id: newId('membership'),
               userId: user3.id,
               role: 'MEMBER',
             },
@@ -173,6 +192,7 @@ async function seed() {
 
   await prisma.organization.create({
     data: {
+      id: newId('organization'),
       name: 'SnipShare Inc (Billing)',
       slug: 'snipshare-billing',
       avatarUrl: faker.image.avatarGitHub(),
@@ -181,6 +201,7 @@ async function seed() {
         createMany: {
           data: [
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -192,6 +213,7 @@ async function seed() {
               ]),
             },
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -203,6 +225,7 @@ async function seed() {
               ]),
             },
             {
+              id: newId('project'),
               name: faker.lorem.words(5),
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
@@ -220,14 +243,17 @@ async function seed() {
         createMany: {
           data: [
             {
+              id: newId('membership'),
               userId: user1.id,
               role: 'BILLING',
             },
             {
+              id: newId('membership'),
               userId: user2.id,
               role: 'ADMIN',
             },
             {
+              id: newId('membership'),
               userId: user3.id,
               role: 'MEMBER',
             },

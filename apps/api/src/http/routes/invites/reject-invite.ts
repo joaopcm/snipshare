@@ -19,7 +19,7 @@ export async function rejectInvite(app: FastifyInstance) {
           tags: ['invites'],
           summary: 'Reject an invite',
           params: z.object({
-            inviteId: z.string().uuid(),
+            inviteId: z.string(),
           }),
           response: {
             204: z.null(),

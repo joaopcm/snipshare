@@ -21,7 +21,7 @@ export async function deleteMembership(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           params: z.object({
             slug: z.string(),
-            membershipId: z.string().uuid(),
+            membershipId: z.string(),
           }),
           response: {
             204: z.null(),

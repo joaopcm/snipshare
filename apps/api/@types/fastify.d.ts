@@ -9,5 +9,11 @@ declare module 'fastify' {
       organization: Organization
       membership: Membership
     }>
+    reqId: string
+    sesId: string
+    ids: {
+      reqId: string
+      sesId: string
+    }
   }
 }

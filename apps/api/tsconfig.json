@@ -4,7 +4,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*", "./prisma/seed.ts"]
+    },
+    "module": "commonjs",
+    "moduleResolution": "Node10"
   }
 }

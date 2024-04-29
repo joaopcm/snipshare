@@ -1,10 +1,11 @@
-import { env } from '@snipshare/env'
 import { AccountProvider } from '@prisma/client'
+import { env } from '@snipshare/env'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 import { prisma } from '@/lib/prisma'
+import { newId } from '@/utils/new-id'
 
 import { BadRequestError } from '../_errors/bad-request-error'
 
@@ -93,6 +94,7 @@ export async function authenticateWithGitHub(app: FastifyInstance) {
       if (!user) {
         user = await prisma.user.create({
           data: {
+            id: newId('user'),
             name,
             email,
             avatarUrl,
@@ -111,6 +113,7 @@ export async function authenticateWithGitHub(app: FastifyInstance) {
       if (!account) {
         account = await prisma.account.create({
           data: {
+            id: newId('account'),
             provider: AccountProvider.GITHUB,
             providerAccountId: githubId,
             userId: user.id,

@@ -1,7 +1,12 @@
+import fastifyCompress from '@fastify/compress'
 import fastifyCors from '@fastify/cors'
+import fastifyCSRFProtection from '@fastify/csrf-protection'
+import fastifyHelmet from '@fastify/helmet'
 import fastifyJWT from '@fastify/jwt'
+import fastifyRateLimit from '@fastify/rate-limit'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import GracefulServer from '@gquittet/graceful-server'
 import * as Sentry from '@sentry/node'
 import { env } from '@snipshare/env'
 import { fastify } from 'fastify'
@@ -13,6 +18,7 @@ import {
 } from 'fastify-type-provider-zod'
 
 import { errorHandler } from './error-handler'
+import { reqId } from './middlewares/req-id'
 import { authenticateWithGitHub } from './routes/auth/authenticate-with-github'
 import { authenticateWithPassword } from './routes/auth/authenticate-with-password'
 import { createAccount } from './routes/auth/create-account'
@@ -47,13 +53,34 @@ Sentry.init({
   dsn: 'https://3eb9c06d9dbe01bde2147de8bf9dd3ff@o4507148608471040.ingest.us.sentry.io/4507148610437120',
   tracesSampleRate: 1.0,
 })
-const app = fastify().withTypeProvider<ZodTypeProvider>()
+const app = fastify({
+  logger: true,
+}).withTypeProvider<ZodTypeProvider>()
 Sentry.setupFastifyErrorHandler(app)
+
+const gracefulServer = GracefulServer(app.server)
+gracefulServer.on(GracefulServer.READY, () => {
+  app.log.info('Server is ready')
+})
+gracefulServer.on(GracefulServer.SHUTTING_DOWN, () => {
+  app.log.warn('Server is shutting down...')
+})
+gracefulServer.on(GracefulServer.SHUTDOWN, (error) => {
+  console.warn('Server is down because of', error.message)
+})
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 app.setErrorHandler(errorHandler)
 
+app.register(fastifyHelmet)
+app.register(fastifyCSRFProtection)
+app.register(fastifyRateLimit, {
+  max: 100,
+  timeWindow: '1 minute',
+})
+app.register(reqId)
+app.register(fastifyCompress)
 app.register(fastifySwagger, {
   openapi: {
     info: {
@@ -112,6 +139,15 @@ app.register(revokeInvite)
 app.register(getPendingInvites)
 app.register(getOrganizationBilling)
 
-app.listen({ port: env.SERVER_PORT }).then(() => {
-  console.log('HTTP server running!')
-})
+const start = async () => {
+  try {
+    await app.listen({ port: env.SERVER_PORT })
+    app.log.info(`Server listening on ${env.SERVER_PORT}`)
+    gracefulServer.setReady()
+  } catch (error) {
+    app.log.error(error)
+    process.exit(1)
+  }
+}
+
+start()

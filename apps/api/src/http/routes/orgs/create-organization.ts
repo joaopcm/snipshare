@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 import { createSlug } from '@/utils/create-slug'
+import { newId } from '@/utils/new-id'
 
 import { BadRequestError } from '../_errors/bad-request-error'
 
@@ -27,7 +28,7 @@ export async function createOrganization(app: FastifyInstance) {
           }),
           response: {
             201: z.object({
-              organizationId: z.string().uuid(),
+              organizationId: z.string(),
             }),
           },
         },
@@ -52,6 +53,7 @@ export async function createOrganization(app: FastifyInstance) {
 
         const organization = await prisma.organization.create({
           data: {
+            id: newId('organization'),
             name,
             slug: createSlug(name),
             domain,

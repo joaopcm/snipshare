@@ -10,6 +10,7 @@ import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 import { resend } from '@/lib/resend'
 import { getUserPermissions } from '@/utils/get-user-permissions'
+import { newId } from '@/utils/new-id'
 
 import { BadRequestError } from '../_errors/bad-request-error'
 import { UnauthorizedError } from '../_errors/unauthorized-error'
@@ -34,7 +35,7 @@ export async function createInvite(app: FastifyInstance) {
           }),
           response: {
             201: z.object({
-              inviteId: z.string().uuid(),
+              inviteId: z.string(),
             }),
           },
         },
@@ -98,6 +99,7 @@ export async function createInvite(app: FastifyInstance) {
 
         const invite = await prisma.invite.create({
           data: {
+            id: newId('invite'),
             organizationId: organization.id,
             email,
             role,
@@ -130,7 +132,7 @@ export async function createInvite(app: FastifyInstance) {
         })
 
         if (error) {
-          console.error(error)
+          app.log.error(error)
         }
 
         return reply.status(201).send({

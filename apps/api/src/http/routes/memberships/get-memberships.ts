@@ -27,8 +27,8 @@ export async function getMemberships(app: FastifyInstance) {
             200: z.object({
               members: z.array(
                 z.object({
-                  id: z.string().uuid(),
-                  userId: z.string().uuid(),
+                  id: z.string(),
+                  userId: z.string(),
                   role: roleSchema,
                   name: z.string().nullable(),
                   email: z.string().email(),

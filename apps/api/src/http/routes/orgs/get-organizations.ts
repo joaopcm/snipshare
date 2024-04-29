@@ -21,7 +21,7 @@ export async function getOrganizations(app: FastifyInstance) {
             200: z.object({
               organizations: z.array(
                 z.object({
-                  id: z.string().uuid(),
+                  id: z.string(),
                   name: z.string(),
                   slug: z.string(),
                   avatarUrl: z.string().url().nullable(),

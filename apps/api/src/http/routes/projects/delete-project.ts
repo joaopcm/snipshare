@@ -23,7 +23,7 @@ export async function deleteProject(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           params: z.object({
             slug: z.string(),
-            projectId: z.string().uuid(),
+            projectId: z.string(),
           }),
           response: {
             204: z.null(),

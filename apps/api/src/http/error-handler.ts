@@ -33,6 +33,12 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     })
   }
 
+  if (error.statusCode === 429) {
+    return reply.status(429).send({
+      message: error.message,
+    })
+  }
+
   console.error(error)
   return reply.status(500).send({
     message: 'Internal server error',
