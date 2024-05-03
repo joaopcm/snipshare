@@ -42,7 +42,7 @@ export const CodeEditorProvider: React.FC<CodeEditorProviderProps> = ({
   const printNodeJSVersion = useCallback(async () => {
     const webContainer = await getWebContainerInstance()
     const nodeVersionProcess = await webContainer.spawn('node', ['-v'])
-    nodeVersionProcess.output.pipeTo(
+    await nodeVersionProcess.output.pipeTo(
       new WritableStream({
         write(data) {
           setOutput((state) => [...state, `📦 Using Node.js ${data}`])
@@ -75,7 +75,7 @@ export const CodeEditorProvider: React.FC<CodeEditorProviderProps> = ({
 
     const ANSIConverter = new ANSIToHTML()
     const installProcess = await webContainer.spawn('pnpm', ['i'])
-    installProcess.output.pipeTo(
+    await installProcess.output.pipeTo(
       new WritableStream({
         write(data) {
           setOutput((state) => [...state, ANSIConverter.toHtml(data)])
@@ -94,7 +94,7 @@ export const CodeEditorProvider: React.FC<CodeEditorProviderProps> = ({
     setOutput((state) => [...state, '💻 Running the application...'])
     const startProcess = await webContainer.spawn('pnpm', ['start'])
     const ANSIConverter = new ANSIToHTML()
-    startProcess.output.pipeTo(
+    await startProcess.output.pipeTo(
       new WritableStream({
         write(data) {
           setOutput((state) => [...state, ANSIConverter.toHtml(data)])

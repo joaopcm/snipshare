@@ -1,6 +1,6 @@
 {
   "name": "@snipshare/code-block",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "João Melo <jopcmelo@gmail.com>",
   "description": "Code block React component capable of executing Node.js code directly in the browser.",
   "homepage": "https://github.com/joaopcm/snipshare",
@@ -20,9 +20,9 @@
     "url": "git+https://github.com/joaopcm/snipshare.git",
     "directory": "packages/code-block"
   },
-  "files": [
-    "dist"
-  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -34,8 +34,11 @@
     "./README.md": "./README.md",
     "./package.json": "./package.json"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsup --dts --minify"
+    "build": "tsup"
   },
   "eslintConfig": {
     "extends": [
@@ -51,8 +54,8 @@
     "@snipshare/eslint-config": "workspace:*",
     "@snipshare/prettier-config": "workspace:*",
     "@snipshare/typescript-config": "workspace:*",
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.19",
     "tsup": "8.0.2"
   },
   "dependencies": {
