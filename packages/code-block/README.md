@@ -17,6 +17,8 @@ Then, import the component.
 +import { CodeBlock, CodeEditorProvider, WebContainerProvider, useCodeEditor } from '@snipshare/code-block'
 
 function MyComponent() {
++ const { isRunning } = useCodeEditor()
+
   return (
 +    // Only instantiate a single WebContainerProvider in your web app
 +    <WebContainerProvider>
@@ -42,20 +44,23 @@ function MyComponent() {
 The example below uses [TailwindCSS](https://tailwindcss.com/docs/installation) and [@shadcn/ui](https://ui.shadcn.com/docs/installation):
 
 ```tsx
-import { CodeBlock, useCodeEditor } from '@snipshare/code-block'
-import { Loader2, RocketIcon } from 'lucide-react'
 import React, { useEffect, useRef } from 'react'
+import { Loader2, RocketIcon } from 'lucide-react'
+import {
+  CodeEditorProvider,
+  CodeBlock,
+  useCodeEditor,
+} from '@snipshare/code-block'
 
 import { cn } from '@/lib/utils'
-
 import { buttonVariants } from './ui/button'
 
-export const editorTheme = {
+const editorTheme = {
   base: 'vs-dark',
   inherit: true,
   rules: [],
   colors: {
-    'editor.background': '#18181B',
+    'editor.background': '#0E0E10',
   },
 }
 
@@ -70,57 +75,83 @@ export const MyCodeBlock: React.FC = () => {
   }, [output])
 
   return (
-    <div className="flex h-[700px] max-w-screen-xl flex-1 gap-4">
-      <div className="bg-primary w-2/3 flex-1 rounded-3xl border border-zinc-700 px-4 shadow-inner">
-        <CodeBlock.Editor
-          options={{
-            cursorSmoothCaretAnimation: 'on',
-            lineDecorationsWidth: 0,
-            lineNumbers: 'off',
-            fontSize: 16,
-            padding: {
-              top: 32,
-              bottom: 32,
-            },
-            scrollbar: {
-              vertical: 'hidden',
-            },
-            cursorBlinking: 'smooth',
-            renderLineHighlight: 'none',
-          }}
-          theme={editorTheme}
-        />
-
-        <CodeBlock.ControlButton
+    <div className="flex flex-col gap-4">
+      <div
+        className={cn(
+          'rounded-3xl border border-zinc-200/10 bg-[#0E0E10] shadow-inner transition-all duration-500 ease-in-out',
+          {
+            'before:animate-rotate relative grid h-full w-full rounded-3xl bg-[linear-gradient(var(--rotate),var(--tw-gradient-from)_33%,rgb(37_99_235)_66%,var(--tw-gradient-to))] from-purple-500 via-blue-600 to-pink-500 p-2 ring-1 ring-gray-900/5 before:absolute before:inset-0 before:z-0 before:h-full before:w-full before:bg-[linear-gradient(var(--rotate),var(--tw-gradient-from)_33%,rgb(37_99_235)_66%,var(--tw-gradient-to))] before:from-purple-500 before:via-blue-600 before:to-pink-500 before:blur-2xl before:transition-all':
+              isRunning,
+          }
+        )}
+      >
+        <div
           className={cn(
-            buttonVariants({
-              variant: isRunning ? 'destructive' : 'default',
-            }),
-            'relative -top-16 right-2 float-end rounded-2xl'
+            'z-10 h-full w-full rounded-3xl bg-[#0E0E10] px-4 transition-all duration-500 ease-in-out',
+            {
+              'rounded-2xl': isRunning,
+            }
           )}
         >
-          {isRunning ? (
-            <Loader2 className="mr-3 h-4 w-4 animate-spin" />
-          ) : (
-            <RocketIcon className="mr-3 h-4 w-4" />
-          )}
-
-          {isRunning ? 'Stop running' : 'Run code'}
-        </CodeBlock.ControlButton>
-      </div>
-
-      <div
-        ref={scrollRef}
-        className="flex w-1/3 flex-col overflow-auto whitespace-pre rounded-3xl bg-black p-4 font-mono text-xs text-zinc-400"
-      >
-        {output.map((line, index) => (
-          <span
-            key={`${line}-${index}`}
-            dangerouslySetInnerHTML={{ __html: line }}
-            className="block"
+          <CodeBlockEditor
+            className="mt-[1px]"
+            height={1080}
+            width="99%"
+            options={{
+              cursorSmoothCaretAnimation: 'on',
+              lineDecorationsWidth: 0,
+              lineNumbers: 'off',
+              fontSize: 14,
+              padding: {
+                top: 32,
+                bottom: 32,
+              },
+              scrollbar: {
+                vertical: 'hidden',
+                horizontal: 'hidden',
+              },
+              cursorBlinking: 'smooth',
+              renderLineHighlight: 'none',
+            }}
+            theme={editorTheme}
           />
-        ))}
+
+          <CodeBlock.ControlButton
+            className={cn(
+              buttonVariants({
+                variant: isRunning ? 'destructive' : 'default',
+              }),
+              'relative -top-6 right-2 float-right rounded-2xl text-white',
+              {
+                'bg-teal-600 hover:bg-teal-500': !isRunning,
+              }
+            )}
+          >
+            {isRunning ? (
+              <Loader2 className="mr-3 h-4 w-4 animate-spin" />
+            ) : (
+              <RocketIcon className="mr-3 h-4 w-4" />
+            )}
+
+            {isRunning ? 'Stop running' : 'Run code'}
+          </CodeBlock.ControlButton>
+        </div>
       </div>
+
+      {output.length > 0 && (
+        <div
+          ref={scrollRef}
+          className="z-10 flex max-h-[24rem] w-full flex-col overflow-auto whitespace-pre rounded-3xl border border-zinc-200/10 bg-[#0E0E10] p-4 font-mono text-xs text-zinc-400 shadow-inner"
+        >
+          {output.map((line, index) => (
+            <span
+              key={`${line}-${index}`}
+              dangerouslySetInnerHTML={{ __html: line }}
+              className="animate-in fade-in-50 block duration-500"
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -241,6 +272,42 @@ Once the API is updated and fixes this issue, you'll be able to open the generat
 
 ### Using this component in a Next.js app
 
+As this component relies on having access to the `document` object, which is not available in the server-side rendering, you
+should import it using the lazy loading technique. Here's how you can do it:
+
+```jsx
+import dynamic from 'next/dynamic'
+
+import {
+  CodeEditorProvider,
+  // Feel free to use any of the composables components within `CodeBlock`, except for `CodeBlock.Editor`, which should be imported using the `dynamic` function.
+  CodeBlock,
+  useCodeEditor,
+} from '@snipshare/code-block'
+
+// As the `CodeBlock.Editor` component uses the `document` object to properly render the code editor UI, you should import it using the `dynamic` function.
+const CodeBlockEditor = dynamic(
+  () => import('@snipshare/code-block').then((mod) => mod.CodeBlock.Editor),
+  { ssr: false }
+)
+
+// ...
+
+function MyComponent() {
+  return (
+    <CodeEditorProvider>
+      {/* Do not use the `CodeBlock.Editor` component here. Instead, use the `CodeBlockEditor` component. */}
+      {/* <CodeBlock.Editor height={300} width={600} /> */}
+      <CodeBlockEditor height={300} width={600} />
+      <CodeBlock.ControlButton />
+      <CodeBlock.OutputDisplay />
+    </CodeEditorProvider>
+  )
+}
+```
+
+This way, you can use the `CodeBlock.Editor` component in your Next.js app without any issues.
+
 ### `CodeBlock.Editor`
 
 This is the code editor instance. This component uses the `useCodeEditor` hook to manage the code snippet internally.
@@ -252,10 +319,9 @@ import type { EditorProps as MonacoEditorProps } from '@monaco-editor/react'
 
 export interface CodeEditorProps
   extends Omit<MonacoEditorProps, 'language' | 'defaultLanguage' | 'theme'> {
-
   // If you want to instantiate the code editor with an initial code.
   initialCode?: string
-  
+
   // It uses the same data structure as the internal VS Code engine.
   // See some examples here: https://github.com/Microsoft/vscode/blob/main/src/vs/editor/standalone/common/themes.ts#L13
   theme?: Record<string, any>
