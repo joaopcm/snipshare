@@ -1,0 +1,52 @@
+---
+title: "Editor"
+description: "How to configure the code editor"
+---
+
+The `Editor` component is a [Monaco Editor](https://github.com/suren-atoyan/monaco-react) wrapper that provides a simple way to configure the editor instance. It is a controlled component that listens to changes in the `code` property of the `CodeEditorProvider` and updates the editor accordingly.
+
+This component uses a syntax highlight theme for TypeScript by default, even though you are not required to use TypeScript.
+
+By rendering a pure Monaco Editor, you have the same VS Code experience in your application. You can configure the editor to your needs by passing the `options` prop, which accepts all the [Monaco Editor options](https://github.com/suren-atoyan/monaco-react?tab=readme-ov-file#props).
+
+<Card title="Learn more about Monaco Editor" icon="link" href="https://github.com/suren-atoyan/monaco-react" target="_blank">
+  Visit the official repository to learn more about Monaco Editor.
+</Card>
+
+## Default Options
+
+It has some default options that you can override:
+
+```ts
+{
+  minimap: {
+    enabled: false,
+  },
+  inlineSuggest: {
+    enabled: true,
+  },
+  formatOnType: true,
+  autoClosingBrackets: 'always',
+  fixedOverflowWidgets: true,
+  overviewRulerBorder: false,
+  overviewRulerLanes: 0,
+}
+```
+
+## Custom Theme
+
+You can also provide a custom theme to the editor by passing the `theme` prop. This props accepts the exact same theme object that Monaco Editor uses.
+
+You can create your own theme on [Theme Studio for VSCode](https://themes.vscode.one/).
+
+## Samples
+
+### Read-only Editor
+
+If you want to instantiate a read-only editor, you can pass the `readOnly` prop as `true` alongside the `initialCode` prop containing the code snippet.
+
+```tsx
+<CodeBlock.Editor readOnly initialCode="console.log('Hello, world!');" />
+```
+
+This will result in a read-only editor with the provided code snippet.

@@ -1,0 +1,10 @@
+{
+  "extends": "@snipshare/typescript-config/node.json",
+  "include": ["vite.config.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+  },
+}

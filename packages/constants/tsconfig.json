@@ -1,0 +1,4 @@
+{
+  "extends": "@snipshare/typescript-config/library.json",
+  "include": ["index.ts"]
+}

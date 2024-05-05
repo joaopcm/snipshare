@@ -1,0 +1,107 @@
+---
+title: "Introduction"
+description: "Meet the most complete and powerful code snippet component on the web"
+---
+
+## How it works
+
+Currently, there's no way to run Node.js code directly in the browser easily. This component uses the [WebContainer API](https://webcontainers.io/)
+under the hoods to run Node.js code in the browser. It takes care of all the communication with the workers, streams,
+and outputs for you so you don't have to.
+
+## Features
+
+This is the most complete and powerful code snippet component on the web. It's fully composable, flexible, and performant.
+
+<AccordionGroup>
+  <Accordion title="Smart dependency installation" icon="wand-magic-sparkles">
+    This component uses [pnpm](https://pnpm.io/) to install dependencies. It automatically detects your dependencies and installs them.
+
+    You can use both `import` and `require` statements in your code snippets.
+
+  </Accordion>
+
+  <Accordion title="Smart versioning dependency installation" icon="code-branch">
+    You can specify which version of a package you want to install by adding a comment right after the package import statement. For example:
+
+    ```ts
+    import Fastify from 'fastify' // 4.10.2
+    ```
+
+    And it'll install that exact version.
+
+    If no version is specified, it'll install the latest version by default.
+
+    If the package doesn't exist, it'll throw an error when you run the code snippet.
+
+  </Accordion>
+
+  <Accordion title="TypeScript support" icon="star">
+    By default, all the code snippets are stored as TypeScript files. When you run the code snippet, it automatically builds your file into JavaScript and executes it.
+
+    It means you don't have to use TypeScript in your code snippets, but you're free to use it if you want.
+
+  </Accordion>
+
+  <Accordion title="Composable architecture" icon="recycle">
+    You choose how you want to build and customize your own code block component. From `@snipshare/code-block`, you can directly import the components by themselves, or you can use the helper hooks to build your own, from scratch.
+
+    With the `useWebContainer` hook, you get access to the web container instance, allowing you to retrieve it or destroy it.
+
+    Also, with the `useCodeEditor` hook, you get access to the code editor instance, allowing you to interact with the editor.
+
+  </Accordion>
+
+  <Accordion title="Run an Node.js API directly from your browser" icon="server">
+    As this component uses the Web Containers API under the hood, you can run Node.js API directly from your browser. It means that if you try out to run the following code, you'll instantiate a new API:
+
+    ```ts
+    import Fastify from 'fastify'
+
+    const fastify = Fastify({ logger: true })
+
+    fastify.get('/', async (request, reply) => {
+      return { greeting: 'Hello World' }
+    })
+
+    const start = async () => {
+      try {
+        await fastify.listen({ port: 3000 })
+        console.log(`server listening on ${fastify.server.address().port}`)
+      } catch (err) {
+        fastify.log.error(err)
+        process.exit(1)
+      }
+    }
+
+    start()
+    ```
+
+    And you'll see in the terminal that the component has identified an API being running on port 3000, logging out a message with the API URL.
+
+    Unfortunately, the Web Containers API doesn't allow you to access the generated URL in a different browser window. If you want to head over there, you'll need to insert the generated URL into a `iframe` element, as it's recommended [here](https://webcontainers.io/guides/quickstart#_4-preview).
+
+    Once the API is updated and fixes this issue, you'll be able to open the generated URL and see the API in action.
+
+  </Accordion>
+</AccordionGroup>
+
+## Caveats
+
+<AccordionGroup>
+  <Accordion title="It's locked to the Node.js 18.18.0" icon="lock">
+    If you need to run some code that relies on newer Node.js versions, you will not be able to use this component yet.
+
+    The Web Containers API is well-maintained and has been receiving some great updates in the past few years. It means that at some point, the Node.js version in the API will be updated.
+
+  </Accordion>
+
+  <Accordion title="No support for multiple code snippets execution" icon="bars-staggered">
+    Unfortunately, the WebContainers API does not allow you to run multiple code snippets at the same time. You will need to run each code snippet one at a time, or else your web container will be destroyed and booted again for each code snippet.
+
+    <Note>
+      It doesn't mean you cannot instantiate multiple code snippets at the same time. It just means that the code snippets should be executed one after the other.
+    </Note>
+
+  </Accordion>
+</AccordionGroup>

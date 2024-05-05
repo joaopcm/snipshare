@@ -1,0 +1,61 @@
+---
+title: Introduction
+description: 'Welcome to Snipshare, your new home to manage your code snippets'
+---
+
+
+## What is Snipshare?
+
+Snipshare is a powerful platform designed to streamline the management of your code snippets. With Snipshare, you can easily save, organize, and share JavaScript, TypeScript, and Node.js code snippets in a secure and efficient manner.
+
+## Key Features
+
+### Multi-Tenant Architecture
+
+Snipshare offers a multi-tenant architecture, empowering you to create multiple organizations and manage your snippets with granular control and security. You can set code snippets as public or private and seamlessly share them with your team members.
+
+### Unlimited Projects and Snippets
+
+With Snipshare, you have the flexibility to create unlimited projects within an organization and unlimited snippets within each project. This allows you to organize your code snippets effectively and maintain a clean and structured workflow.
+
+### Collaborative Environment
+
+Invite an unlimited number of members to your organization by simply sending them an email invitation. Collaborate effortlessly with your team, share knowledge, and foster a productive coding environment.
+
+### Markdown-Based Snippets
+
+Snipshare supports markdown-based snippets, enabling you to write detailed descriptions and explanations alongside your code. Enhance the readability and comprehension of your snippets with rich formatting options.
+
+### Interactive Code Blocks
+
+Experience the power of interactive code blocks within your snippets:
+
+- Write JavaScript, TypeScript, or Node.js code directly in your snippets
+- Enjoy automatic syntax highlighting for improved readability
+- Run code blocks securely in your browser using the [WebContainers API](https://webcontainers.io/)
+- View output and interact with your code in real-time, including the ability to instantiate a Node.js HTTP server directly from your browser
+
+### Smart Dependency Management
+
+Snipshare simplifies dependency management, allowing you to focus on coding:
+
+- Import external dependencies using `import` or `require` statements
+- Snipshare automatically installs dependencies using [pnpm](https://pnpm.io/)
+- Specify package versions by adding a comment after the import statement
+  ```javascript
+  import Fastify from "fastify"; // 4.10.2
+  ```
+- If no version is specified, the latest version is installed by default
+
+<Note>
+  If a package doesn't exist, an error will be thrown when running the code snippet.
+</Note>
+
+### TypeScript Support
+
+Enjoy the benefits of TypeScript without the hassle:
+
+- Code snippets are interpreted as TypeScript by default
+- Snipshare automatically builds your TypeScript code into JavaScript
+- Run your code using Node.js seamlessly
+- Opt-in to using TypeScript features when desired. Just... start typing!

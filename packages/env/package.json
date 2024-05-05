@@ -1,0 +1,23 @@
+{
+  "name": "@snipshare/env",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "types": "index.ts",
+  "devDependencies": {
+    "@snipshare/eslint-config": "workspace:*",
+    "@snipshare/prettier-config": "workspace:*",
+    "@snipshare/typescript-config": "workspace:*",
+    "@types/node": "20.12.7"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@snipshare/eslint-config/library"
+    ]
+  },
+  "prettier": "@snipshare/prettier-config",
+  "dependencies": {
+    "@t3-oss/env-nextjs": "0.10.1",
+    "zod": "3.23.4"
+  }
+}

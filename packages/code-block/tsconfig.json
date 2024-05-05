@@ -1,0 +1,4 @@
+{
+  "extends": "@snipshare/typescript-config/react.json",
+  "include": ["src/**/*", "tsup.config.ts"]
+}

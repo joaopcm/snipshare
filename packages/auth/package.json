@@ -1,0 +1,22 @@
+{
+  "name": "@snipshare/auth",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "devDependencies": {
+    "@snipshare/eslint-config": "workspace:*",
+    "@snipshare/prettier-config": "workspace:*",
+    "@snipshare/typescript-config": "workspace:*"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@snipshare/eslint-config/library"
+    ]
+  },
+  "prettier": "@snipshare/prettier-config",
+  "dependencies": {
+    "@casl/ability": "6.7.1",
+    "zod": "3.23.4"
+  }
+}

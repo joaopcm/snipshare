@@ -1,0 +1,12 @@
+{
+  "extends": "@snipshare/typescript-config/node.json",
+  "include": ["src/**/*", "@types/*.d.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*", "./prisma/seed.ts"]
+    },
+    "module": "commonjs",
+    "moduleResolution": "Node10"
+  }
+}

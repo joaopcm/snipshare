@@ -1,0 +1,83 @@
+---
+title: "Introduction"
+description: "Learn how to clone and run the Snipshare API locally"
+---
+
+## Welcome
+
+This is the API used by the Snipshare application. It is a RESTful API that allows you to manage your snippets and share them with others.
+
+Snipshare is a multi-tenant SaaS application. It is built with [Next.js](https://nextjs.org/) and uses [Prisma](https://www.prisma.io/) as the ORM.
+
+Also, it uses <Tooltip tip="Role-Based Access Control">RBAC</Tooltip> to manage user roles and permissions. It means that each user has a role that defines what they can do in the application.
+
+### Permissions Table
+
+|                        | Administrator                                                                                             | Member                                                                                     | Billing | Anonymous |
+| ---------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------- | --------- |
+| Update organization    | ✅                                                                                                        | ❌                                                                                         | ❌      | ❌        |
+| Delete organization    | ✅                                                                                                        | ❌                                                                                         | ❌      | ❌        |
+| Invite a member        | ✅                                                                                                        | ❌                                                                                         | ❌      | ❌        |
+| Revoke an invite       | ✅                                                                                                        | ❌                                                                                         | ❌      | ❌        |
+| List members           | ✅                                                                                                        | ✅                                                                                         | ✅      | ❌        |
+| Transfer ownership     | <Tooltip tip="Organization ownership can only be transferred by the creator to another user">⚠️</Tooltip> | ❌                                                                                         | ❌      | ❌        |
+| Update member role     | ✅                                                                                                        | ❌                                                                                         | ❌      | ❌        |
+| Delete member          | ✅                                                                                                        | <Tooltip tip="A member can't leave their own organization">⚠️</Tooltip>                    | ❌      | ❌        |
+| List projects          | ✅                                                                                                        | ✅                                                                                         | ✅      | ❌        |
+| Create a new project   | ✅                                                                                                        | ✅                                                                                         | ❌      | ❌        |
+| Update a project       | ✅                                                                                                        | <Tooltip tip="Only administrators and project authors may update the project">⚠️</Tooltip> | ❌      | ❌        |
+| Delete a project       | ✅                                                                                                        | <Tooltip tip="Only administrators and project authors may delete the project">⚠️</Tooltip> | ❌      | ❌        |
+| Get billing details    | ✅                                                                                                        | ❌                                                                                         | ✅      | ❌        |
+| Export billing details | ✅                                                                                                        | ❌                                                                                         | ✅      | ❌        |
+
+## Features
+
+### Organization Management
+
+Snipshare enables you to efficiently manage multiple organizations, streamlining collaboration and project organization.
+
+#### Create and Manage Organizations
+
+- Create new organizations to structure your projects and teams
+- Edit organization details and settings to keep information up-to-date
+- Transfer ownership to another member when necessary
+- Delete organizations that are no longer needed
+
+#### Invite and Manage Members
+
+As an organization administrator, you have the power to:
+
+- Invite an unlimited number of members to join your organization
+- Assign and manage member roles to control access and permissions
+- Resend invites to ensure all members have the opportunity to join
+- Revoke invites or memberships when necessary
+
+Members can easily accept or decline invitations via email, powered by [Resend](https://resend.com/).
+
+#### Organize Projects
+
+Keep your work organized and accessible with Snipshare's project management features:
+
+- Create an unlimited number of projects within each organization
+- Edit project details and settings to maintain accuracy
+- Delete projects that are no longer relevant
+- Administrators have full control over all projects
+- Members can manage projects they own, facilitating focused collaboration
+
+#### Billing Management
+
+Stay on top of your organization's billing with ease:
+
+- Access detailed billing information for your organization
+- Assign the billing role to one member per organization
+
+### Snippets
+
+Snippets are powerful, interactive Markdown documents that elevate your coding experience.
+
+#### Create and Manage Snippets
+
+- Create new snippets to share code and ideas
+- Edit existing snippets to refine and improve your work
+- Delete snippets that are no longer needed
+- Share snippets with others for collaboration and knowledge sharing

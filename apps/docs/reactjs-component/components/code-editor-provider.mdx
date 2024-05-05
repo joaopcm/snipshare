@@ -1,0 +1,20 @@
+---
+title: "CodeEditorProvider"
+description: "Understand how each code block instance is managed"
+---
+
+The `CodeEditorProvider` is the responsible for providing the necessary context to each code block instance. It means that you have to wrap each code block with this provider.
+
+This provider takes care of internal state management, such as the current code block snippet, the script output, and if the code block is currently running.
+
+This provider exposes the following properties:
+
+1. `code`: The current code snippet.
+2. `setCode`: A function to update the current code snippet.
+3. `output`: The current script output.
+4. `setOutput`: A function to update the current script output.
+5. `isRunning`: A boolean indicating if the code block is currently running.
+6. `setIsRunning`: A function to update the running state.
+7. `evaluateCode`: A function responsible for preparing a blank, secure environment and running the current code snippet.
+
+These properties are easily accessible through the `useCodeEditor` hook, which is the recommended way to interact with the `CodeEditorProvider`.

@@ -1,88 +1,83 @@
-![Logo](https://getnodepad.com/og.png)
+# SnipShare
 
-# Nodepad
-
-Revolutionize your coding experience with Nodepad - the all-in-one platform for creating, executing, and sharing Node.js code snippets! Join the coding revolution today at www.getnodepad.com 🚀🌟
-
-## Motivation
-
-Nodepad was built with the motivation to help programming students succeed in their studies and achieve their coding goals. As students ourselves, we understand the challenges that come with learning to code, from debugging errors to keeping track of notes and progress. We saw the need for a powerful and convenient platform that would streamline the coding process and make learning more accessible and enjoyable for everyone.
-
-With Nodepad, programming students can benefit from a suite of features designed specifically for their needs. The ability to execute Node.js code snippets directly in the browser saves time and eliminates the hassle of setting up and deploying code. Easy-to-read Markdown allows for clear and concise note-taking and documentation, keeping students organized and focused on their studies.
-
-But Nodepad is more than just a tool for individual students. As an open-source project, it is a community-driven effort to make coding more accessible and enjoyable for all. By contributing to Nodepad or using it in their studies, students can join a vibrant community of developers, students, and educators who share a passion for programming and a commitment to innovation and excellence.
-
-At the heart of Nodepad is the belief that programming should be accessible to everyone, regardless of background or experience level. We hope that by providing a powerful, convenient, and community-driven platform for programming students, we can help inspire the next generation of great coders and contribute to a more inclusive and dynamic programming community.
+This project contains all the necessary boilerplate to setup a multi-tenant SaaS with Next.js including authentication and RBAC authorization.
 
 ## Features
 
-- **Fully accessible through shortcuts**: Nodepad is designed to be fully accessible through shortcuts, allowing users to navigate and use the platform quickly and efficiently.
+### Authentication
 
-- **Markdown-based note-taking**: Nodepad allows users to write notes and documentation using easy-to-read Markdown syntax, making it simple to create and organize notes on programming concepts.
+- [ ] It should be able to authenticate using email & password;
+- [ ] It should be able to authenticate using Github account;
+- [ ] It should be able to recover password using email;
+- [x] It should be able to create an account (email, name and password);
 
-- **Node.js code execution**: With Nodepad, users can execute Node.js code snippets directly in their browser, providing real-time feedback and eliminating the need for complex setup or deployment processes.
+### Organizations
 
-- **Random link for secure sharing**: Users can share their notes and code snippets with secure, random links, ensuring that only authorized users can access their work. This feature also makes it easy to collaborate with others on programming projects.
+- [ ] It should be able to create a new organization;
+- [ ] It should be able to get organizations to which the user belongs;
+- [ ] It should be able to update an organization;
+- [ ] It should be able to shutdown an organization;
+- [ ] It should be able to transfer organization ownership;
 
-- **Real-time feedback**: As users write and execute code, Nodepad provides real-time feedback and results, making it easy to test and debug code. This feature allows users to quickly iterate and improve their code.
+### Invites
 
-- **AI-powered code explanations**: Nodepad now offers an AI-powered feature that provides explanations for code snippets. Users can simply hover over a code block to see a detailed explanation of the code's functionality, making it easier to understand and learn from code written by others.
+- [ ] It should be able to invite a new member (email, role);
+- [ ] It should be able to accept an invite;
+- [ ] It should be able to revoke a pending invite;
 
-- **Visits counter**: Nodepad now features a visits counter, which allows users to track the number of visits to their shared code snippets and notes. This feature provides valuable insights into the popularity and impact of users' work, allowing them to gauge the success of their coding projects.
+### Members
 
-Overall, Nodepad is a powerful and convenient platform for creating and sharing Node.js code snippets, with features designed to streamline the coding process and make it accessible to users of all levels.
+- [ ] It should be able to get organization members;
+- [ ] It should be able to update a member role;
 
-## Tech Stack
+### Projects
 
-**Client:** React.js, Next.js, TailwindCSS, TipTap, and WebContainers
+- [ ] It should be able to get projects within a organization;
+- [ ] It should be able to create a new project (name, url, description);
+- [ ] It should be able to update a project (name, url, description);
+- [ ] It should be able to delete a project;
 
-**Server:** Node.js, MongoDB, and Redis
+### Billing
 
-## Installation
+- [ ] It should be able to get billing details for organization ($20 per project / $10 per member excluding billing role);
 
-Clone and run this project
+## RBAC
 
-```bash
-  git clone git@github.com:joaopcm/nodepad.git
-  cd ./nodepad
-  pnpm i
-  pnpm dev
-```
+Roles & permissions.
 
-## Environment Variables
+### Roles
 
-To run this project, you will need to add the following environment variables to your `.env.local` file
+- Owner (count as administrator)
+- Administrator
+- Member
+- Billing (one per organization)
+- Anonymous
 
-`MONGODB_URI` - We use MongoDB Atlas Free Tier for this
+### Permissions table
 
-`DB_NAME`
+|                        | Administrator | Member | Billing | Anonymous |
+| ---------------------- | ------------- | ------ | ------- | --------- |
+| Update organization    | ✅            | ❌     | ❌      | ❌        |
+| Delete organization    | ✅            | ❌     | ❌      | ❌        |
+| Invite a member        | ✅            | ❌     | ❌      | ❌        |
+| Revoke an invite       | ✅            | ❌     | ❌      | ❌        |
+| List members           | ✅            | ✅     | ✅      | ❌        |
+| Transfer ownership     | ⚠️            | ❌     | ❌      | ❌        |
+| Update member role     | ✅            | ❌     | ❌      | ❌        |
+| Delete member          | ✅            | ⚠️     | ❌      | ❌        |
+| List projects          | ✅            | ✅     | ✅      | ❌        |
+| Create a new project   | ✅            | ✅     | ❌      | ❌        |
+| Update a project       | ✅            | ⚠️     | ❌      | ❌        |
+| Delete a project       | ✅            | ⚠️     | ❌      | ❌        |
+| Get billing details    | ✅            | ❌     | ✅      | ❌        |
+| Export billing details | ✅            | ❌     | ✅      | ❌        |
 
-`NEXT_PUBLIC_APP_URL` - This must be your app URL. If running locally, set this to http://localhost:3000
+> ✅ = allowed
+> ❌ = not allowed
+> ⚠️ = allowed w/ conditions
 
-`REDIS_URL` - We use Upstash for the Redis database
+#### Conditions
 
-`REDIS_TOKEN` - Provided by Upstash
-
-`OPENAI_API_KEY` - We use OpenAI for the AI to explain code snippets
-
-## Authors
-
-- [@joaopcm](https://www.github.com/joaopcm)
-
-## Roadmap
-
-- [ ] Dynamic SEO meta tags
-- [ ] Templates marketplace
-- [ ] User authentication so that users can create only private notes
-- [ ] Groups, where users can add other users to collaborate on notes privately
-
-## Technical Debts
-
-- [ ] Add tests
-- [ ] [Move this logic to an util or a hook](https://github.com/joaopcm/nodepad/pull/18#discussion_r1146363295)
-- [ ] Add Zod for API routes validation
-- [ ] Add error handlers in the client side
-
-## Changelog
-
-Discover the evolution of our product in our [CHANGELOG.md](https://github.com/joaopcm/nodepad/blob/main/CHANGELOG.md)!
+- Only owners may transfer organization ownership;
+- Only administrators and project authors may update/delete the project;
+- Members can leave their own organization;
