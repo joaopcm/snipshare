@@ -1,13 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "_version": "2.0.0",
-
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "target": "es2015",
-
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2015",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

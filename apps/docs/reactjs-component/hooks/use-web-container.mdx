@@ -1,0 +1,21 @@
+---
+title: "useWebContainer"
+description: "Mange the web container instance"
+---
+
+The `useWebContainer` hook is used to manage the web container instance.
+
+It gives you access to the `WebContainerProvider` store, which allows you to interact directly with the web container instance.
+
+Through this hook, you can access the following functions:
+
+- `getWebContainerInstance`: Returns the web container instance
+- `destroyWebContainerInstance`: Destroys the web container instance
+
+<Warning>
+  This hook is intended for advanced users who need to interact directly with the web container instance. Use it with caution.
+</Warning>
+
+<Warning>
+  Ensure you call this hook only after the `WebContainerProvider` has been initialized.
+</Warning>

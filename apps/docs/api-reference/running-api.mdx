@@ -1,0 +1,150 @@
+---
+title: "Running the API"
+description: "How to run the Snipshare API locally"
+---
+
+## Prerequisites
+
+Before running the Snipshare API locally, ensure you have the following installed:
+
+- [pnpm](https://pnpm.io/) package manager
+- [Docker](https://www.docker.com/) for running the database
+
+## Installation
+
+<Steps>
+  <Step title="Clone the Snipshare repository:">
+    <CodeGroup>
+      ```bash Using SSH
+      git clone git@github.com:joaopcm/snipshare.git
+      ```
+
+      ```bash Using HTTPS
+      git clone https://github.com/joaopcm/snipshare.git
+      ```
+
+      ```bash Using GitHub CLI
+      gh repo clone joaopcm/snipshare
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Navigate to the project's root directory and install the dependencies using pnpm:">
+    ```bash
+    cd snipshare
+    pnpm install
+    ```
+  </Step>
+
+  <Step title="Change to the `apps/api` directory and install the API-specific dependencies:">
+    ```bash
+    cd apps/api
+    pnpm install
+    ```
+  </Step>
+</Steps>
+
+## Configuration
+
+<Steps>
+  <Step title="Create a `.env` file in the root directory of the project:">
+    ```bash
+    cd ../../ # Navigate back to the project's root directory
+    touch .env
+    ```
+  </Step>
+
+  <Step title="Set the following environment variables in the `.env` file:">
+    ```env .env
+    SERVER_PORT=3333 # Optional, defaults to 3333 if not provided
+    DATABASE_URL=<PostgreSQL connection URL>
+    CLIENT_URL=<front-end app URL>
+    JWT_SECRET=<JWT secret>
+    GITHUB_OAUTH_CLIENT_ID=<GitHub OAuth client ID>
+    GITHUB_OAUTH_CLIENT_SECRET=<GitHub OAuth client secret>
+    GITHUB_OAUTH_REDIRECT_URI=<GitHub OAuth redirect URI>
+    RESEND_API_KEY=<Resend API key used to send emails>
+    ```
+
+    To create a GitHub OAuth application, follow the instructions in the [GitHub documentation](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app).
+
+    <Warning>
+      When creating your GitHub OAuth application, make sure you're using the correct redirect URI. The redirect URI should be the same as the `GITHUB_OAUTH_REDIRECT_URI` environment variable.
+    </Warning>
+
+    Then, you need a Resend API key to send emails. To get one, follow the instructions in the [Resend documentation](https://resend.com/docs/dashboard/api-keys/introduction#add-api-key).
+  </Step>
+</Steps>
+
+## Database Setup
+
+<Steps>
+  <Step title="Start the database using Docker by running the following command in the project's root directory:">
+      ```bash
+      cd ../../ # Navigate back to the project's root directory
+      docker-compose up -d
+      ```
+
+      This command will start the database container defined in the `docker-compose.yml` file.
+    </Step>
+
+    <Step title="Run the database migrations to create the necessary tables and schema:">
+      ```bash
+      cd apps/api # Change to the API directory
+      pnpm db:migrate
+      ```
+    </Step>
+
+    <Step title="Seed the database with pre-defined values for local and manual testing:">
+      ```bash
+      pnpm db:seed
+      ```
+
+      The seed script located at `apps/api/prisma/seed.ts` creates sample organizations, projects, and users.
+
+      <Note>
+        Default administrator account:
+        - Email: john@snipshare.co
+        - Password: 123456
+      </Note>
+
+      <Info>
+        If you open the seed script file, you will find different users with different roles and organizations. All passwords are `123456`.
+      </Info>
+    </Step>
+</Steps>
+
+## Running the API
+
+Start the API server by running the following command in the `apps/api` directory:
+
+```bash
+pnpm dev
+```
+
+This command will start the API server.
+
+<Note>
+  By starting the API server, it automatically starts the Swagger UI at `http://localhost:3333/docs`.
+  If you've set a different `SERVER_PORT` in the `.env` file, replace `3333` with the specified port.
+</Note>
+
+## Additional Tools
+
+### Prisma Studio
+
+To access the database using a visual interface, you can use Prisma Studio.
+
+<Steps>
+  <Step title="Run the following command in the `apps/api` directory:">
+    ```bash
+    pnpm db:studio
+    ```
+  </Step>
+
+  <Step title="Prisma Studio will open in your default browser, allowing you to explore and modify the database">
+    To use Prisma Studio effectively, you can follow the [official documentation](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-studio).
+  </Step>
+</Steps>
+
+You are now ready to use the Snipshare API! Feel free to explore the API endpoints using the Swagger documentation and start building your application.

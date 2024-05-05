@@ -11,10 +11,7 @@ export const OutputDisplay: React.FC<OutputDisplayProps> = (props) => {
   return (
     <div style={{ fontFamily: 'monospace', fontSize: '0.9em' }} {...props}>
       {output.map((line, index) => (
-        <div
-          key={`${line}-${index}`}
-          dangerouslySetInnerHTML={{ __html: line }}
-        />
+        <div key={index} dangerouslySetInnerHTML={{ __html: line }} />
       ))}
     </div>
   )

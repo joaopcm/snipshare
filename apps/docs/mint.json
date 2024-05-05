@@ -1,0 +1,150 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Snipshare",
+  "logo": {
+    "dark": "/logo/dark.webp",
+    "light": "/logo/light.webp"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#000",
+    "light": "#fff",
+    "dark": "#000"
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:hi@snipshare.co"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://app.snipshare.co"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "React.js Component",
+      "url": "reactjs-component"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "GitHub repository",
+      "icon": "github",
+      "url": "https://github.com/joaopcm/snipshare"
+    },
+    {
+      "name": "Raycast Extension",
+      "icon": "puzzle-piece",
+      "url": "https://www.raycast.com/store"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": ["introduction", "get-started"]
+    },
+    {
+      "group": "Get Started",
+      "pages": ["api-reference/introduction", "api-reference/running-api"]
+    },
+    {
+      "group": "Authentication",
+      "pages": [
+        "api-reference/endpoints/auth/create-a-new-user-account",
+        "api-reference/endpoints/auth/authenticate-with-email-and-password",
+        "api-reference/endpoints/auth/authenticate-with-github",
+        "api-reference/endpoints/auth/get-user-profile",
+        "api-reference/endpoints/auth/request-password-recover",
+        "api-reference/endpoints/auth/reset-password"
+      ]
+    },
+    {
+      "group": "Organizations",
+      "pages": [
+        "api-reference/endpoints/organizations/create-an-organization",
+        "api-reference/endpoints/organizations/get-details-of-an-organization-by-slug",
+        "api-reference/endpoints/organizations/get-organizations-to-which-the-user-belongs",
+        "api-reference/endpoints/organizations/get-user-membership-in-the-organization",
+        "api-reference/endpoints/organizations/shutdown-an-organization",
+        "api-reference/endpoints/organizations/transfer-an-organization-ownership",
+        "api-reference/endpoints/organizations/update-an-organization"
+      ]
+    },
+    {
+      "group": "Memberships",
+      "pages": [
+        "api-reference/endpoints/memberships/delete-a-membership",
+        "api-reference/endpoints/memberships/get-all-organization-members",
+        "api-reference/endpoints/memberships/update-a-membership"
+      ]
+    },
+    {
+      "group": "Invites",
+      "pages": [
+        "api-reference/endpoints/invites/accept-an-invite",
+        "api-reference/endpoints/invites/create-an-invite",
+        "api-reference/endpoints/invites/get-all-invites-for-an-organization",
+        "api-reference/endpoints/invites/get-all-user-pending-invites",
+        "api-reference/endpoints/invites/get-an-invite",
+        "api-reference/endpoints/invites/reject-an-invite",
+        "api-reference/endpoints/invites/revoke-an-invite"
+      ]
+    },
+    {
+      "group": "Projects",
+      "pages": [
+        "api-reference/endpoints/projects/create-a-project",
+        "api-reference/endpoints/projects/delete-a-project",
+        "api-reference/endpoints/projects/get-a-project",
+        "api-reference/endpoints/projects/update-a-project",
+        "api-reference/endpoints/projects/get-projects"
+      ]
+    },
+    {
+      "group": "Billing",
+      "pages": [
+        "api-reference/endpoints/billing/get-billing-details-of-an-organization"
+      ]
+    },
+    {
+      "group": "React.js Component",
+      "pages": [
+        "reactjs-component/introduction",
+        "reactjs-component/demo",
+        "reactjs-component/usage",
+        {
+          "group": "Components",
+          "pages": [
+            "reactjs-component/components/web-container-provider",
+            "reactjs-component/components/code-editor-provider",
+            {
+              "group": "CodeBlock",
+              "pages": [
+                "reactjs-component/components/code-block/editor",
+                "reactjs-component/components/code-block/control-button",
+                "reactjs-component/components/code-block/output-display"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Hooks",
+          "pages": [
+            "reactjs-component/hooks/use-code-editor",
+            "reactjs-component/hooks/use-web-container"
+          ]
+        }
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://twitter.com/jopcmelo",
+    "github": "https://github.com/joaopcm",
+    "linkedin": "https://www.linkedin.com/in/jopcmelo/"
+  }
+}

@@ -1,0 +1,234 @@
+---
+title: "Demo"
+description: "Demo of `@snipshare/code-block`"
+---
+
+## Video Demo
+
+Check out the video demo of the `@snipshare/code-block` component in action:
+
+<iframe
+  width="100%"
+  height="436"
+  src="https://github.com/joaopcm/snipshare/assets/58827242/882d85d4-7deb-45ae-89bb-33a6e2245f44"
+  title="@snipshare/code-block Demo"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+## Live Demo
+
+Explore the live demo of the `@snipshare/code-block` component:
+
+<Card title="Styled, live demo" icon="link" href="https://www.jopcmelo.dev/projects/showcases/code-block" target="_blank">
+  Click here to see the live demo.
+</Card>
+
+The live demo showcases the component's functionality and styling in a real-world scenario.
+
+## Styled, Customized Example
+
+The following example uses [TailwindCSS](https://tailwindcss.com/docs/installation) and [@shadcn/ui](https://ui.shadcn.com/docs/installation):
+
+<CodeGroup>
+```tsx components/my-code-block.tsx
+import React, { useEffect, useRef } from 'react'
+import { Loader2, RocketIcon } from 'lucide-react'
+import {
+  CodeEditorProvider,
+  CodeBlock,
+  useCodeEditor,
+} from '@snipshare/code-block'
+
+import { cn } from '@/lib/utils'
+import { buttonVariants } from './ui/button'
+
+const editorTheme = {
+  base: 'vs-dark',
+  inherit: true,
+  rules: [],
+  colors: {
+    'editor.background': '#0E0E10',
+  },
+}
+
+export const MyCodeBlock: React.FC = () => {
+  const { isRunning, output } = useCodeEditor()
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    }
+  }, [output])
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div
+        className={cn(
+          'rounded-3xl border border-zinc-200/10 bg-[#0E0E10] shadow-inner transition-all duration-500 ease-in-out',
+          {
+            'before:animate-rotate relative grid h-full w-full rounded-3xl bg-[linear-gradient(var(--rotate),var(--tw-gradient-from)_33%,rgb(37_99_235)_66%,var(--tw-gradient-to))] from-purple-500 via-blue-600 to-pink-500 p-2 ring-1 ring-gray-900/5 before:absolute before:inset-0 before:z-0 before:h-full before:w-full before:bg-[linear-gradient(var(--rotate),var(--tw-gradient-from)_33%,rgb(37_99_235)_66%,var(--tw-gradient-to))] before:from-purple-500 before:via-blue-600 before:to-pink-500 before:blur-2xl before:transition-all':
+              isRunning,
+          }
+        )}
+      >
+        <div
+          className={cn(
+            'z-10 h-full w-full rounded-3xl bg-[#0E0E10] px-4 transition-all duration-500 ease-in-out',
+            {
+              'rounded-2xl': isRunning,
+            }
+          )}
+        >
+          <CodeBlockEditor
+            className="mt-[1px]"
+            height={1080}
+            width="99%"
+            options={{
+              cursorSmoothCaretAnimation: 'on',
+              lineDecorationsWidth: 0,
+              lineNumbers: 'off',
+              fontSize: 14,
+              padding: {
+                top: 32,
+                bottom: 32,
+              },
+              scrollbar: {
+                vertical: 'hidden',
+                horizontal: 'hidden',
+              },
+              cursorBlinking: 'smooth',
+              renderLineHighlight: 'none',
+            }}
+            theme={editorTheme}
+          />
+
+          <CodeBlock.ControlButton
+            className={cn(
+              buttonVariants({
+                variant: isRunning ? 'destructive' : 'default',
+              }),
+              'relative -top-6 right-2 float-right rounded-2xl text-white',
+              {
+                'bg-teal-600 hover:bg-teal-500': !isRunning,
+              }
+            )}
+          >
+            {isRunning ? (
+              <Loader2 className="mr-3 h-4 w-4 animate-spin" />
+            ) : (
+              <RocketIcon className="mr-3 h-4 w-4" />
+            )}
+
+            {isRunning ? 'Stop running' : 'Run code'}
+          </CodeBlock.ControlButton>
+        </div>
+      </div>
+
+      {output.length > 0 && (
+        <div
+          ref={scrollRef}
+          className="z-10 flex max-h-[24rem] w-full flex-col overflow-auto whitespace-pre rounded-3xl border border-zinc-200/10 bg-[#0E0E10] p-4 font-mono text-xs text-zinc-400 shadow-inner"
+        >
+          {output.map((line, index) => (
+            <span
+              key={index}
+              dangerouslySetInnerHTML={{ __html: line }}
+              className="animate-in fade-in-50 block duration-500"
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+```tsx components/ui/button.tsx
+import * as React from 'react'
+import { Slot } from '@radix-ui/react-slot'
+import { cva } from 'class-variance-authority'
+
+import { cn } from '@/lib/utils'
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        destructive:
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline:
+          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+      size: {
+        default: 'h-10 px-4 py-2',
+        sm: 'h-9 rounded-md px-3',
+        lg: 'h-11 rounded-md px-8',
+        icon: 'h-10 w-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  }
+)
+
+const Button = React.forwardRef(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'button'
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = 'Button'
+
+export { Button, buttonVariants }
+```
+
+```ts lib/utils/index.ts
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+import type { ClassValue } from 'clsx'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+```ts tailwind.config.ts
+const config = {
+  theme: {
+    extend: {
+      keyframes: {
+        rotate: {
+          '0%': {
+            '--rotate': '0deg',
+          },
+          '100%': {
+            '--rotate': '360deg',
+          },
+        },
+      },
+      animation: {
+        rotate: 'rotate 5s linear infinite',
+      },
+    },
+  },
+}
+```
+</CodeGroup>

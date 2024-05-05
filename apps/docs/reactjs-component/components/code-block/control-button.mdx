@@ -1,0 +1,28 @@
+---
+title: "ControlButton"
+description: "How to request the execution of a code block, or stop it"
+---
+
+The `ControlButton` component is responsible for requesting the execution of a code block, or stopping it. It is a simple button that listens to changes in the `isRunning` property of the `CodeEditorProvider` and performs the appropriate action.
+
+If the code block is running, the button will:
+
+1. Destroy the current container instance by calling the `destroyWebContainerInstance` function
+2. Clear the output by setting the `output` property to an empty array of strings
+3. Set the `isRunning` property to `false`
+
+Otherwise, the button will:
+1. Request the execution of the code block by calling the `evaluateCode` function
+
+## Props
+
+```ts
+interface ControlButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+```
+
+## Style
+
+The `ControlButton` component is an unstyled button by default. You can style it by passing your own CSS classes or styles to the `className` or `style` props, respectively.
+
+Also, you can provide any other props that a regular `button` element accepts, such as `onClick`, `disabled`, and `aria-label`.

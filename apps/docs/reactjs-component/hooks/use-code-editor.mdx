@@ -1,0 +1,22 @@
+---
+title: "useCodeEditor"
+description: "Mange the code block editor instance"
+---
+
+The `useCodeEditor` hook is used to manage each code block editor instance.
+
+It gives you access to the `CodeEditorProvider` store, which allows you to interact with the code block editor instance.
+
+Through this hook, you can access the following properties:
+
+- `code`: The code snippet
+- `setCode`: Sets the code snippet
+- `output`: The code snippet output
+- `setOutput`: Sets the code snippet output
+- `isRunning`: The code snippet running state (true/false)
+- `setIsRunning`: Sets the code snippet running state
+- `evaluateCode`: Prepares and isolated, secure environment and executes the code snippet
+
+<Warning>
+  Ensure you call this hook only after the `CodeEditorProvider` has been initialized.
+</Warning>

@@ -1,0 +1,27 @@
+---
+title: "OutputDisplay"
+description: "How to display the output of a code block with ease"
+---
+
+The `OutputDisplay` component is responsible for displaying the output of a code block execution. It is a simple `div` that listens to changes in the `output` property of the `CodeEditorProvider` and displays the output accordingly.
+
+It will print out all the messages from the code execution, including:
+
+- Dependencies installation messages;
+- Error messages;
+- Output messages;
+- Logs messages;
+- and more.
+
+## Props
+
+```ts
+interface OutputDisplayProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
+```
+
+## Style
+
+The `OutputDisplay` component is an unstyled div by default. You can style it by passing your own CSS classes or styles to the `className` or `style` props, respectively.
+
+Also, you can provide any other props that a regular `div` element accepts, such as `onClick`, `aria-label`, and `role`.

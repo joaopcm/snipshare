@@ -1,0 +1,134 @@
+---
+title: "Installation"
+description: "How to install and use the `@snipshare/reactjs-component` package"
+---
+
+## Installation
+
+<Steps>
+  <Step title="Install the component using your favorite package manager:">
+    <CodeGroup>
+    ```bash pnpm
+    pnpm install @snipshare/code-block
+    ```
+
+    ```bash yarn
+    yarn add @snipshare/code-block
+    ```
+
+    ```bash npm
+    npm install @snipshare/code-block
+    ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Import and use the component in your app:">
+    ```tsx
+    import {
+      CodeBlock,
+      CodeEditorProvider,
+      WebContainerProvider,
+      useCodeEditor
+    } from '@snipshare/code-block'
+
+    function MyComponent() {
+      const { isRunning } = useCodeEditor()
+
+      return (
+        <WebContainerProvider>
+          <CodeEditorProvider>
+            <div>
+              <CodeBlock.Editor height={300} width={600} />
+              <CodeBlock.ControlButton>
+                {isRunning ? "Stop running" : "Run code"}
+              </CodeBlock.ControlButton>
+              <CodeBlock.OutputDisplay />
+            </div>
+          </CodeEditorProvider>
+        </WebContainerProvider>
+      );
+    }
+    ```
+
+    <Warning>
+      Ensure you have a single `WebContainerProvider` instance in your web app. If you want multiple code blocks, wrap each one with its own `CodeEditorProvider`.
+    </Warning>
+
+  </Step>
+</Steps>
+
+## Headers Configuration
+
+The WebContainer functionality requires `SharedArrayBuffer`, which means your website needs to be cross-origin isolated.
+
+Some browsers offer an alternative "credentialless" mode for cross-origin isolation. If you choose to serve your content this way, adjust your headers accordingly.
+
+<Card title="Learn more about headers configuration" icon="link" href="https://webcontainers.io/guides/configuring-headers#configuring-headers" target="_blank">
+  Read the WebContainers documentation for more details.
+</Card>
+
+### Next.js Configuration
+
+If you are using [Next.js](https://nextjs.org/), you can configure the headers by adding the following to your `next.config.js` file:
+
+```js next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // ...your other Next.js settings here...
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+    ]
+  },
+}
+
+module.exports = nextConfig
+```
+
+## Server-Side Rendering (SSR)
+
+Since this component requires access to the `document` object, which is not available during server-side rendering, you should import it using [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading). Here's how to do it in Next.js:
+
+```tsx
+import dynamic from 'next/dynamic'
+
+import {
+  CodeEditorProvider,
+  // Import any composable components from `CodeBlock`, except for `CodeBlock.Editor`
+  CodeBlock,
+  useCodeEditor,
+} from '@snipshare/code-block'
+
+// Lazy-load `CodeBlock.Editor` using the `dynamic` function
+const LazyCodeBlockEditor = dynamic(
+  () => import('@snipshare/code-block').then((mod) => mod.CodeBlock.Editor),
+  { ssr: false }
+)
+
+// ...
+
+function MyComponent() {
+  return (
+    <CodeEditorProvider>
+      {/* Use `LazyCodeBlockEditor` instead of `CodeBlock.Editor` */}
+      <LazyCodeBlockEditor height={300} width={600} />
+      <CodeBlock.ControlButton />
+      <CodeBlock.OutputDisplay />
+    </CodeEditorProvider>
+  )
+}
+```
+
+This way, you can use the `CodeBlock.Editor` component in your Next.js app without any issues.

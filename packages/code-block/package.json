@@ -1,6 +1,6 @@
 {
   "name": "@snipshare/code-block",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "João Melo <jopcmelo@gmail.com>",
   "description": "Code block React component capable of executing Node.js code directly in the browser.",
   "homepage": "https://github.com/joaopcm/snipshare",
@@ -50,6 +50,11 @@
     "react": "^16.8 || ^17.0 || ^18.0",
     "react-dom": "^16.8 || ^17.0 || ^18.0"
   },
+  "dependencies": {
+    "@monaco-editor/react": "4.6.0",
+    "@webcontainer/api": "1.1.9",
+    "ansi-to-html": "0.7.2"
+  },
   "devDependencies": {
     "@snipshare/eslint-config": "workspace:*",
     "@snipshare/prettier-config": "workspace:*",
@@ -57,10 +62,5 @@
     "@types/react": "18.2.55",
     "@types/react-dom": "18.2.19",
     "tsup": "8.0.2"
-  },
-  "dependencies": {
-    "@monaco-editor/react": "4.6.0",
-    "@webcontainer/api": "1.1.9",
-    "ansi-to-html": "0.7.2"
   }
 }

@@ -1,0 +1,17 @@
+---
+title: "WebContainerProvider"
+description: "Understand how the main provider works"
+---
+
+The `WebContainerProvider` is the main provider of the `@snipshare/code-block` library. It is responsible for providing the necessary context to the components that need it.
+
+Since this library is built on top of the [WebContainers API](https://webcontainers.io/), the `WebContainerProvider` is responsible for creating the necessary containers and managing their lifecycle.
+
+The `WebContainerProvider` takes care of creating a new container for your application, if one does not already exist. It also provides a way to access the current container, so that you can interact with it directly. The last, but not least, it takes care of the container's lifecycle, ensuring that it is properly disposed of when it is no longer needed.
+
+This provider exposes the following helper functions:
+
+1. `getWebContainerInstance`: Returns the current container instance. If no container exists, it will create a new one.
+2. `destroyWebContainerInstance`: Destroys the current container instance.
+
+These two functions are easily accessible through the `useWebContainer` hook, which is the recommended way to interact with the `WebContainerProvider`.

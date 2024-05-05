@@ -53,7 +53,7 @@ export async function requestPasswordRecover(app: FastifyInstance) {
         to: [email],
         subject: 'Reset your SnipShare password',
         react: PasswordRecoverEmail({
-          name: userFromEmail.name,
+          name: userFromEmail.name ?? 'User',
           link: `${env.CLIENT_URL}/password/recover/${id}`,
         }),
       })
