@@ -21,11 +21,8 @@ export async function Header() {
           className="aspect-auto w-20 dark:invert"
           alt="Snipshare logo"
         />
-
         <Slash className="size-3 -rotate-[24deg] text-border" />
-
         <OrganizationSwitcher />
-
         {permissions?.can('get', 'Project') && <p>Projects</p>}
       </div>
 
