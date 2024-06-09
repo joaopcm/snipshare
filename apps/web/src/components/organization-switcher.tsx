@@ -1,7 +1,9 @@
 import { ChevronsUpDown, PlusCircle } from 'lucide-react'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 
 import { getOrganizations } from '@/http/get-organizations'
+import { cn } from '@/lib/utils'
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
@@ -15,13 +17,33 @@ import {
 } from './ui/dropdown-menu'
 
 export async function OrganizationSwitcher() {
+  const currentOrgSlug = cookies().get('org')?.value
   const { organizations } = await getOrganizations()
+
+  const currentOrganization = organizations.find(
+    (organization) => organization.slug === currentOrgSlug,
+  )
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex w-[168px] items-center gap-2 rounded p-1 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-primary">
-        <span className="text-muted-foreground">Select organization</span>
-        <ChevronsUpDown className="ml-auto size-4 text-muted-foreground" />
+        {currentOrganization ? (
+          <>
+            <Avatar className="mr-2 size-4">
+              {currentOrganization.avatarUrl && (
+                <AvatarImage src={currentOrganization.avatarUrl} />
+              )}
+              <AvatarFallback />
+            </Avatar>
+
+            <span className="truncate text-left">
+              {currentOrganization.name}
+            </span>
+          </>
+        ) : (
+          <span className="text-muted-foreground">Select organization</span>
+        )}
+        <ChevronsUpDown className="ml-auto size-4 min-h-4 min-w-4 text-muted-foreground" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
@@ -34,7 +56,14 @@ export async function OrganizationSwitcher() {
           <DropdownMenuLabel>Organizations</DropdownMenuLabel>
 
           {organizations.map((organization) => (
-            <DropdownMenuItem key={organization.id} asChild>
+            <DropdownMenuItem
+              key={organization.id}
+              asChild
+              className={cn({
+                'bg-zinc-100 dark:bg-zinc-900':
+                  organization.slug === currentOrgSlug,
+              })}
+            >
               <Link href={`/org/${organization.slug}`}>
                 <Avatar className="mr-2 size-4">
                   {organization.avatarUrl && (

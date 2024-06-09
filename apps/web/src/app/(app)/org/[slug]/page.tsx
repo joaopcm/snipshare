@@ -1,6 +1,6 @@
 import { Header } from '@/components/header'
 
-export default async function HomePage() {
+export default async function ProjectsPage() {
   return (
     <div className="py-4">
       <Header />
