@@ -120,6 +120,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.2.79)(react@19.0.0-rc-f994737d14-20240522)
+      '@snipshare/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -169,6 +172,9 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.2.25
+      dotenv-cli:
+        specifier: 7.4.1
+        version: 7.4.1
       postcss:
         specifier: ^8
         version: 8.4.38
