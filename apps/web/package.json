@@ -19,6 +19,8 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@snipshare/auth": "workspace:*",
     "@snipshare/env": "workspace:*",
+    "@tanstack/react-query": "^5.51.11",
+    "@tanstack/react-query-devtools": "5.51.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
