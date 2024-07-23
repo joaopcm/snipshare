@@ -33,9 +33,9 @@
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
     "@snipshare/constants": "workspace:*",
-    "@snipshare/transactional": "workspace:*",
     "@snipshare/eslint-config": "workspace:*",
     "@snipshare/prettier-config": "workspace:*",
+    "@snipshare/transactional": "workspace:*",
     "@snipshare/typescript-config": "workspace:*",
     "@types/bcryptjs": "2.4.6",
     "@types/node": "20.12.7",
