@@ -10,6 +10,7 @@ import { getMembership } from '@/http/get-membership'
 import { getOrganization } from '@/http/get-organization'
 
 import { removeMembershipAction } from './actions'
+import { UpdateMemberRoleSelect } from './update-member-role-select'
 
 export async function MemberList() {
   const permissions = await ability()
@@ -26,6 +27,7 @@ export async function MemberList() {
     organizationSchema.parse(organization),
   )
   const canDeleteMember = permissions?.can('delete', 'User')
+  const cannotUpdateRole = permissions?.cannot('update', 'User')
 
   return (
     <div className="space-y-2">
@@ -34,74 +36,83 @@ export async function MemberList() {
       <div className="rounded border">
         <Table>
           <TableBody>
-            {members.map((member) => (
-              <TableRow key={member.id}>
-                <TableCell className="py-2.5" style={{ width: 48 }}>
-                  <Avatar>
-                    {member.avatarUrl && (
-                      <AvatarImage
-                        src={member.avatarUrl}
-                        width={32}
-                        height={32}
-                        alt={
-                          member.name ? `${member.name}'s avatar` : undefined
-                        }
-                        className="aspect-square size-full"
-                      />
-                    )}
-                    <AvatarFallback />
-                  </Avatar>
-                </TableCell>
-                <TableCell className="py-2.5">
-                  <div className="flex flex-col">
-                    <span className="inline-flex items-center gap-2 font-medium">
-                      {member.name}
+            {members.map((member) => {
+              const isSelf =
+                member.userId === membership.userId ||
+                member.userId === organization.ownerId
 
-                      {member.userId === membership?.userId && ' (you)'}
-
-                      {member.userId === organization.ownerId && (
-                        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                          <Crown className="size-3" />
-                          Owner
-                        </span>
-                      )}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {member.email}
-                    </span>
-                  </div>
-                </TableCell>
-                <TableCell className="py-2.5 ">
-                  <div className="flex items-center justify-end gap-2">
-                    {canTransferOwnership && (
-                      <Button size="sm" variant="ghost">
-                        <ArrowLeftRight className="mr-2 size-4" />
-                        Transfer ownership
-                      </Button>
-                    )}
-
-                    {canDeleteMember && (
-                      <form
-                        action={removeMembershipAction.bind(null, member.id)}
-                      >
-                        <Button
-                          disabled={
-                            member.userId === membership.userId ||
-                            member.userId === organization.ownerId
+              return (
+                <TableRow key={member.id}>
+                  <TableCell className="py-2.5" style={{ width: 48 }}>
+                    <Avatar>
+                      {member.avatarUrl && (
+                        <AvatarImage
+                          src={member.avatarUrl}
+                          width={32}
+                          height={32}
+                          alt={
+                            member.name ? `${member.name}'s avatar` : undefined
                           }
-                          type="submit"
-                          size="sm"
-                          variant="destructive"
-                        >
-                          <UserMinus className="mr-2 size-4" />
-                          Remove
+                          className="aspect-square size-full"
+                        />
+                      )}
+                      <AvatarFallback />
+                    </Avatar>
+                  </TableCell>
+                  <TableCell className="py-2.5">
+                    <div className="flex flex-col">
+                      <span className="inline-flex items-center gap-2 font-medium">
+                        {member.name}
+
+                        {member.userId === membership?.userId && ' (you)'}
+
+                        {member.userId === organization.ownerId && (
+                          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                            <Crown className="size-3" />
+                            Owner
+                          </span>
+                        )}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {member.email}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="py-2.5 ">
+                    <div className="flex items-center justify-end gap-2">
+                      {canTransferOwnership && (
+                        <Button size="sm" variant="ghost">
+                          <ArrowLeftRight className="mr-2 size-4" />
+                          Transfer ownership
                         </Button>
-                      </form>
-                    )}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+                      )}
+
+                      <UpdateMemberRoleSelect
+                        memberId={member.id}
+                        value={member.role}
+                        disabled={isSelf || cannotUpdateRole}
+                      />
+
+                      {canDeleteMember && (
+                        <form
+                          action={removeMembershipAction.bind(null, member.id)}
+                        >
+                          <Button
+                            disabled={isSelf}
+                            type="submit"
+                            size="sm"
+                            variant="destructive"
+                          >
+                            <UserMinus className="mr-2 size-4" />
+                            Remove
+                          </Button>
+                        </form>
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </div>

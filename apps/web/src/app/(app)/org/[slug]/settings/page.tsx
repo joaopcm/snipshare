@@ -29,7 +29,7 @@ export default async function SettingsPage() {
     <PageLayout>
       <h1 className="text-2xl font-bold">Settings</h1>
 
-      <div className="space-y-4">
+      <div className="space-y-4 divide-y divide-border">
         {canUpdateOrganization && (
           <Card>
             <CardHeader>
