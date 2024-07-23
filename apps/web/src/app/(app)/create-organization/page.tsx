@@ -1,11 +1,12 @@
+import { PageLayout } from '@/components/page-layout'
+
 import { OrganizationForm } from './organization-form'
 
 export default function CreateOrganizationPage() {
   return (
-    <div className="space-y-4">
+    <PageLayout>
       <h1 className="text-2xl font-bold">Create organization</h1>
-
       <OrganizationForm />
-    </div>
+    </PageLayout>
   )
 }

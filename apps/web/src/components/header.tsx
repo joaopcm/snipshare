@@ -6,7 +6,7 @@ import { ability } from '@/auth/auth'
 
 import { OrganizationSwitcher } from './organization-switcher'
 import { ProfileButton } from './profile-button'
-import { ThemeSwitcher } from './theme/theme-switcher'
+import { ThemeSwitcher } from './theme-switcher'
 import { Separator } from './ui/separator'
 
 export async function Header() {

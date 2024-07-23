@@ -75,8 +75,8 @@ model Invite {
   role      Role
   createdAt DateTime @default(now()) @map("created_at")
 
-  author User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
-  authorId String? @map("authorId")
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId String? @map("author_id")
 
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String       @map("organization_id")
@@ -91,7 +91,7 @@ model Membership {
   role Role   @default(MEMBER)
 
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  organizationId String       @map("organization_id")
+  organizationId String
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")

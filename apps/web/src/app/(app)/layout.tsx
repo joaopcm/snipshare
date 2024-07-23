@@ -2,19 +2,23 @@ import { redirect } from 'next/navigation'
 import type { PropsWithChildren } from 'react'
 
 import { isAuthenticated } from '@/auth/auth'
-import { Header } from '@/components/header'
+
+interface AppLayoutProps extends PropsWithChildren {
+  sheet: React.ReactNode
+}
 
 export default async function AppLayout({
   children,
-}: Readonly<PropsWithChildren>) {
+  sheet,
+}: Readonly<AppLayoutProps>) {
   if (!isAuthenticated()) {
     redirect('/auth/sign-in')
   }
 
   return (
-    <div className="space-y-4 py-4">
-      <Header />
-      <main className="mx-auto w-full max-w-[1200px]">{children}</main>
-    </div>
+    <>
+      {children}
+      {sheet}
+    </>
   )
 }
