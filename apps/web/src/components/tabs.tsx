@@ -15,7 +15,7 @@ export async function Tabs() {
   const LINKS = [
     {
       name: 'Projects',
-      href: `/org/${currentOrgSlug}/projects`,
+      href: `/org/${currentOrgSlug}`,
       enabled: canGetProjects,
     },
     {

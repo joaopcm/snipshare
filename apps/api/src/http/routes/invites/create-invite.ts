@@ -126,7 +126,7 @@ export async function createInvite(app: FastifyInstance) {
               avatarUrl: organization.avatarUrl,
             },
             invite: {
-              link: `${env.CLIENT_URL}/invites/${invite.id}`,
+              link: `${env.CLIENT_URL}/invite/${invite.id}`,
             },
           }),
         })
