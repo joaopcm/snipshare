@@ -1,9 +1,12 @@
 'use server'
 
 import { HTTPError } from 'ky'
+import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 
+import { getCurrentOrgSlug } from '@/auth/auth'
 import { createOrganization as createOrganizationRequest } from '@/http/create-organization'
+import { updateOrganization as updateOrganizationRequest } from '@/http/update-organization'
 
 const organizationSchema = z
   .object({
@@ -41,6 +44,8 @@ const organizationSchema = z
     },
   )
 
+export type OrganizationSchema = z.infer<typeof organizationSchema>
+
 export async function createOrganization(data: FormData) {
   const result = organizationSchema.safeParse(Object.fromEntries(data))
   if (!result.success) {
@@ -53,6 +58,57 @@ export async function createOrganization(data: FormData) {
 
   try {
     await createOrganizationRequest(result.data)
+    revalidateTag('organizations')
+  } catch (error) {
+    if (error instanceof HTTPError) {
+      const { message } = await error.response.json()
+      return {
+        success: false,
+        message,
+        errors: null,
+      }
+    }
+
+    console.error(error)
+    return {
+      success: false,
+      message: 'An unexpected error occurred. Please try again.',
+      errors: null,
+    }
+  }
+
+  return {
+    success: true,
+    message: 'Successfully saved the organization.',
+    errors: null,
+  }
+}
+
+export async function updateOrganization(data: FormData) {
+  const currentOrgSlug = getCurrentOrgSlug()
+  if (!currentOrgSlug) {
+    return {
+      success: false,
+      message: 'Organization not found.',
+      errors: null,
+    }
+  }
+
+  const result = organizationSchema.safeParse(Object.fromEntries(data))
+  if (!result.success) {
+    return {
+      success: false,
+      message: null,
+      errors: result.error.flatten().fieldErrors,
+    }
+  }
+
+  try {
+    await updateOrganizationRequest({
+      ...result.data,
+      orgSlug: currentOrgSlug,
+    })
+    revalidateTag('organizations')
   } catch (error) {
     if (error instanceof HTTPError) {
       const { message } = await error.response.json()
