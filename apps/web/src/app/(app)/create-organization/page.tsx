@@ -1,6 +1,6 @@
 import { PageLayout } from '@/components/page-layout'
 
-import { OrganizationForm } from './organization-form'
+import { OrganizationForm } from '../org/organization-form'
 
 export default function CreateOrganizationPage() {
   return (
