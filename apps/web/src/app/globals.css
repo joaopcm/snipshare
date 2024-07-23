@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .capitalize-first {
+    &:first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
