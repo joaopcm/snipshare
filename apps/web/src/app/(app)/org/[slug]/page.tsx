@@ -1,9 +1,9 @@
-import { PageLayout } from '@/components/page-layout'
+import { redirect } from 'next/navigation'
 
-export default async function ProjectsPage() {
-  return (
-    <PageLayout>
-      <h1 className="text-2xl font-bold">Projects</h1>
-    </PageLayout>
-  )
+import { getCurrentOrgSlug } from '@/auth/auth'
+
+export default async function OrgHomePage() {
+  const currentOrgSlug = getCurrentOrgSlug()
+
+  return redirect(`/org/${currentOrgSlug}/projects`)
 }
