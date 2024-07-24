@@ -17,6 +17,7 @@ async function seed() {
       id: newId('user'),
       name: 'John Doe',
       email: 'john@snipshare.co',
+      verified: true,
       avatarUrl: 'https://github.com/joaopcm.png',
       passwordHash,
     },
@@ -26,7 +27,8 @@ async function seed() {
     data: {
       id: newId('user'),
       name: faker.person.fullName(),
-      email: faker.internet.email(),
+      email: faker.internet.email().toLowerCase(),
+      verified: true,
       avatarUrl: faker.image.avatarGitHub(),
       passwordHash,
     },
@@ -36,7 +38,8 @@ async function seed() {
     data: {
       id: newId('user'),
       name: faker.person.fullName(),
-      email: faker.internet.email(),
+      email: faker.internet.email().toLowerCase(),
+      verified: true,
       avatarUrl: faker.image.avatarGitHub(),
       passwordHash,
     },
@@ -45,7 +48,7 @@ async function seed() {
   await prisma.organization.create({
     data: {
       id: newId('organization'),
-      name: 'SnipShare Inc (Admin)',
+      name: 'Snipshare Inc (Admin)',
       domain: 'snipshare.co',
       slug: 'snipshare-admin',
       avatarUrl: faker.image.avatarGitHub(),
@@ -120,7 +123,7 @@ async function seed() {
   await prisma.organization.create({
     data: {
       id: newId('organization'),
-      name: 'SnipShare Inc (Member)',
+      name: 'Snipshare Inc (Member)',
       slug: 'snipshare-member',
       avatarUrl: faker.image.avatarGitHub(),
       ownerId: user1.id,
@@ -193,7 +196,7 @@ async function seed() {
   await prisma.organization.create({
     data: {
       id: newId('organization'),
-      name: 'SnipShare Inc (Billing)',
+      name: 'Snipshare Inc (Billing)',
       slug: 'snipshare-billing',
       avatarUrl: faker.image.avatarGitHub(),
       ownerId: user1.id,

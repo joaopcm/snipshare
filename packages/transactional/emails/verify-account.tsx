@@ -4,7 +4,6 @@ import {
   Container,
   Head,
   Heading,
-  Hr,
   Html,
   Img,
   Link,
@@ -16,19 +15,16 @@ import { Tailwind } from '@react-email/tailwind'
 import { env } from '@snipshare/env'
 import * as React from 'react'
 
-interface PasswordRecoverEmailProps {
+interface VerifyAccountEmailProps {
   name: string
   link: string
 }
 
-export const PasswordRecoverEmail = ({
-  name,
-  link,
-}: PasswordRecoverEmailProps) => {
+export const VerifyAccountEmail = ({ name, link }: VerifyAccountEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Reset your Snipshare password</Preview>
+      <Preview>Verify your Snipshare account</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
@@ -42,7 +38,7 @@ export const PasswordRecoverEmail = ({
               />
             </Section>
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
-              Reset your password on <strong>Snipshare</strong>
+              Verify your <strong>Snipshare</strong> account
             </Heading>
 
             <Text className="text-[14px] leading-[24px] text-black">
@@ -50,8 +46,9 @@ export const PasswordRecoverEmail = ({
             </Text>
 
             <Text className="text-[14px] leading-[24px] text-black">
-              Someone recently requested a password reset for your Snipshare
-              account. If this was you, you can set a new password here:
+              Thank you for giving Snipshare a try! We are excited to welcome
+              you aboard. To make the most of your Snipshare experience, please
+              follow this initial step:
             </Text>
 
             <Section className="mb-[32px] mt-[32px] text-center">
@@ -59,7 +56,7 @@ export const PasswordRecoverEmail = ({
                 className="rounded bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
                 href={link}
               >
-                Reset password
+                Verify my account
               </Button>
             </Section>
 
@@ -69,16 +66,6 @@ export const PasswordRecoverEmail = ({
                 {link}
               </Link>
             </Text>
-
-            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
-
-            <Text className="text-[12px] leading-[24px] text-[#666666]">
-              This password reset was intended for{' '}
-              <span className="text-black">{name}</span>. If you were not
-              expecting this email, you can ignore and delete this email. If you
-              are concerned about your account's safety, please reply to this
-              email to get in touch with us.
-            </Text>
           </Container>
         </Body>
       </Tailwind>
@@ -86,9 +73,9 @@ export const PasswordRecoverEmail = ({
   )
 }
 
-PasswordRecoverEmail.PreviewProps = {
+VerifyAccountEmail.PreviewProps = {
   name: 'Jane Doe',
   link: 'https://snipshare.co',
-} satisfies PasswordRecoverEmailProps
+} satisfies VerifyAccountEmailProps
 
-export default PasswordRecoverEmail
+export default VerifyAccountEmail

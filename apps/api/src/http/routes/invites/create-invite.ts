@@ -108,11 +108,11 @@ export async function createInvite(app: FastifyInstance) {
         })
 
         const { error } = await resend.emails.send({
-          from: `SnipShare <${EMAILS.support}>`,
+          from: `Snipshare <${EMAILS.support}>`,
           reply_to: EMAILS.support,
           to: [email],
           subject:
-            'You just got an invite to join an organization on SnipShare!',
+            'You just got an invite to join an organization on Snipshare!',
           react: InviteEmail({
             invitee: {
               email,

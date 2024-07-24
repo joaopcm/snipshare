@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "SnipShare API",
-    "description": "Revolutionize your coding experience with SnipShare - the all-in-one platform for creating, executing, and sharing Node.js code snippets.",
+    "title": "Snipshare API",
+    "description": "Revolutionize your coding experience with Snipshare - the all-in-one platform for creating, executing, and sharing Node.js code snippets.",
     "version": "1.0.0"
   },
   "components": {

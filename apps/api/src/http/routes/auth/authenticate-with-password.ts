@@ -6,6 +6,7 @@ import z from 'zod'
 import { prisma } from '@/lib/prisma'
 
 import { BadRequestError } from '../_errors/bad-request-error'
+import { sendAccountVerificationEmail } from './create-account'
 
 export async function authenticateWithPassword(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -33,14 +34,25 @@ export async function authenticateWithPassword(app: FastifyInstance) {
           email,
         },
       })
-
       if (!userFromEmail) {
         throw new BadRequestError('Invalid credentials.')
       }
-
       if (userFromEmail.passwordHash === null) {
         throw new BadRequestError(
           'User does not have password. Use social authentication.',
+        )
+      }
+      if (!userFromEmail.verified) {
+        await sendAccountVerificationEmail(
+          userFromEmail.id,
+          email,
+          userFromEmail.name ?? 'User',
+          (error) => {
+            app.log.error(error)
+          },
+        )
+        throw new BadRequestError(
+          'User has not verified their email yet. Please check your email.',
         )
       }
 

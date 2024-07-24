@@ -44,7 +44,7 @@ export const InviteEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>Join {organization.name} on SnipShare</Preview>
+      <Preview>Join {organization.name} on Snipshare</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
@@ -53,13 +53,13 @@ export const InviteEmail = ({
                 src={`${env.CLIENT_URL}/logo.png`}
                 width="40"
                 height="40"
-                alt="SnipShare logo"
+                alt="Snipshare logo"
                 className="mx-auto my-0 rounded-full"
               />
             </Section>
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
               Join <strong>{organization.name}</strong> on{' '}
-              <strong>SnipShare</strong>
+              <strong>Snipshare</strong>
             </Heading>
 
             <Text className="text-[14px] leading-[24px] text-black">
@@ -75,7 +75,7 @@ export const InviteEmail = ({
                 {author.email}
               </Link>
               ) has invited you to the <strong>{organization.name}</strong>{' '}
-              organization on <strong>SnipShare</strong>.
+              organization on <strong>Snipshare</strong>.
             </Text>
 
             {organization.avatarUrl && (
@@ -134,7 +134,7 @@ InviteEmail.PreviewProps = {
     name: 'John Doe',
   },
   organization: {
-    name: 'SnipShare',
+    name: 'Snipshare',
     avatarUrl: 'https://loremflickr.com/640/480',
   },
   invite: {

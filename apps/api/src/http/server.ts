@@ -25,6 +25,7 @@ import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
+import { verifyAccount } from './routes/auth/verify-account'
 import { getOrganizationBilling } from './routes/billing/get-organization-billing'
 import { acceptInvite } from './routes/invites/accept-invite'
 import { createInvite } from './routes/invites/create-invite'
@@ -84,9 +85,9 @@ app.register(fastifyCompress)
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'SnipShare API',
+      title: 'Snipshare API',
       description:
-        'Revolutionize your coding experience with SnipShare - the all-in-one platform for creating, executing, and sharing Node.js code snippets.',
+        'Revolutionize your coding experience with Snipshare - the all-in-one platform for creating, executing, and sharing Node.js code snippets.',
       version: '1.0.0',
     },
     components: {
@@ -110,6 +111,7 @@ app.register(fastifyJWT, {
 app.register(fastifyCors)
 
 app.register(createAccount)
+app.register(verifyAccount)
 app.register(authenticateWithPassword)
 app.register(getProfile)
 app.register(requestPasswordRecover)

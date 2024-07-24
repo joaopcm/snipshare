@@ -48,10 +48,10 @@ export async function requestPasswordRecover(app: FastifyInstance) {
       })
 
       const { error } = await resend.emails.send({
-        from: `SnipShare <${EMAILS.support}>`,
+        from: `Snipshare <${EMAILS.support}>`,
         reply_to: EMAILS.support,
         to: [email],
-        subject: 'Reset your SnipShare password',
+        subject: 'Reset your Snipshare password',
         react: PasswordRecoverEmail({
           name: userFromEmail.name ?? 'User',
           link: `${env.CLIENT_URL}/auth/forgot-password/recover/${id}`,
