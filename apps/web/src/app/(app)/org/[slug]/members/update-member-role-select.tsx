@@ -2,6 +2,7 @@
 
 import { Role } from '@snipshare/auth'
 import { ComponentProps } from 'react'
+import { toast } from 'sonner'
 
 import {
   Select,
@@ -23,6 +24,7 @@ export function UpdateMemberRoleSelect({
 }: UpdateMemberRoleSelectProps) {
   async function updateMembershipRole(role: Role) {
     await updateMembershipAction(memberId, role)
+    toast.success('Role updated successfully')
   }
 
   return (

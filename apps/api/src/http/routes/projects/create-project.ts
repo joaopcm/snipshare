@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
-import { createSlug } from '@/utils/create-slug'
+import { createUniqueSlug } from '@/utils/create-unique-slug'
 import { getUserPermissions } from '@/utils/get-user-permissions'
 import { newId } from '@/utils/new-id'
 
@@ -53,7 +53,11 @@ export async function createProject(app: FastifyInstance) {
           data: {
             id: newId('project'),
             name,
-            slug: createSlug(name),
+            slug: await createUniqueSlug(
+              name,
+              async (slug: string) =>
+                !!(await prisma.project.findUnique({ where: { slug } })),
+            ),
             description,
             organizationId: organization.id,
             ownerId: userId,

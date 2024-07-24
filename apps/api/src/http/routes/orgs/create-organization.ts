@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
-import { createSlug } from '@/utils/create-slug'
+import { createUniqueSlug } from '@/utils/create-unique-slug'
 import { newId } from '@/utils/new-id'
 
 import { BadRequestError } from '../_errors/bad-request-error'
@@ -55,8 +55,12 @@ export async function createOrganization(app: FastifyInstance) {
           data: {
             id: newId('organization'),
             name,
-            slug: createSlug(name),
-            domain,
+            slug: await createUniqueSlug(
+              name,
+              async (slug: string) =>
+                !!(await prisma.organization.findUnique({ where: { slug } })),
+            ),
+            domain: domain || null,
             shouldAttachUsersByDomain,
             ownerId: userId,
             memberships: {

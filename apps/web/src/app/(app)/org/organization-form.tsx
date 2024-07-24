@@ -1,6 +1,9 @@
 'use client'
 
 import { AlertTriangle, Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
@@ -24,26 +27,29 @@ export function OrganizationForm({
   isUpdating = false,
   initialData,
 }: OrganizationFormProps) {
+  const router = useRouter()
   const formAction = isUpdating ? updateOrganization : createOrganization
-  const [{ success, errors, message }, handleSubmit, isPending] =
-    useFormState(formAction)
+  const [{ success, errors, message }, handleSubmit, isPending] = useFormState(
+    formAction,
+    () => {
+      if (!isUpdating) {
+        router.back()
+      }
+    },
+  )
+
+  useEffect(() => {
+    if (success && message) {
+      toast.success(message)
+    }
+  }, [success, message])
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {!success && message && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />
-          <AlertTitle>Organization save failed!</AlertTitle>
-          <AlertDescription>
-            <p>{message}</p>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {success && message && (
-        <Alert variant="success">
-          <AlertTriangle className="size-4" />
-          <AlertTitle>Success</AlertTitle>
+          <AlertTitle>Failed to save organization</AlertTitle>
           <AlertDescription>
             <p>{message}</p>
           </AlertDescription>

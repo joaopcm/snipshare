@@ -1,7 +1,9 @@
 'use client'
 
 import { AlertTriangle, Loader2 } from 'lucide-react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
@@ -15,32 +17,29 @@ import { createProject } from './actions'
 
 export function ProjectForm() {
   const { slug: orgSlug } = useParams<{ slug: string }>()
-
+  const router = useRouter()
   const [{ success, errors, message }, handleSubmit, isPending] = useFormState(
     createProject,
     () => {
       queryClient.invalidateQueries({
         queryKey: [orgSlug, 'projects'],
       })
+      router.back()
     },
   )
+
+  useEffect(() => {
+    if (success && message) {
+      toast.success(message)
+    }
+  }, [success, message])
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {!success && message && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />
-          <AlertTitle>Project save failed!</AlertTitle>
-          <AlertDescription>
-            <p>{message}</p>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {success && message && (
-        <Alert variant="success">
-          <AlertTriangle className="size-4" />
-          <AlertTitle>Success</AlertTitle>
+          <AlertTitle>Failed to save project</AlertTitle>
           <AlertDescription>
             <p>{message}</p>
           </AlertDescription>
