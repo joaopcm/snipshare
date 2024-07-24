@@ -31,7 +31,6 @@ export async function resetPassword(app: FastifyInstance) {
           id: code,
         },
       })
-
       if (!tokenFromCode) {
         throw new UnauthorizedError()
       }

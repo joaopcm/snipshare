@@ -51,7 +51,7 @@ export const PasswordRecoverEmail = ({
 
             <Text className="text-[14px] leading-[24px] text-black">
               Someone recently requested a password reset for your SnipShare
-              account. If this was you, you can set a ne password here:
+              account. If this was you, you can set a new password here:
             </Text>
 
             <Section className="mb-[32px] mt-[32px] text-center">
