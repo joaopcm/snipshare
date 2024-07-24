@@ -130,7 +130,6 @@ export async function createInvite(app: FastifyInstance) {
             },
           }),
         })
-
         if (error) {
           app.log.error(error)
         }

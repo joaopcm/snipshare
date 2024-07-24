@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import { z } from 'zod'
 
 import { signInWithPassword } from '@/http/sign-in-with-password'
+import { acceptInviteIfAny } from '@/lib/accept-invite-if-any'
 
 const signInSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -29,6 +30,8 @@ export async function signInWithEmailAndPassword(data: FormData) {
       path: '/',
       maxAge: 60 * 60 * 24 * 7, // 1 week in seconds
     })
+
+    await acceptInviteIfAny()
   } catch (error) {
     if (error instanceof HTTPError) {
       const { message } = await error.response.json()
