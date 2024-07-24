@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { acceptInvite } from '@/http/accept-invite'
 import { getInvite } from '@/http/get-invite'
+import { getInitials } from '@/lib/utils'
 
 dayjs.extend(relativeTime)
 
@@ -51,7 +52,9 @@ export default async function InvitePage({ params }: InvitePageProps) {
             {invite.author?.avatarUrl && (
               <AvatarImage src={invite.author.avatarUrl} />
             )}
-            <AvatarFallback />
+            <AvatarFallback>
+              {getInitials(invite.author?.name ?? '')}
+            </AvatarFallback>
           </Avatar>
 
           <p className="text-balance text-center leading-relaxed text-muted-foreground">

@@ -11,3 +11,11 @@ export function formatCurrency(value: number) {
     currency: 'USD',
   })
 }
+
+export function getInitials(name: string, amount = 2) {
+  return name
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase())
+    .slice(0, amount)
+    .join('')
+}

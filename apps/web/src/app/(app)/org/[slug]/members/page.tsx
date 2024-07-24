@@ -14,9 +14,9 @@ export default async function MembersPage() {
       <h1 className="text-2xl font-bold">Members</h1>
 
       <div className="space-y-4">
-        {canGetInvites && <Invites />}
+        {canGetInvites && <Invites permissions={permissions} />}
 
-        {canGetMembers && <MemberList />}
+        {canGetMembers && <MemberList permissions={permissions} />}
       </div>
     </div>
   )

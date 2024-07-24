@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { getCurrentOrgSlug } from '@/auth/auth'
 import { getOrganizations } from '@/http/get-organizations'
-import { cn } from '@/lib/utils'
+import { cn, getInitials } from '@/lib/utils'
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
@@ -33,7 +33,9 @@ export async function OrganizationSwitcher() {
               {currentOrganization.avatarUrl && (
                 <AvatarImage src={currentOrganization.avatarUrl} />
               )}
-              <AvatarFallback />
+              <AvatarFallback>
+                {getInitials(currentOrganization.name, 1)}
+              </AvatarFallback>
             </Avatar>
 
             <span className="truncate text-left">
@@ -69,7 +71,9 @@ export async function OrganizationSwitcher() {
                   {organization.avatarUrl && (
                     <AvatarImage src={organization.avatarUrl} />
                   )}
-                  <AvatarFallback />
+                  <AvatarFallback>
+                    {getInitials(organization.name, 1)}
+                  </AvatarFallback>
                 </Avatar>
 
                 <span className="line-clamp-1">{organization.name}</span>

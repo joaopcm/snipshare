@@ -1,19 +1,23 @@
-import { organizationSchema } from '@snipshare/auth'
+import { AppAbility, organizationSchema } from '@snipshare/auth'
 import { ArrowLeftRight, Crown, UserMinus } from 'lucide-react'
 
-import { ability, getCurrentOrgSlug } from '@/auth/auth'
+import { getCurrentOrgSlug } from '@/auth/auth'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { getMembers } from '@/http/get-members'
 import { getMembership } from '@/http/get-membership'
 import { getOrganization } from '@/http/get-organization'
+import { getInitials } from '@/lib/utils'
 
 import { removeMembershipAction } from './actions'
 import { UpdateMemberRoleSelect } from './update-member-role-select'
 
-export async function MemberList() {
-  const permissions = await ability()
+interface MemberListProps {
+  permissions: AppAbility | null
+}
+
+export async function MemberList({ permissions }: MemberListProps) {
   const currentOrgSlug = getCurrentOrgSlug()
 
   const [{ membership }, { members }, { organization }] = await Promise.all([
@@ -56,7 +60,9 @@ export async function MemberList() {
                           className="aspect-square size-full"
                         />
                       )}
-                      <AvatarFallback />
+                      <AvatarFallback>
+                        {getInitials(member.name ?? '')}
+                      </AvatarFallback>
                     </Avatar>
                   </TableCell>
                   <TableCell className="py-2.5">

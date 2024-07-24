@@ -1,4 +1,6 @@
-import { ability, getCurrentOrgSlug } from '@/auth/auth'
+import { AppAbility } from '@snipshare/auth'
+
+import { getCurrentOrgSlug } from '@/auth/auth'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { getInvites } from '@/http/get-invites'
@@ -6,10 +8,13 @@ import { getInvites } from '@/http/get-invites'
 import { CreateInviteForm } from './create-invite-form'
 import { RevokeInviteButton } from './revoke-invite-button'
 
-export async function Invites() {
+interface InvitesProps {
+  permissions: AppAbility | null
+}
+
+export async function Invites({ permissions }: InvitesProps) {
   const currentOrgSlug = getCurrentOrgSlug()
   const { invites } = await getInvites(currentOrgSlug!)
-  const permissions = await ability()
 
   const canCreateInvite = permissions?.can('create', 'Invite')
   const canDeleteInvite = permissions?.can('delete', 'Invite')
