@@ -89,6 +89,6 @@ export const PasswordRecoverEmail = ({
 PasswordRecoverEmail.PreviewProps = {
   name: 'Jane Doe',
   link: 'https://snipshare.co',
-} as PasswordRecoverEmailProps
+} satisfies PasswordRecoverEmailProps
 
 export default PasswordRecoverEmail

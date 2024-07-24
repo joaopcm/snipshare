@@ -3,6 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import type { PropsWithChildren } from 'react'
 
+import { Toaster } from '@/components/ui/sonner'
+
 import { Providers } from './providers'
 
 export const metadata: Metadata = {
@@ -14,6 +16,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   )

@@ -9,6 +9,7 @@ import { getCurrentOrgSlug } from '@/auth/auth'
 import { createInvite } from '@/http/create-invite'
 import { removeMember } from '@/http/remove-member'
 import { revokeInvite } from '@/http/revoke-invite'
+import { transferOwnership } from '@/http/transfer-ownership'
 import { updateMember } from '@/http/update-member'
 
 const inviteSchema = z.object({
@@ -91,4 +92,17 @@ export async function revokeInviteAction(inviteId: string) {
 
   await revokeInvite({ orgSlug: currentOrgSlug, inviteId })
   revalidateTag(`${currentOrgSlug}/invites`)
+}
+
+export async function transferOwnershipAction(destinationUserId: string) {
+  const currentOrgSlug = getCurrentOrgSlug()
+  if (!currentOrgSlug) {
+    throw new Error('Organization not found.')
+  }
+
+  await transferOwnership({
+    orgSlug: currentOrgSlug,
+    destinationUserId,
+  })
+  revalidateTag(`${currentOrgSlug}/members`)
 }

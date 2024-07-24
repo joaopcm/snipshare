@@ -44,6 +44,7 @@ export async function Tabs() {
 
           return (
             <Button
+              key={item.name}
               asChild
               variant="ghost"
               size="sm"

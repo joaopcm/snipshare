@@ -140,6 +140,6 @@ InviteEmail.PreviewProps = {
   invite: {
     link: 'https://snipshare.co',
   },
-} as InviteEmailProps
+} satisfies InviteEmailProps
 
 export default InviteEmail
